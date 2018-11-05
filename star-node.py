@@ -37,13 +37,11 @@ class Peer:
 		return serverSocket
 
 	def __handlepeer( self, socket ):
-		print("ZZZ")
 		#self.__debug( 'Connected ' + str(clientsock.getpeername()) )
 		message, clientAddress = socket.recvfrom(2048)
 		output = message.decode()
 		#host, port = clientsock.getpeername()
 		#peerAddress = clientAddress
-		print("XXXXXXXXXX")
 		port = output[3:8]
 		#peerconn = BTPeerConnection( None, host, port, clientsock, debug=False )	
 		try:
@@ -86,9 +84,9 @@ class Peer:
 				if not t1.isAlive():
 					t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 					t1.start()
-				if not [pocAddress, pocPort] in self.peers.values():
+				if pocAddress != 0 and pocPort != 0 and not [pocAddress, pocPort] in self.peers.values():
 					self.initialPoc(s)
-				self.sendPeerDiscovery()
+				self.sendPeerDiscovery(s)
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -96,7 +94,7 @@ class Peer:
 				if self.debug:
 					traceback.print_exc()
 					continue
-
+		self.sendPeerDiscovery(s)
 
 
 		# while not self.shutdown:
@@ -125,7 +123,7 @@ class Peer:
 		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
 		serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
 
-	def sendPeerDiscovery(self):
+	def sendPeerDiscovery(self, serverSocket):
 		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
 		#print(pdpacket)
 		for node in self.peers:
