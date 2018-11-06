@@ -61,7 +61,8 @@ class Peer:
 				self.rtttimes[initialRTTnode] = rtttime
 			if msgtype == "003":
 				self.receiveRTTsum(clientAddress, output)
-
+			if msgtype == "004":
+				self.receiveStringMessage(clientAddress, output, socket)
 
 		except KeyboardInterrupt:
 			raise
@@ -74,6 +75,10 @@ class Peer:
 			self.showstatus()
 		elif command == "disconnect":
 			self.shutdown = True
+		elif command[0:4] == "send":
+			if command[5] == "\"" and command.endswith("\""):
+				stringMessage = command[6:-1]
+				self.sendStringMessage(socket, stringMessage)
 
 	def mainloop( self ):
 		s = self.makeServerSocket( self.serverport )
@@ -198,7 +203,23 @@ class Peer:
 			print("Node name: " + node + " RTT sum: " + self.rttsums[node])
 		print("Hub: " + self.hubnode)
 
+	def sendStringMessage(self, serverSocket, stringMessage):
+		broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + stringMessage
+		if self.hubnode == name:
+			for node in self.peers:
+				if node != name:
+					serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+		else:
+			serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 
+	def receiveStringMessage(self, clientAddress, message, serverSocket):
+		print("\nReceived message from " + message[8:24])
+		print("Message: " + message[24:])
+		print("Star-node command: ", end='', flush=True)
+		if self.hubnode == name:
+			for node in self.peers:
+				if node != name and node != message[8:24].strip():
+					serverSocket.sendto(message.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
