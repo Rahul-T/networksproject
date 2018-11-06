@@ -4,6 +4,7 @@ import socket
 import time
 import threading
 import _thread
+import os
 
 name = sys.argv[1]
 localPort = sys.argv[2]
@@ -42,7 +43,7 @@ class Peer:
 		return serverSocket
 
 	def __handlepeer( self, socket, initialRTTnode = None, startTime = None ):
-		message, clientAddress = socket.recvfrom(2048)
+		message, clientAddress = socket.recvfrom(65000)
 		output = message.decode()
 		port = output[3:8]
 
@@ -63,6 +64,8 @@ class Peer:
 				self.receiveRTTsum(clientAddress, output)
 			if msgtype == "004":
 				self.receiveStringMessage(clientAddress, output, socket)
+			if msgtype == "005":
+				self.receiveFile(clientAddress, output, socket)
 
 		except KeyboardInterrupt:
 			raise
@@ -79,6 +82,9 @@ class Peer:
 			if command[5] == "\"" and command.endswith("\""):
 				stringMessage = command[6:-1]
 				self.sendStringMessage(socket, stringMessage)
+			else:
+				fileName = command[5:]
+				self.sendFile(fileName, socket)
 
 	def mainloop( self ):
 		s = self.makeServerSocket( self.serverport )
@@ -146,6 +152,10 @@ class Peer:
 		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t5.daemon = True
 		t5.start()
+
+		# cwd = os.getcwd()  # Get the current working directory (cwd)
+		# files = os.listdir(cwd)  # Get all the files in that directory
+		# print("Files in '%s': %s" % (cwd, files))
 		while not self.shutdown:
 			try:
 				if not t4.isAlive() and not self.shutdown:
@@ -220,6 +230,39 @@ class Peer:
 			for node in self.peers:
 				if node != name and node != message[8:24].strip():
 					serverSocket.sendto(message.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def sendFile(self, fileName, serverSocket):
+		f = open(fileName, 'rb')
+		data = f.read()
+		filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(fileName)
+		filepacketvalue = data
+
+		if self.hubnode == name:
+			for node in self.peers:
+				if node != name:
+					serverSocket.sendto(filepacketheader.encode(), (self.peers[node][0], int(self.peers[node][1])))
+					serverSocket.sendto(filepacketvalue, (self.peers[node][0], int(self.peers[node][1])))
+		else:
+			serverSocket.sendto(filepacketheader.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
+			serverSocket.sendto(filepacketvalue, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
+
+		f.close()
+
+	def receiveFile(self, clientAddress, packetheader, serverSocket):
+		print("\nReceived file from " + packetheader[8:24])
+		fileName = packetheader[24:40].strip()
+		print(fileName)
+		tempname = name + ".txt"
+		f = open(tempname, 'wb')
+		data, addr = serverSocket.recvfrom(65000)
+		f.write(data)
+		print("Star-node command: ", end='', flush=True)
+		if self.hubnode == name:
+			for node in self.peers:
+				if node != name and node != packetheader[8:24].strip():
+					serverSocket.sendto(packetheader.encode(), (self.peers[node][0], int(self.peers[node][1])))
+					serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
+		f.close()
 
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
