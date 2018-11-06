@@ -72,6 +72,8 @@ class Peer:
 		command = input("Star-node command: ")
 		if command == "show-status":
 			self.showstatus()
+		elif command == "disconnect":
+			self.shutdown = True
 
 	def mainloop( self ):
 		s = self.makeServerSocket( self.serverport )
@@ -137,14 +139,16 @@ class Peer:
 		t4 = threading.Thread( target = self.__commands, args = [ s ] )
 		t4.start()
 		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t5.daemon = True
 		t5.start()
 		while not self.shutdown:
 			try:
-				if not t4.isAlive():
+				if not t4.isAlive() and not self.shutdown:
 					t4 = threading.Thread( target = self.__commands, args = [ s ] )
 					t4.start()
 				if not t5.isAlive():
 					t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t5.daemon = True
 					t5.start()
 			except KeyboardInterrupt:
 				self.shutdown = True
@@ -152,8 +156,7 @@ class Peer:
 			except:
 				if self.debug:
 					traceback.print_exc()
-					continue
-
+					continue		
 
 	def initialPoc(self, serverSocket):
 		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
