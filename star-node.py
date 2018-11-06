@@ -12,6 +12,7 @@ pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
 
 class Peer:
+	RTTack = False
 	def __init__( self, maxpeers, serverport, myid):
 		self.debug = 0
 
@@ -21,7 +22,10 @@ class Peer:
 		self.myid = myid
 
 	    # list (dictionary/hash table) of known peers
-		self.peers = {}  
+		self.peers = {} 
+		self.rtttimes = {}
+		self.rttsum = 0
+		self.rttsums = {}
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -36,7 +40,7 @@ class Peer:
 		serverSocket.bind(('', port))
 		return serverSocket
 
-	def __handlepeer( self, socket ):
+	def __handlepeer( self, socket, initialRTTnode = None, startTime = None ):
 		#self.__debug( 'Connected ' + str(clientsock.getpeername()) )
 		message, clientAddress = socket.recvfrom(2048)
 		output = message.decode()
@@ -56,8 +60,22 @@ class Peer:
 			#self.handlers[ msgtype ](message)
 			if msgtype == "000":
 				self.receivePeerDiscovery(clientAddress, output)
-			elif msgtype == "010":
-				self.rtt(clientAddress, output)
+			if msgtype == "001":
+				nodeName = output[8:24]
+				#print(nodeName)
+				#print("HEY")
+				self.initialRTTack(socket, nodeName.strip())
+				#print("HEY2")
+			if msgtype == "002" and initialRTTnode != None and startTime != None:
+				#print("HI")
+				endTime = time.time()
+				rtttime = endTime - startTime
+				self.rtttimes[initialRTTnode] = rtttime
+			if msgtype == "003":
+				#print("xd")
+				self.receiveRTTsum(clientAddress, output)
+			#elif msgtype == "010":
+				#self.rtt(clientAddress, output)
 
 
 		except KeyboardInterrupt:
@@ -94,9 +112,49 @@ class Peer:
 				if self.debug:
 					traceback.print_exc()
 					continue
+
 		self.sendPeerDiscovery(s)
 
+		for node in self.peers:
+			if (node != name):
+				t2 = threading.Thread( target = self.__handlepeer, args = [ s, node ] )
+				t2.start()
+				while (node not in self.rtttimes):
+					self.initialSendRTT(s, node)
+					if not t2.isAlive():
+						t2 = threading.Thread( target = self.__handlepeer, args = [ s, node, time.time() ] )
+						t2.start()
+					#print(self.rtttimes)
+		#print(self.rtttimes)
 
+		for node in self.rtttimes:
+			self.rttsum += self.rtttimes[node]
+		#print(self.rttsum)
+
+		t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t3.start()
+		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
+			try:
+				if not t3.isAlive():
+					t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t3.start()
+				self.sendRTTsum(s)
+			except KeyboardInterrupt:
+				self.shutdown = True
+				continue
+			except:
+				if self.debug:
+					traceback.print_exc()
+					continue
+		#print(self.rttsums)
+		minrttsum = self.rttsum
+		hubnode = name
+		for node in self.rttsums:
+			if float(self.rttsums[node]) < float(minrttsum):
+				minrttsum = self.rttsums[node]
+				hubnode = node
+
+		
 		# while not self.shutdown:
 		# 	try:
 		# 		#self.__debug( 'Listening for connections...' )
@@ -136,42 +194,36 @@ class Peer:
 		for node in incKnownNodes:
 			if node not in self.peers:
 				self.peers[node] = incKnownNodes[node]
-		print(self.peers)
+		#print(self.peers)
 
+	def initialSendRTT(self, serverSocket, node):
+		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def initialRTTack(self, serverSocket, node):
+		#print(node)
+		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		#print(self.peers[node])
+		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def sendRTTsum(self, serverSocket):
+		rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(self.rttsum)
+		#print("hi")
+		for node in self.peers:
+			if node != name:
+				serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def receiveRTTsum(self, clientAddress, message):
+		#print(message[23:])
+		incRTTsum = message[23:]
+		nodeName = message[8:24].strip()
+		#print(nodeName)
+		self.rttsums[nodeName] = incRTTsum
+		#print(len(self.rttsums))
 
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
 starnode.mainloop()
-
-	# def rtt(rttsum):
-	# 	rttpacket = "001" + "{:<16}".format(name) + str(rttsum)
-	# 	startTime = time.time()
-	# 	for node in knownNodes:
-	# 		if node != name:
-	# 			serverSocket.sendto(rttpacket.encode(), (knownNodes[node][0], int(knownNodes[node][1])))
-	# 	incomingPacket, address = serverSocket.recvfrom(2048)
-	# 	endTime = time.time()
-	# 	output = incomingPacket.decode()
-	# 	incNode = output[3:19].strip()
-	# 	roundTrip = startTime - endTime
-	# 	rttsum = rttsum - rttlist[incNode][0] + roundTrip
-	# 	rttlist[incNode][1] = output[19:]
-	# 	print(rttlist)
-
-
-	# def PeerDiscovery(self):
-	# 	pdpacket = "000" + "{:<16}".format(name) + json.dumps(knownNodes)
-	# 	#print(pdpacket)
-	# 	for node in knownNodes:
-	# 		if node != name:
-	# 			serverSocket.sendto(pdpacket.encode(), (knownNodes[node][0], int(knownNodes[node][1])))
-	# 	incomingPacket, address = serverSocket.recvfrom(2048)
-	# 	output = incomingPacket.decode()
-	# 	incKnownNodes = json.loads(output[19:])
-	# 	for node in incKnownNodes:
-	# 		if node not in knownNodes:
-	# 			knownNodes[node] = incKnownNodes[node]
-	# 	print(knownNodes)
 
 
 
