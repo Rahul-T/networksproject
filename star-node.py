@@ -28,6 +28,7 @@ class Peer:
 		self.rttsum = 0
 		self.rttsums = {}
 		self.hubnode = name
+		self.startingTime = time.time()
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -41,16 +42,15 @@ class Peer:
 		#s.settimeout(10)
 		self.initialPeerDiscovery(s)
 		self.getintialrttsandhub(s)
-
 		t4 = threading.Thread( target = self.__commands, args = [ s ] )
 		t4.start()
 		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t5.daemon = True
 		t5.start()
+		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
+		t6.daemon = True
+		t6.start()
 
-		# cwd = os.getcwd()  # Get the current working directory (cwd)
-		# files = os.listdir(cwd)  # Get all the files in that directory
-		# print("Files in '%s': %s" % (cwd, files))
 		while not self.shutdown:
 			try:
 				if not t4.isAlive() and not self.shutdown:
@@ -60,6 +60,10 @@ class Peer:
 					t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 					t5.daemon = True
 					t5.start()
+				if not t6.isAlive():
+					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
+					t6.daemon = True
+					t6.start()
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -104,10 +108,12 @@ class Peer:
 			if msgtype == "001":
 				nodeName = output[8:24]
 				self.initialRTTack(socket, nodeName.strip())
-			if msgtype == "002" and initialRTTnode != None and startTime != None:
+			if msgtype == "002":
+				nodeName = output[8:24].strip()
+				#print("received")
 				endTime = time.time()
-				rtttime = endTime - startTime
-				self.rtttimes[initialRTTnode] = rtttime
+				rtttime = endTime - self.startingTime
+				self.rtttimes[nodeName] = rtttime
 			if msgtype == "003":
 				self.receiveRTTsum(clientAddress, output)
 			if msgtype == "004":
@@ -122,7 +128,7 @@ class Peer:
 				traceback.print_exc()
 
 
-				
+
 	def __commands(self, socket):
 		command = input("Star-node command: ")
 		if command == "show-status":
@@ -197,18 +203,23 @@ class Peer:
 	def receiveRTTsum(self, clientAddress, message):
 		incRTTsum = message[23:]
 		nodeName = message[8:24].strip()
+		if self.hubnode == name:
+			if float(incRTTsum) + 0.01 < float(self.rttsum):
+				self.hubnode = nodeName
+		elif float(incRTTsum) + 0.01 < float(self.rttsums[self.hubnode]):
+			self.hubnode = nodeName
 		self.rttsums[nodeName] = incRTTsum
-
 
 	def getintialrttsandhub(self, s):
 		for node in self.peers:
 			if (node != name):
-				t2 = threading.Thread( target = self.__handlepeer, args = [ s, node ] )
+				t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 				t2.start()
 				while (node not in self.rtttimes):
+					self.startingTime = time.time()
 					self.initialSendRTT(s, node)
 					if not t2.isAlive():
-						t2 = threading.Thread( target = self.__handlepeer, args = [ s, node, time.time() ] )
+						t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 						t2.start()
 
 
@@ -217,6 +228,7 @@ class Peer:
 
 		t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t3.start()
+
 		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
 			try:
 				if not t3.isAlive():
@@ -237,6 +249,25 @@ class Peer:
 			if float(self.rttsums[node]) < float(minrttsum):
 				minrttsum = self.rttsums[node]
 				self.hubnode = node
+
+	def updaterttsandhub(self, s):
+		time.sleep(20)
+		print("recalculating")
+		for node in self.rtttimes:
+			self.startingTime = time.time()
+			self.initialSendRTT(s, node)
+		#print(self.rttsum)
+		self.rttsum = 0
+		for node in self.rtttimes:
+			self.rttsum += self.rtttimes[node]
+		#print(self.rttsum)
+		if self.hubnode != name and float(self.rttsum) + 0.01 < float(self.rttsums[self.hubnode]):
+			self.hubnode = name
+		else:
+			for node in self.rttsums:
+				if float(self.rttsums[node]) + 0.01 < float(self.rttsum):
+					self.hubnode = node
+		self.sendRTTsum(s)
 
 	#Show status
 
