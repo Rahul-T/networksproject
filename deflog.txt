@@ -1,0 +1,23 @@
+First discovered node abc at 1541599826.6860642
+First discovered node ghi at 1541599826.686474
+Sent RTT request to abc at 1541599826.687712
+Received RTT request from abc at 1541599826.687791
+Received RTT request from ghi at 1541599826.8002088
+Received new RTT sum from ghi at 1541599826.8473752
+Received new RTT sum from ghi at 1541599826.8770409
+Sent RTT request to ghi at 1541599826.895181
+Received new RTT sum from abc at 1541599826.895211
+Received new RTT sum from abc at 1541599826.901367
+Calculated new RTT sum 0.2433767318725586 at 1541599826.931596
+Sent RTT request to abc at 1541599831.956674
+Sent RTT request to ghi at 1541599831.996288
+Calculated new RTT sum 0.2433767318725586 at 1541599832.046376
+Received RTT request from abc at 1541599832.052524
+Received RTT request from ghi at 1541599832.087646
+Received new RTT sum from abc at 1541599832.134828
+Received new RTT sum from ghi at 1541599832.17461
+Sent RTT request to abc at 1541599837.1138098
+Received RTT request from abc at 1541599837.1422122
+Sent RTT request to ghi at 1541599837.153342
+Calculated new RTT sum 0.09693789482116699 at 1541599837.160067
+Received new RTT sum from abc at 1541599837.203507

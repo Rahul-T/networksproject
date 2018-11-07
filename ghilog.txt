@@ -1,0 +1,17 @@
+First discovered node abc at 1541599826.686187
+First discovered node def at 1541599826.686517
+Sent RTT request to abc at 1541599826.687679
+Sent RTT request to def at 1541599826.7776551
+Calculated new RTT sum 0.1297767162322998 at 1541599826.81795
+Received RTT request from abc at 1541599826.86144
+Received RTT request from def at 1541599826.914401
+Received new RTT sum from abc at 1541599826.920694
+Received new RTT sum from abc at 1541599826.9312809
+Received new RTT sum from def at 1541599826.9675589
+Sent RTT request to abc at 1541599832.008932
+Received RTT request from def at 1541599832.031649
+Sent RTT request to def at 1541599832.0538728
+Calculated new RTT sum 0.06844592094421387 at 1541599832.086238
+Received RTT request from abc at 1541599832.092376
+Received new RTT sum from def at 1541599832.1252391
+Received new RTT sum from abc at 1541599832.160183

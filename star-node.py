@@ -58,7 +58,6 @@ class Peer:
 		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
 		t6.daemon = True
 		t6.start()
-
 		while not self.shutdown:
 			try:
 				if not t4.isAlive() and not self.shutdown:
@@ -178,6 +177,7 @@ class Peer:
 		t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t1.start()
 		while len(self.peers) < int(maxNodes) and not self.shutdown:
+			#print(self.peers)
 			try:
 				if not t1.isAlive():
 					t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
