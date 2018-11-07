@@ -5,12 +5,14 @@ import time
 import threading
 import _thread
 import os
+from threading import Lock
 
 name = sys.argv[1]
 localPort = sys.argv[2]
 pocAddress = sys.argv[3]
 pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
+lock = Lock()
 
 class Peer:
 	RTTack = False
@@ -35,9 +37,14 @@ class Peer:
 
 		self.handlers = {}
 		self.router = None
+
 	    # end constructor
 
 	def mainloop( self ):
+		try:
+			os.remove(name + ".txt")
+		except:
+			pass
 		s = self.makeServerSocket( self.serverport )
 		#s.settimeout(10)
 		self.initialPeerDiscovery(s)
@@ -98,11 +105,9 @@ class Peer:
 		message, clientAddress = socket.recvfrom(65000)
 		output = message.decode()
 		port = output[3:8]
-
 		try:
 
 			msgtype = output[0:3]
-
 			if msgtype == "000":
 				self.receivePeerDiscovery(clientAddress, output)
 			if msgtype == "001":
@@ -110,11 +115,11 @@ class Peer:
 				self.initialRTTack(socket, nodeName.strip())
 			if msgtype == "002":
 				nodeName = output[8:24].strip()
-				#print("received")
 				endTime = time.time()
 				rtttime = endTime - self.startingTime
 				self.rtttimes[nodeName] = rtttime
 			if msgtype == "003":
+				#print("received rttsum packet from " + output[8:24].strip())
 				self.receiveRTTsum(clientAddress, output)
 			if msgtype == "004":
 				self.receiveStringMessage(clientAddress, output, socket)
@@ -142,6 +147,8 @@ class Peer:
 			else:
 				fileName = command[5:]
 				self.sendFile(fileName, socket)
+		elif command == "show-log":
+			self.showlog()
 
 
 
@@ -161,6 +168,9 @@ class Peer:
 		incKnownNodes = json.loads(message[23:])
 		for node in incKnownNodes:
 			if node not in self.peers:
+				self.log = open(name + ".txt", 'a')
+				self.log.write("First discovered node " + str(node) + " at " + str(time.time()) + "\n")
+				self.log.close()
 				self.peers[node] = incKnownNodes[node]
 
 	def initialPeerDiscovery(self, s):
@@ -188,36 +198,104 @@ class Peer:
 
 	def initialSendRTT(self, serverSocket, node):
 		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Sent RTT request to " + str(node) + " at " + str(time.time()) + "\n")
+		self.log.close()
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
 
 	def initialRTTack(self, serverSocket, node):
 		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Received RTT request from " + str(node) + " at " + str(time.time()) + "\n")
+		self.log.close()
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 	def sendRTTsum(self, serverSocket):
 		rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(self.rttsum)
+		#print(self.peers)
 		for node in self.peers:
 			if node != name:
+				#print("Sent my rttsum of " + str(self.rttsum) + " to " + node)
 				serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 	def receiveRTTsum(self, clientAddress, message):
+		
 		incRTTsum = message[23:]
 		nodeName = message[8:24].strip()
+		#print("Received rttsum of " + incRTTsum + " from " + nodeName)
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Received new RTT sum from " + str(nodeName) + " at " + str(time.time()) + "\n")
+		self.log.close()
+		#print("stuck1")
+		if nodeName in self.rttsums:
+			oldRTTsum = self.rttsums[nodeName]
+			self.rttsums[nodeName] = incRTTsum
+		#print("stuck2")
 		if self.hubnode == name:
+			#print("stuck3")
 			if float(incRTTsum) + 0.01 < float(self.rttsum):
 				self.hubnode = nodeName
-		elif float(incRTTsum) + 0.01 < float(self.rttsums[self.hubnode]):
+				self.log = open(name + ".txt", 'a')
+				self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
+				self.log.close()
+				#print("h1")
+		elif float(incRTTsum) + 0.01 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
+			#print("stuck4")
+			self.log = open(name + ".txt", 'a')
+			self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
+			self.log.close()
 			self.hubnode = nodeName
-		self.rttsums[nodeName] = incRTTsum
+			#print("h2")
+		elif self.hubnode == nodeName:
+			# print("stuck5")
+			# if float(incRTTsum) > float(oldRTTsum):
+			# 	x = 1
+			#print("stuck5a")
+			if float(incRTTsum) > float(oldRTTsum):
+				# print("stuckA")
+				tempmin = float(incRTTsum)
+				tempnode = self.hubnode
+				# print("stuckB")
+				for node in self.rttsums:
+					if float(self.rttsums[node]) < float(tempmin):
+						# print("stuckC")
+						tempmin = float(self.rttsums[node])
+						tempnode = node
+				# print("stuckD")
+				if float(self.rttsum) < float(tempmin):
+					# print("stuckE")
+					tempmin = float(self.rttsum)
+					tempnode = name
+				# print("stuckF")
+				if float(tempmin) + 0.01 < float(incRTTsum):
+					# print("stuckG")
+					self.hubnode = tempnode
+					self.log = open(name + ".txt", 'a')
+					self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
+					self.log.close()
+			# print("stuckI")
+		# print("stuck6")
+		if nodeName not in self.rttsums:
+			self.rttsums[nodeName] = incRTTsum
+		# print("stuck7")
+		# print("Post-receive status")
+		# print(name + ": " + str(self.rttsum))
+		# for node in self.rttsums:
+		# 	print(node + " " + str(self.rttsums[node]))
+		# print("Hubnode: " + self.hubnode)
 
 	def getintialrttsandhub(self, s):
 		for node in self.peers:
+			sentit = False
 			if (node != name):
 				t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 				t2.start()
 				while (node not in self.rtttimes):
-					self.startingTime = time.time()
-					self.initialSendRTT(s, node)
+					if not sentit:
+						self.startingTime = time.time()
+						self.initialSendRTT(s, node)
+						sentit = True
 					if not t2.isAlive():
 						t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 						t2.start()
@@ -226,15 +304,22 @@ class Peer:
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
 
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
+		self.log.close()
+
 		t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t3.start()
-
+		self.sendRTTsum(s)
+		sentit = False
 		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
 			try:
 				if not t3.isAlive():
 					t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 					t3.start()
-				self.sendRTTsum(s)
+				if not sentit:
+					self.sendRTTsum(s)
+					sentit = True
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -249,10 +334,11 @@ class Peer:
 			if float(self.rttsums[node]) < float(minrttsum):
 				minrttsum = self.rttsums[node]
 				self.hubnode = node
+				#print("h3")
 
 	def updaterttsandhub(self, s):
-		time.sleep(20)
-		print("recalculating")
+		time.sleep(5)
+		#print("recalculating")
 		for node in self.rtttimes:
 			self.startingTime = time.time()
 			self.initialSendRTT(s, node)
@@ -260,24 +346,41 @@ class Peer:
 		self.rttsum = 0
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
+
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
+		self.log.close()
+
 		#print(self.rttsum)
 		if self.hubnode != name and float(self.rttsum) + 0.01 < float(self.rttsums[self.hubnode]):
+			#print("h4")
 			self.hubnode = name
-		else:
+		elif self.hubnode == name:
+			tempmin = float(self.rttsum)
+			tempnode = name
 			for node in self.rttsums:
-				if float(self.rttsums[node]) + 0.01 < float(self.rttsum):
-					self.hubnode = node
+				if float(self.rttsums[node]) < tempmin:
+					tempmin = float(self.rttsums[node])
+					tempnode = node
+			if tempmin + 0.01 < self.rttsum:
+				self.hubnode = tempnode
+			#print("Tempmin " + str(tempmin)),
+			#print(" My rttsum " + str(self.rttsum))
 		self.sendRTTsum(s)
 
 	#Show status
 
 	def showstatus(self):
+		print("Node name: " + name + " RTT sum: " + str(self.rttsum))
 		for node in self.rttsums:
 			print("Node name: " + node + " RTT sum: " + self.rttsums[node])
 		print("Hub: " + self.hubnode)
 
 
-
+	def showlog(self):
+		self.log = open(name + ".txt", 'r')
+		print(self.log.read())
+		self.log.close()
 
 	#String message broadcasting
 
@@ -289,6 +392,9 @@ class Peer:
 					serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 		else:
 			serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Sent message " + stringMessage + " at " + str(time.time()) + "\n")
+		self.log.close()
 
 	def receiveStringMessage(self, clientAddress, message, serverSocket):
 		print("\nReceived message from " + message[8:24])
@@ -298,6 +404,12 @@ class Peer:
 			for node in self.peers:
 				if node != name and node != message[8:24].strip():
 					serverSocket.sendto(message.encode(), (self.peers[node][0], int(self.peers[node][1])))
+			self.log = open(name + ".txt", 'a')
+			self.log.write("Forwarded message " + message[24:] + " from " + message[8:24].strip() + " " + str(time.time()) + "\n")
+			self.log.close()
+		self.log = open(name + ".txt", 'a')
+		self.log.write("Received message " + message[24:] + " from " + message[8:24].strip() + " " + str(time.time()) + "\n")
+		self.log.close()
 
 
 	#File broadcasting
@@ -343,7 +455,6 @@ class Peer:
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
 starnode.mainloop()
-
 
 
 

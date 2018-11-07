@@ -1,0 +1,37 @@
+First discovered node abc at 1541596413.8470101
+First discovered node def at 1541596413.847497
+Sent RTT request to abc at 1541596413.848893
+Sent RTT request to def at 1541596413.946254
+Received RTT request from abc at 1541596413.980281
+Calculated new RTT sum 0.1434929370880127 at 1541596413.9929779
+Received new RTT sum from abc at 1541596414.022968
+Received new RTT sum from abc at 1541596414.028565
+Received RTT request from def at 1541596414.0516438
+Received new RTT sum from def at 1541596414.1118
+Forwarded message hi from abc 1541596417.087992
+Received message hi from abc 1541596417.127647
+Sent RTT request to abc at 1541596419.1409988
+Sent RTT request to def at 1541596419.180903
+Received RTT request from def at 1541596419.1862452
+Calculated new RTT sum 0.1434929370880127 at 1541596419.203555
+Received new RTT sum from def at 1541596419.219926
+Received RTT request from abc at 1541596419.268588
+Received new RTT sum from abc at 1541596419.305961
+Forwarded message yo from def 1541596420.1581671
+Received message yo from def 1541596420.1867268
+Sent message sup at 1541596423.090197
+Sent RTT request to abc at 1541596424.2717628
+Received RTT request from def at 1541596424.2939131
+Sent RTT request to def at 1541596424.299479
+Calculated new RTT sum 0.25596094131469727 at 1541596424.3337831
+Received RTT request from abc at 1541596424.3390028
+Received new RTT sum from def at 1541596424.3782332
+Updated hub from abc to def at 1541596424.417393
+Received new RTT sum from abc at 1541596424.4570382
+Sent RTT request to abc at 1541596429.38019
+Received RTT request from abc at 1541596429.419876
+Sent RTT request to def at 1541596429.4252539
+Calculated new RTT sum 0.32021188735961914 at 1541596429.437718
+Received RTT request from def at 1541596429.466319
+Received new RTT sum from abc at 1541596429.4948769
+Received new RTT sum from def at 1541596429.5338728
