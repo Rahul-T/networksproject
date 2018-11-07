@@ -31,6 +31,7 @@ class Peer:
 		self.rttsums = {}
 		self.hubnode = name
 		self.startingTime = time.time()
+		self.logfilename = name + "log.txt"
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -42,7 +43,7 @@ class Peer:
 
 	def mainloop( self ):
 		try:
-			os.remove(name + ".txt")
+			os.remove(self.logfilename)
 		except:
 			pass
 		s = self.makeServerSocket( self.serverport )
@@ -168,7 +169,7 @@ class Peer:
 		incKnownNodes = json.loads(message[23:])
 		for node in incKnownNodes:
 			if node not in self.peers:
-				self.log = open(name + ".txt", 'a')
+				self.log = open(self.logfilename, 'a')
 				self.log.write("First discovered node " + str(node) + " at " + str(time.time()) + "\n")
 				self.log.close()
 				self.peers[node] = incKnownNodes[node]
@@ -198,7 +199,7 @@ class Peer:
 
 	def initialSendRTT(self, serverSocket, node):
 		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Sent RTT request to " + str(node) + " at " + str(time.time()) + "\n")
 		self.log.close()
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
@@ -206,7 +207,7 @@ class Peer:
 
 	def initialRTTack(self, serverSocket, node):
 		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Received RTT request from " + str(node) + " at " + str(time.time()) + "\n")
 		self.log.close()
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
@@ -224,7 +225,7 @@ class Peer:
 		incRTTsum = message[23:]
 		nodeName = message[8:24].strip()
 		#print("Received rttsum of " + incRTTsum + " from " + nodeName)
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Received new RTT sum from " + str(nodeName) + " at " + str(time.time()) + "\n")
 		self.log.close()
 		#print("stuck1")
@@ -236,13 +237,13 @@ class Peer:
 			#print("stuck3")
 			if float(incRTTsum) + 0.01 < float(self.rttsum):
 				self.hubnode = nodeName
-				self.log = open(name + ".txt", 'a')
+				self.log = open(self.logfilename, 'a')
 				self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
 				self.log.close()
 				#print("h1")
 		elif float(incRTTsum) + 0.01 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
 			#print("stuck4")
-			self.log = open(name + ".txt", 'a')
+			self.log = open(self.logfilename, 'a')
 			self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
 			self.log.close()
 			self.hubnode = nodeName
@@ -271,7 +272,7 @@ class Peer:
 				if float(tempmin) + 0.01 < float(incRTTsum):
 					# print("stuckG")
 					self.hubnode = tempnode
-					self.log = open(name + ".txt", 'a')
+					self.log = open(self.logfilename, 'a')
 					self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
 					self.log.close()
 			# print("stuckI")
@@ -304,7 +305,7 @@ class Peer:
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
 
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
 		self.log.close()
 
@@ -347,7 +348,7 @@ class Peer:
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
 
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
 		self.log.close()
 
@@ -378,7 +379,7 @@ class Peer:
 
 
 	def showlog(self):
-		self.log = open(name + ".txt", 'r')
+		self.log = open(self.logfilename, 'r')
 		print(self.log.read())
 		self.log.close()
 
@@ -392,7 +393,7 @@ class Peer:
 					serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 		else:
 			serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
-		self.log = open(name + ".txt", 'a')
+		self.log = open(self.logfilename, 'a')
 		self.log.write("Sent message " + stringMessage + " at " + str(time.time()) + "\n")
 		self.log.close()
 
@@ -404,11 +405,11 @@ class Peer:
 			for node in self.peers:
 				if node != name and node != message[8:24].strip():
 					serverSocket.sendto(message.encode(), (self.peers[node][0], int(self.peers[node][1])))
-			self.log = open(name + ".txt", 'a')
-			self.log.write("Forwarded message " + message[24:] + " from " + message[8:24].strip() + " " + str(time.time()) + "\n")
+			self.log = open(self.logfilename, 'a')
+			self.log.write("Forwarded message " + message[24:] + " from " + message[8:24].strip() + " at " + str(time.time()) + "\n")
 			self.log.close()
-		self.log = open(name + ".txt", 'a')
-		self.log.write("Received message " + message[24:] + " from " + message[8:24].strip() + " " + str(time.time()) + "\n")
+		self.log = open(self.logfilename, 'a')
+		self.log.write("Received message " + message[24:] + " from " + message[8:24].strip() + " at " + str(time.time()) + "\n")
 		self.log.close()
 
 
@@ -430,15 +431,16 @@ class Peer:
 			serverSocket.sendto(filepacketvalue, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 
 		f.close()
+		self.log = open(self.logfilename, 'a')
+		self.log.write("Sent file " + fileName + " at " + str(time.time()) + "\n")
+		self.log.close()
+
 
 	def receiveFile(self, clientAddress, packetheader, serverSocket):
 		print("\nReceived file from " + packetheader[8:24])
 		fileName = packetheader[24:40].strip()
 		print(fileName)
-		#FIX ME
-		#FIX ME
-		#FIX ME
-		tempname = name + ".txt"
+		tempname = name + fileName
 		f = open(tempname, 'wb')
 		data, addr = serverSocket.recvfrom(65000)
 		f.write(data)
@@ -448,7 +450,14 @@ class Peer:
 				if node != name and node != packetheader[8:24].strip():
 					serverSocket.sendto(packetheader.encode(), (self.peers[node][0], int(self.peers[node][1])))
 					serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
+					self.log = open(self.logfilename, 'a')
+					self.log.write("Forwarded file " + tempname + " from " + packetheader[8:24].strip() + " at " + str(time.time()) + "\n")
+					self.log.close()
 		f.close()
+
+		self.log = open(self.logfilename, 'a')
+		self.log.write("Received file " + tempname + " from " + packetheader[8:24].strip() + " at " + str(time.time()) + "\n")
+		self.log.close()
 
 
 #Main runner
