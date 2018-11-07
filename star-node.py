@@ -36,11 +36,59 @@ class Peer:
 		self.router = None
 	    # end constructor
 
+	def mainloop( self ):
+		s = self.makeServerSocket( self.serverport )
+		#s.settimeout(10)
+		self.initialPeerDiscovery(s)
+		self.getintialrttsandhub(s)
+
+		t4 = threading.Thread( target = self.__commands, args = [ s ] )
+		t4.start()
+		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t5.daemon = True
+		t5.start()
+
+		# cwd = os.getcwd()  # Get the current working directory (cwd)
+		# files = os.listdir(cwd)  # Get all the files in that directory
+		# print("Files in '%s': %s" % (cwd, files))
+		while not self.shutdown:
+			try:
+				if not t4.isAlive() and not self.shutdown:
+					t4 = threading.Thread( target = self.__commands, args = [ s ] )
+					t4.start()
+				if not t5.isAlive():
+					t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t5.daemon = True
+					t5.start()
+			except KeyboardInterrupt:
+				self.shutdown = True
+				continue
+			except:
+				if self.debug:
+					traceback.print_exc()
+					continue		
+
+	
+
+
+
+
+
+
+
+
+	#Server socket creation
+
 	def makeServerSocket(self, port):
 		serverSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		serverSocket.setsockopt( socket.SOL_SOCKET, socket.SO_REUSEADDR, 1 )
 		serverSocket.bind(('', port))
 		return serverSocket
+
+
+
+
+	#Thread handling functions
 
 	def __handlepeer( self, socket, initialRTTnode = None, startTime = None ):
 		message, clientAddress = socket.recvfrom(65000)
@@ -72,6 +120,9 @@ class Peer:
 		except:
 			if self.debug:
 				traceback.print_exc()
+
+
+				
 	def __commands(self, socket):
 		command = input("Star-node command: ")
 		if command == "show-status":
@@ -86,12 +137,29 @@ class Peer:
 				fileName = command[5:]
 				self.sendFile(fileName, socket)
 
-	def mainloop( self ):
-		s = self.makeServerSocket( self.serverport )
-		#s.settimeout(10)
+
+
+	#Peer Discovery
+
+	def initialPoc(self, serverSocket):
+		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
+		serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
+
+	def sendPeerDiscovery(self, serverSocket):
+		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
+		for node in self.peers:
+			if node != name:
+				serverSocket.sendto(pdpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def receivePeerDiscovery(self, clientAddress, message):
+		incKnownNodes = json.loads(message[23:])
+		for node in incKnownNodes:
+			if node not in self.peers:
+				self.peers[node] = incKnownNodes[node]
+
+	def initialPeerDiscovery(self, s):
 		t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t1.start()
-
 		while len(self.peers) < int(maxNodes) and not self.shutdown:
 			try:
 				if not t1.isAlive():
@@ -107,9 +175,32 @@ class Peer:
 				if self.debug:
 					traceback.print_exc()
 					continue
-
 		self.sendPeerDiscovery(s)
 
+
+	#RTT
+
+	def initialSendRTT(self, serverSocket, node):
+		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def initialRTTack(self, serverSocket, node):
+		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
+		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def sendRTTsum(self, serverSocket):
+		rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(self.rttsum)
+		for node in self.peers:
+			if node != name:
+				serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+	def receiveRTTsum(self, clientAddress, message):
+		incRTTsum = message[23:]
+		nodeName = message[8:24].strip()
+		self.rttsums[nodeName] = incRTTsum
+
+
+	def getintialrttsandhub(self, s):
 		for node in self.peers:
 			if (node != name):
 				t2 = threading.Thread( target = self.__handlepeer, args = [ s, node ] )
@@ -147,71 +238,17 @@ class Peer:
 				minrttsum = self.rttsums[node]
 				self.hubnode = node
 
-		t4 = threading.Thread( target = self.__commands, args = [ s ] )
-		t4.start()
-		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-		t5.daemon = True
-		t5.start()
-
-		# cwd = os.getcwd()  # Get the current working directory (cwd)
-		# files = os.listdir(cwd)  # Get all the files in that directory
-		# print("Files in '%s': %s" % (cwd, files))
-		while not self.shutdown:
-			try:
-				if not t4.isAlive() and not self.shutdown:
-					t4 = threading.Thread( target = self.__commands, args = [ s ] )
-					t4.start()
-				if not t5.isAlive():
-					t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-					t5.daemon = True
-					t5.start()
-			except KeyboardInterrupt:
-				self.shutdown = True
-				continue
-			except:
-				if self.debug:
-					traceback.print_exc()
-					continue		
-
-	def initialPoc(self, serverSocket):
-		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
-		serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
-
-	def sendPeerDiscovery(self, serverSocket):
-		pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + json.dumps(self.peers)
-		for node in self.peers:
-			if node != name:
-				serverSocket.sendto(pdpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-
-	def receivePeerDiscovery(self, clientAddress, message):
-		incKnownNodes = json.loads(message[23:])
-		for node in incKnownNodes:
-			if node not in self.peers:
-				self.peers[node] = incKnownNodes[node]
-
-	def initialSendRTT(self, serverSocket, node):
-		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
-		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-
-	def initialRTTack(self, serverSocket, node):
-		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
-		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-
-	def sendRTTsum(self, serverSocket):
-		rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(self.rttsum)
-		for node in self.peers:
-			if node != name:
-				serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-
-	def receiveRTTsum(self, clientAddress, message):
-		incRTTsum = message[23:]
-		nodeName = message[8:24].strip()
-		self.rttsums[nodeName] = incRTTsum
+	#Show status
 
 	def showstatus(self):
 		for node in self.rttsums:
 			print("Node name: " + node + " RTT sum: " + self.rttsums[node])
 		print("Hub: " + self.hubnode)
+
+
+
+
+	#String message broadcasting
 
 	def sendStringMessage(self, serverSocket, stringMessage):
 		broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + stringMessage
@@ -230,6 +267,9 @@ class Peer:
 			for node in self.peers:
 				if node != name and node != message[8:24].strip():
 					serverSocket.sendto(message.encode(), (self.peers[node][0], int(self.peers[node][1])))
+
+
+	#File broadcasting
 
 	def sendFile(self, fileName, serverSocket):
 		f = open(fileName, 'rb')
@@ -252,6 +292,9 @@ class Peer:
 		print("\nReceived file from " + packetheader[8:24])
 		fileName = packetheader[24:40].strip()
 		print(fileName)
+		#FIX ME
+		#FIX ME
+		#FIX ME
 		tempname = name + ".txt"
 		f = open(tempname, 'wb')
 		data, addr = serverSocket.recvfrom(65000)
@@ -264,6 +307,8 @@ class Peer:
 					serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
 		f.close()
 
+
+#Main runner
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
 starnode.mainloop()
