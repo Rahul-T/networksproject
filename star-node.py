@@ -49,6 +49,9 @@ class Peer:
 		s = self.makeServerSocket( self.serverport )
 		#s.settimeout(10)
 		self.initialPeerDiscovery(s)
+		if self.shutdown == True:
+			print("Timeout")
+			sys.exit()
 		self.getintialrttsandhub(s)
 		t4 = threading.Thread( target = self.__commands, args = [ s ] )
 		t4.start()
@@ -174,13 +177,16 @@ class Peer:
 				self.peers[node] = incKnownNodes[node]
 
 	def initialPeerDiscovery(self, s):
+		timeoutcounter = 0
 		t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t1.daemon = True
 		t1.start()
 		while len(self.peers) < int(maxNodes) and not self.shutdown:
 			#print(self.peers)
 			try:
 				if not t1.isAlive():
 					t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t1.daemon = True
 					t1.start()
 				if pocAddress != 0 and pocPort != 0 and not [pocAddress, pocPort] in self.peers.values():
 					self.initialPoc(s)
@@ -192,6 +198,10 @@ class Peer:
 				if self.debug:
 					traceback.print_exc()
 					continue
+			timeoutcounter += 1
+			if timeoutcounter == 30:
+				self.shutdown = True
+			time.sleep(1)
 		self.sendPeerDiscovery(s)
 
 
@@ -235,13 +245,13 @@ class Peer:
 		#print("stuck2")
 		if self.hubnode == name:
 			#print("stuck3")
-			if float(incRTTsum) + 0.01 < float(self.rttsum):
+			if float(incRTTsum) + 0.25 < float(self.rttsum):
 				self.hubnode = nodeName
 				self.log = open(self.logfilename, 'a')
 				self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
 				self.log.close()
 				#print("h1")
-		elif float(incRTTsum) + 0.01 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
+		elif float(incRTTsum) + 0.25 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
 			#print("stuck4")
 			self.log = open(self.logfilename, 'a')
 			self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
@@ -269,7 +279,7 @@ class Peer:
 					tempmin = float(self.rttsum)
 					tempnode = name
 				# print("stuckF")
-				if float(tempmin) + 0.01 < float(incRTTsum):
+				if float(tempmin) + 0.25 < float(incRTTsum):
 					# print("stuckG")
 					self.hubnode = tempnode
 					self.log = open(self.logfilename, 'a')
@@ -353,7 +363,7 @@ class Peer:
 		self.log.close()
 
 		#print(self.rttsum)
-		if self.hubnode != name and float(self.rttsum) + 0.01 < float(self.rttsums[self.hubnode]):
+		if self.hubnode != name and float(self.rttsum) + 0.25 < float(self.rttsums[self.hubnode]):
 			#print("h4")
 			self.hubnode = name
 		elif self.hubnode == name:
@@ -363,7 +373,7 @@ class Peer:
 				if float(self.rttsums[node]) < tempmin:
 					tempmin = float(self.rttsums[node])
 					tempnode = node
-			if tempmin + 0.01 < self.rttsum:
+			if tempmin + 0.25 < self.rttsum:
 				self.hubnode = tempnode
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))

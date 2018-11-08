@@ -1,0 +1,64 @@
+First discovered node abc at 1541714465.362349
+First discovered node def at 1541714465.362705
+Sent RTT request to abc at 1541714465.603136
+Sent RTT request to def at 1541714465.643803
+Received RTT request from abc at 1541714465.9640288
+Calculated new RTT sum 0.37839627265930176 at 1541714465.981908
+Received RTT request from def at 1541714465.987357
+Received new RTT sum from abc at 1541714466.044981
+Received new RTT sum from abc at 1541714466.0817149
+Received new RTT sum from def at 1541714466.111679
+Sent RTT request to abc at 1541714471.141509
+Sent RTT request to def at 1541714471.1696389
+Received RTT request from def at 1541714471.1822
+Calculated new RTT sum 0.37839627265930176 at 1541714471.1823308
+Received new RTT sum from def at 1541714471.2051032
+Received RTT request from abc at 1541714471.2646441
+Received new RTT sum from abc at 1541714471.3007512
+Sent RTT request to abc at 1541714476.242903
+Sent RTT request to def at 1541714476.287822
+Received RTT request from def at 1541714476.2879
+Calculated new RTT sum 0.0819242000579834 at 1541714476.3161001
+Received new RTT sum from def at 1541714476.3161652
+Received RTT request from abc at 1541714476.355308
+Received new RTT sum from abc at 1541714476.4005902
+Sent RTT request to abc at 1541714481.360669
+Sent RTT request to def at 1541714481.372703
+Calculated new RTT sum 0.18550801277160645 at 1541714481.372968
+Received RTT request from def at 1541714481.373282
+Received new RTT sum from def at 1541714481.396998
+Received RTT request from abc at 1541714481.435045
+Received new RTT sum from abc at 1541714481.491938
+Sent RTT request to abc at 1541714486.411863
+Sent RTT request to def at 1541714486.444288
+Calculated new RTT sum 0.17493581771850586 at 1541714486.484867
+Received RTT request from def at 1541714486.4899788
+Received new RTT sum from def at 1541714486.517867
+Received RTT request from abc at 1541714486.536549
+Received new RTT sum from abc at 1541714486.5938518
+Sent RTT request to abc at 1541714491.52196
+Sent RTT request to def at 1541714491.565825
+Calculated new RTT sum 0.1808309555053711 at 1541714491.5721521
+Received RTT request from def at 1541714491.58464
+Received new RTT sum from def at 1541714491.64676
+Received RTT request from abc at 1541714491.682077
+Received new RTT sum from abc at 1541714491.723267
+Sent RTT request to abc at 1541714496.616677
+Sent RTT request to def at 1541714496.659433
+Calculated new RTT sum 0.10629892349243164 at 1541714496.704912
+Received RTT request from def at 1541714496.7049758
+Received new RTT sum from def at 1541714496.740696
+Received RTT request from abc at 1541714496.775769
+Received new RTT sum from abc at 1541714496.822048
+Sent RTT request to abc at 1541714501.746512
+Received RTT request from def at 1541714501.770328
+Sent RTT request to def at 1541714501.787542
+Calculated new RTT sum 0.10663032531738281 at 1541714501.7984798
+Received new RTT sum from def at 1541714501.809422
+Received RTT request from abc at 1541714501.826367
+Received new RTT sum from abc at 1541714501.862238
+Sent RTT request to abc at 1541714506.842394
+Sent RTT request to def at 1541714506.881383
+Received RTT request from def at 1541714506.904841
+Calculated new RTT sum 0.15812969207763672 at 1541714506.9169269
+Received new RTT sum from def at 1541714506.923457

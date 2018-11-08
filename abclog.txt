@@ -1,0 +1,60 @@
+First discovered node def at 1541714463.8821461
+First discovered node ghi at 1541714464.601015
+Sent RTT request to def at 1541714465.3623638
+Received RTT request from ghi at 1541714465.624674
+Received RTT request from def at 1541714465.916708
+Sent RTT request to ghi at 1541714465.9340641
+Calculated new RTT sum 0.6192889213562012 at 1541714465.9819572
+Received new RTT sum from ghi at 1541714465.982555
+Received new RTT sum from ghi at 1541714465.9826229
+Received new RTT sum from def at 1541714466.1225128
+Updated hub from def to def at 1541714466.1433759
+Received RTT request from def at 1541714471.158535
+Received RTT request from ghi at 1541714471.176
+Sent RTT request to def at 1541714471.176076
+Received new RTT sum from def at 1541714471.223146
+Sent RTT request to ghi at 1541714471.2290628
+Calculated new RTT sum 0.6192889213562012 at 1541714471.2527082
+Received new RTT sum from ghi at 1541714471.2583628
+Received RTT request from def at 1541714476.2556648
+Sent RTT request to def at 1541714476.274131
+Received RTT request from ghi at 1541714476.304213
+Sent RTT request to ghi at 1541714476.315377
+Calculated new RTT sum 0.1651921272277832 at 1541714476.337642
+Received new RTT sum from def at 1541714476.349268
+Received new RTT sum from ghi at 1541714476.361168
+Sent RTT request to def at 1541714481.378659
+Received RTT request from def at 1541714481.384707
+Sent RTT request to ghi at 1541714481.3973188
+Received RTT request from ghi at 1541714481.422108
+Calculated new RTT sum 0.16483092308044434 at 1541714481.4519181
+Received new RTT sum from ghi at 1541714481.469373
+Received new RTT sum from def at 1541714481.504787
+Received RTT request from def at 1541714486.450633
+Sent RTT request to def at 1541714486.490082
+Received RTT request from ghi at 1541714486.5069702
+Sent RTT request to ghi at 1541714486.524605
+Calculated new RTT sum 0.2546873092651367 at 1541714486.5571358
+Received new RTT sum from ghi at 1541714486.569141
+Received new RTT sum from def at 1541714486.575155
+Received RTT request from def at 1541714491.5648599
+Sent RTT request to def at 1541714491.589327
+Received RTT request from ghi at 1541714491.595165
+Sent RTT request to ghi at 1541714491.613766
+Received new RTT sum from ghi at 1541714491.6355488
+Calculated new RTT sum 0.14995479583740234 at 1541714491.64675
+Received new RTT sum from def at 1541714491.665018
+Received RTT request from ghi at 1541714496.641355
+Received RTT request from def at 1541714496.678072
+Sent RTT request to def at 1541714496.689666
+Sent RTT request to ghi at 1541714496.706274
+Received new RTT sum from def at 1541714496.706348
+Calculated new RTT sum 0.2110614776611328 at 1541714496.7294688
+Received new RTT sum from ghi at 1541714496.735222
+Received RTT request from def at 1541714501.7568262
+Sent RTT request to def at 1541714501.7679732
+Sent RTT request to ghi at 1541714501.801517
+Received RTT request from ghi at 1541714501.801557
+Calculated new RTT sum 0.13912510871887207 at 1541714501.8243918
+Received new RTT sum from def at 1541714501.841387
+Received new RTT sum from ghi at 1541714501.875056

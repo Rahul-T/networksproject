@@ -1,0 +1,64 @@
+First discovered node abc at 1541714465.362297
+First discovered node ghi at 1541714465.362678
+Sent RTT request to abc at 1541714465.888557
+Received RTT request from abc at 1541714465.888715
+Received RTT request from ghi at 1541714465.9417531
+Sent RTT request to ghi at 1541714465.966103
+Received new RTT sum from abc at 1541714465.9988532
+Received new RTT sum from ghi at 1541714466.004081
+Received new RTT sum from ghi at 1541714466.0334551
+Received new RTT sum from abc at 1541714466.0760891
+Calculated new RTT sum 0.20409917831420898 at 1541714466.0929248
+Sent RTT request to abc at 1541714471.119958
+Sent RTT request to ghi at 1541714471.152747
+Calculated new RTT sum 0.20409917831420898 at 1541714471.181995
+Received RTT request from abc at 1541714471.19998
+Received RTT request from ghi at 1541714471.2001631
+Received new RTT sum from ghi at 1541714471.222757
+Received new RTT sum from abc at 1541714471.300787
+Sent RTT request to abc at 1541714476.231628
+Sent RTT request to ghi at 1541714476.2505758
+Calculated new RTT sum 0.12112784385681152 at 1541714476.274163
+Received RTT request from abc at 1541714476.2979012
+Received RTT request from ghi at 1541714476.331512
+Received new RTT sum from ghi at 1541714476.382546
+Received new RTT sum from abc at 1541714476.421387
+Sent RTT request to abc at 1541714481.331815
+Sent RTT request to ghi at 1541714481.3726
+Calculated new RTT sum 0.12833070755004883 at 1541714481.372928
+Received RTT request from ghi at 1541714481.397002
+Received new RTT sum from ghi at 1541714481.445355
+Received RTT request from abc at 1541714481.481798
+Received new RTT sum from abc at 1541714481.5325818
+Sent RTT request to abc at 1541714486.4119098
+Sent RTT request to ghi at 1541714486.444353
+Received RTT request from ghi at 1541714486.468265
+Calculated new RTT sum 0.2651546001434326 at 1541714486.4797618
+Received new RTT sum from ghi at 1541714486.51908
+Received RTT request from abc at 1541714486.564991
+Received new RTT sum from abc at 1541714486.593842
+Sent RTT request to abc at 1541714491.523969
+Sent RTT request to ghi at 1541714491.565839
+Calculated new RTT sum 0.20985722541809082 at 1541714491.5953012
+Received RTT request from ghi at 1541714491.606702
+Received new RTT sum from ghi at 1541714491.646676
+Received RTT request from abc at 1541714491.681706
+Received new RTT sum from abc at 1541714491.734487
+Sent RTT request to abc at 1541714496.649796
+Sent RTT request to ghi at 1541714496.661597
+Received RTT request from ghi at 1541714496.67274
+Calculated new RTT sum 0.24372076988220215 at 1541714496.6728792
+Received RTT request from abc at 1541714496.712456
+Received new RTT sum from ghi at 1541714496.730005
+Received new RTT sum from abc at 1541714496.771765
+Sent RTT request to abc at 1541714501.7185411
+Sent RTT request to ghi at 1541714501.746923
+Calculated new RTT sum 0.0925896167755127 at 1541714501.776084
+Received RTT request from abc at 1541714501.792771
+Received RTT request from ghi at 1541714501.815685
+Received new RTT sum from ghi at 1541714501.853757
+Received new RTT sum from abc at 1541714501.887198
+Sent RTT request to abc at 1541714506.816788
+Sent RTT request to ghi at 1541714506.864861
+Calculated new RTT sum 0.10361194610595703 at 1541714506.889817
+Received RTT request from ghi at 1541714506.911306
