@@ -12,7 +12,6 @@ localPort = sys.argv[2]
 pocAddress = sys.argv[3]
 pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
-lock = Lock()
 
 class Peer:
 	RTTack = False
@@ -48,11 +47,23 @@ class Peer:
 			pass
 		s = self.makeServerSocket( self.serverport )
 		#s.settimeout(10)
+		print("Running peer discovery...")
 		self.initialPeerDiscovery(s)
 		if self.shutdown == True:
 			print("Timeout")
 			sys.exit()
-		self.getintialrttsandhub(s)
+		
+
+		ta = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		ta.start()
+		tz = threading.Thread( target = self.getintialrttsandhub, args = [ s ] )
+		tz.start()
+
+		while tz.isAlive():
+			if not ta.isAlive():
+				ta = threading.Thread( target = self.__handlepeer, args = [ s ] )
+				ta.start()
+
 		t4 = threading.Thread( target = self.__commands, args = [ s ] )
 		t4.start()
 		t5 = threading.Thread( target = self.__handlepeer, args = [ s ] )
@@ -182,7 +193,6 @@ class Peer:
 		t1.daemon = True
 		t1.start()
 		while len(self.peers) < int(maxNodes) and not self.shutdown:
-			#print(self.peers)
 			try:
 				if not t1.isAlive():
 					t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
@@ -297,21 +307,20 @@ class Peer:
 		# print("Hubnode: " + self.hubnode)
 
 	def getintialrttsandhub(self, s):
+		print("Getting rtts to each node...")
 		for node in self.peers:
-			sentit = False
+			#sentit = False
 			if (node != name):
-				t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-				t2.start()
 				while (node not in self.rtttimes):
-					if not sentit:
-						self.startingTime = time.time()
-						self.initialSendRTT(s, node)
-						sentit = True
-					if not t2.isAlive():
-						t2 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-						t2.start()
+					#if not sentit:
+					self.startingTime = time.time()
+					self.initialSendRTT(s, node)
+						#sentit = True
+					#print(self.rtttimes)
+					time.sleep(1)
 
-
+		#print("last")
+		#print(self.rtttimes)
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
 
@@ -319,18 +328,14 @@ class Peer:
 		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
 		self.log.close()
 
-		t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-		t3.start()
+		print("Sending/Receiving RTT sums...")
 		self.sendRTTsum(s)
-		sentit = False
+		#sentit = False
 		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
 			try:
-				if not t3.isAlive():
-					t3 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-					t3.start()
-				if not sentit:
-					self.sendRTTsum(s)
-					sentit = True
+				#if not sentit:
+				self.sendRTTsum(s)
+					#sentit = True
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -339,6 +344,10 @@ class Peer:
 					traceback.print_exc()
 					continue
 
+			#print(self.rttsums)
+		print("Calculating hub...")
+		#print("last2")
+		#print(self.rttsums)
 		minrttsum = self.rttsum
 		self.hubnode = name
 		for node in self.rttsums:
@@ -346,6 +355,9 @@ class Peer:
 				minrttsum = self.rttsums[node]
 				self.hubnode = node
 				#print("h3")
+		self.log = open(self.logfilename, 'a')
+		self.log.write("Initialized hub to " + self.hubnode + " at " + str(time.time()) + "\n")
+		self.log.close()
 
 	def updaterttsandhub(self, s):
 		time.sleep(5)
@@ -365,6 +377,10 @@ class Peer:
 		#print(self.rttsum)
 		if self.hubnode != name and float(self.rttsum) + 0.25 < float(self.rttsums[self.hubnode]):
 			#print("h4")
+			self.log = open(self.logfilename, 'a')
+			self.log.write("Updated hub from " + self.hubnode + " to " + name + " at " + str(time.time()) + "\n")
+			self.log.close()
+
 			self.hubnode = name
 		elif self.hubnode == name:
 			tempmin = float(self.rttsum)
@@ -374,7 +390,12 @@ class Peer:
 					tempmin = float(self.rttsums[node])
 					tempnode = node
 			if tempmin + 0.25 < self.rttsum:
+				self.log = open(self.logfilename, 'a')
+				self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
+				self.log.close()
+				
 				self.hubnode = tempnode
+
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))
 		self.sendRTTsum(s)

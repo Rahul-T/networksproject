@@ -1,64 +1,1257 @@
-First discovered node abc at 1541714465.362297
-First discovered node ghi at 1541714465.362678
-Sent RTT request to abc at 1541714465.888557
-Received RTT request from abc at 1541714465.888715
-Received RTT request from ghi at 1541714465.9417531
-Sent RTT request to ghi at 1541714465.966103
-Received new RTT sum from abc at 1541714465.9988532
-Received new RTT sum from ghi at 1541714466.004081
-Received new RTT sum from ghi at 1541714466.0334551
-Received new RTT sum from abc at 1541714466.0760891
-Calculated new RTT sum 0.20409917831420898 at 1541714466.0929248
-Sent RTT request to abc at 1541714471.119958
-Sent RTT request to ghi at 1541714471.152747
-Calculated new RTT sum 0.20409917831420898 at 1541714471.181995
-Received RTT request from abc at 1541714471.19998
-Received RTT request from ghi at 1541714471.2001631
-Received new RTT sum from ghi at 1541714471.222757
-Received new RTT sum from abc at 1541714471.300787
-Sent RTT request to abc at 1541714476.231628
-Sent RTT request to ghi at 1541714476.2505758
-Calculated new RTT sum 0.12112784385681152 at 1541714476.274163
-Received RTT request from abc at 1541714476.2979012
-Received RTT request from ghi at 1541714476.331512
-Received new RTT sum from ghi at 1541714476.382546
-Received new RTT sum from abc at 1541714476.421387
-Sent RTT request to abc at 1541714481.331815
-Sent RTT request to ghi at 1541714481.3726
-Calculated new RTT sum 0.12833070755004883 at 1541714481.372928
-Received RTT request from ghi at 1541714481.397002
-Received new RTT sum from ghi at 1541714481.445355
-Received RTT request from abc at 1541714481.481798
-Received new RTT sum from abc at 1541714481.5325818
-Sent RTT request to abc at 1541714486.4119098
-Sent RTT request to ghi at 1541714486.444353
-Received RTT request from ghi at 1541714486.468265
-Calculated new RTT sum 0.2651546001434326 at 1541714486.4797618
-Received new RTT sum from ghi at 1541714486.51908
-Received RTT request from abc at 1541714486.564991
-Received new RTT sum from abc at 1541714486.593842
-Sent RTT request to abc at 1541714491.523969
-Sent RTT request to ghi at 1541714491.565839
-Calculated new RTT sum 0.20985722541809082 at 1541714491.5953012
-Received RTT request from ghi at 1541714491.606702
-Received new RTT sum from ghi at 1541714491.646676
-Received RTT request from abc at 1541714491.681706
-Received new RTT sum from abc at 1541714491.734487
-Sent RTT request to abc at 1541714496.649796
-Sent RTT request to ghi at 1541714496.661597
-Received RTT request from ghi at 1541714496.67274
-Calculated new RTT sum 0.24372076988220215 at 1541714496.6728792
-Received RTT request from abc at 1541714496.712456
-Received new RTT sum from ghi at 1541714496.730005
-Received new RTT sum from abc at 1541714496.771765
-Sent RTT request to abc at 1541714501.7185411
-Sent RTT request to ghi at 1541714501.746923
-Calculated new RTT sum 0.0925896167755127 at 1541714501.776084
-Received RTT request from abc at 1541714501.792771
-Received RTT request from ghi at 1541714501.815685
-Received new RTT sum from ghi at 1541714501.853757
-Received new RTT sum from abc at 1541714501.887198
-Sent RTT request to abc at 1541714506.816788
-Sent RTT request to ghi at 1541714506.864861
-Calculated new RTT sum 0.10361194610595703 at 1541714506.889817
-Received RTT request from ghi at 1541714506.911306
+First discovered node abc at 1541723007.753053
+First discovered node mno at 1541723007.753809
+First discovered node jkl at 1541723007.754774
+First discovered node ghi at 1541723007.755125
+Sent RTT request to abc at 1541723008.528574
+Sent RTT request to mno at 1541723009.571713
+Received RTT request from abc at 1541723009.8876328
+Received RTT request from mno at 1541723010.080527
+Received RTT request from jkl at 1541723010.120032
+Sent RTT request to jkl at 1541723010.622547
+Received RTT request from ghi at 1541723011.381419
+Sent RTT request to ghi at 1541723011.668693
+Received new RTT sum from abc at 1541723011.962451
+Received new RTT sum from abc at 1541723012.007819
+Received new RTT sum from abc at 1541723012.042331
+Received new RTT sum from abc at 1541723012.0604641
+Received new RTT sum from abc at 1541723012.095758
+Received new RTT sum from abc at 1541723012.130731
+Received new RTT sum from abc at 1541723012.161273
+Received new RTT sum from abc at 1541723012.178024
+Received new RTT sum from abc at 1541723012.201352
+Received new RTT sum from abc at 1541723012.223795
+Received new RTT sum from abc at 1541723012.257495
+Received new RTT sum from abc at 1541723012.29998
+Received new RTT sum from jkl at 1541723012.343275
+Received new RTT sum from mno at 1541723012.378912
+Received new RTT sum from jkl at 1541723012.4130461
+Received new RTT sum from jkl at 1541723012.461788
+Received new RTT sum from mno at 1541723012.474082
+Received new RTT sum from jkl at 1541723012.503823
+Received new RTT sum from abc at 1541723012.544812
+Received new RTT sum from mno at 1541723012.579519
+Received new RTT sum from jkl at 1541723012.6077719
+Received new RTT sum from abc at 1541723012.632159
+Received new RTT sum from mno at 1541723012.673793
+Received new RTT sum from mno at 1541723012.714823
+Calculated new RTT sum 0.27286410331726074 at 1541723012.727168
+Received new RTT sum from abc at 1541723012.7385862
+Received new RTT sum from abc at 1541723012.7618392
+Received new RTT sum from mno at 1541723012.7972128
+Received new RTT sum from mno at 1541723012.8318021
+Received new RTT sum from jkl at 1541723012.866112
+Received new RTT sum from abc at 1541723012.895392
+Received new RTT sum from jkl at 1541723012.912954
+Received new RTT sum from mno at 1541723012.952729
+Received new RTT sum from abc at 1541723012.987775
+Received new RTT sum from mno at 1541723013.017474
+Received new RTT sum from jkl at 1541723013.0474648
+Received new RTT sum from mno at 1541723013.075037
+Received new RTT sum from abc at 1541723013.1041439
+Received new RTT sum from jkl at 1541723013.1392949
+Received new RTT sum from abc at 1541723013.1694138
+Received new RTT sum from jkl at 1541723013.2061708
+Received new RTT sum from mno at 1541723013.239327
+Received new RTT sum from abc at 1541723013.284427
+Received new RTT sum from jkl at 1541723013.3310661
+Received new RTT sum from mno at 1541723013.380735
+Received new RTT sum from abc at 1541723013.4189298
+Received new RTT sum from abc at 1541723013.4431648
+Received new RTT sum from mno at 1541723013.4791381
+Received new RTT sum from jkl at 1541723013.525915
+Received new RTT sum from mno at 1541723013.5568168
+Received new RTT sum from jkl at 1541723013.574049
+Received new RTT sum from abc at 1541723013.5929291
+Received new RTT sum from mno at 1541723013.617434
+Received new RTT sum from jkl at 1541723013.640345
+Received new RTT sum from abc at 1541723013.6643221
+Received new RTT sum from mno at 1541723013.686975
+Received new RTT sum from jkl at 1541723013.7224681
+Received new RTT sum from abc at 1541723013.7466161
+Received new RTT sum from mno at 1541723013.763791
+Received new RTT sum from ghi at 1541723013.791104
+Initialized hub to def at 1541723013.791445
+Received new RTT sum from jkl at 1541723013.792026
+Received new RTT sum from abc at 1541723013.792469
+Received new RTT sum from mno at 1541723013.808552
+Received new RTT sum from jkl at 1541723013.8306189
+Received new RTT sum from ghi at 1541723013.857933
+Received new RTT sum from abc at 1541723013.874045
+Received new RTT sum from abc at 1541723013.8913321
+Received new RTT sum from abc at 1541723013.9082649
+Received new RTT sum from ghi at 1541723013.9380212
+Received new RTT sum from jkl at 1541723013.9571269
+Received new RTT sum from abc at 1541723013.969677
+Received new RTT sum from ghi at 1541723014.004885
+Received new RTT sum from mno at 1541723014.027874
+Received new RTT sum from jkl at 1541723014.050303
+Received new RTT sum from ghi at 1541723014.0791569
+Received new RTT sum from abc at 1541723014.103764
+Received new RTT sum from mno at 1541723014.127948
+Received new RTT sum from jkl at 1541723014.157936
+Received new RTT sum from mno at 1541723014.1702
+Received new RTT sum from abc at 1541723014.212332
+Received new RTT sum from jkl at 1541723014.241111
+Received new RTT sum from ghi at 1541723014.247371
+Received new RTT sum from jkl at 1541723014.2583702
+Received new RTT sum from mno at 1541723014.258781
+Received new RTT sum from abc at 1541723014.2808452
+Received new RTT sum from ghi at 1541723014.311079
+Received new RTT sum from jkl at 1541723014.341026
+Received new RTT sum from ghi at 1541723014.370091
+Received new RTT sum from abc at 1541723014.407232
+Received new RTT sum from mno at 1541723014.4076748
+Received new RTT sum from ghi at 1541723014.408045
+Received new RTT sum from abc at 1541723014.424481
+Received new RTT sum from mno at 1541723014.441386
+Received new RTT sum from jkl at 1541723014.46947
+Received new RTT sum from abc at 1541723014.505781
+Received new RTT sum from ghi at 1541723014.547418
+Received new RTT sum from jkl at 1541723014.576405
+Received new RTT sum from abc at 1541723014.600389
+Received new RTT sum from ghi at 1541723014.630068
+Received new RTT sum from jkl at 1541723014.65808
+Received new RTT sum from jkl at 1541723014.68664
+Received new RTT sum from mno at 1541723014.7097201
+Received new RTT sum from abc at 1541723014.7376041
+Received new RTT sum from ghi at 1541723014.768471
+Received new RTT sum from ghi at 1541723014.799861
+Received new RTT sum from ghi at 1541723014.824485
+Received new RTT sum from mno at 1541723014.830633
+Received new RTT sum from jkl at 1541723014.837167
+Received new RTT sum from abc at 1541723014.853868
+Received new RTT sum from ghi at 1541723014.88498
+Received new RTT sum from jkl at 1541723014.902003
+Received new RTT sum from abc at 1541723014.929735
+Received new RTT sum from abc at 1541723014.941599
+Received new RTT sum from abc at 1541723014.9474518
+Received new RTT sum from abc at 1541723014.958113
+Received new RTT sum from abc at 1541723014.9755409
+Received new RTT sum from abc at 1541723014.996563
+Received new RTT sum from mno at 1541723014.99689
+Received new RTT sum from abc at 1541723014.997144
+Received new RTT sum from ghi at 1541723015.002965
+Received new RTT sum from jkl at 1541723015.008354
+Received new RTT sum from mno at 1541723015.0204911
+Received new RTT sum from mno at 1541723015.044348
+Received new RTT sum from jkl at 1541723015.0723681
+Received new RTT sum from abc at 1541723015.101404
+Received new RTT sum from ghi at 1541723015.131525
+Received new RTT sum from mno at 1541723015.1544042
+Received new RTT sum from ghi at 1541723015.166364
+Received new RTT sum from jkl at 1541723015.189601
+Received new RTT sum from mno at 1541723015.207881
+Received new RTT sum from abc at 1541723015.231752
+Received new RTT sum from mno at 1541723015.243677
+Received new RTT sum from abc at 1541723015.267493
+Received new RTT sum from jkl at 1541723015.2678049
+Received new RTT sum from ghi at 1541723015.26805
+Received new RTT sum from abc at 1541723015.268287
+Received new RTT sum from mno at 1541723015.268521
+Received new RTT sum from jkl at 1541723015.2687519
+Received new RTT sum from ghi at 1541723015.2689831
+Received new RTT sum from abc at 1541723015.269213
+Received new RTT sum from jkl at 1541723015.269442
+Received new RTT sum from mno at 1541723015.28226
+Received new RTT sum from abc at 1541723015.282939
+Received new RTT sum from ghi at 1541723015.295705
+Received new RTT sum from jkl at 1541723015.308795
+Received new RTT sum from ghi at 1541723015.332418
+Received new RTT sum from abc at 1541723015.360867
+Received new RTT sum from abc at 1541723015.407767
+Received new RTT sum from abc at 1541723015.408278
+Received new RTT sum from abc at 1541723015.408705
+Received new RTT sum from abc at 1541723015.4140658
+Received new RTT sum from abc at 1541723015.414339
+Received new RTT sum from abc at 1541723015.42012
+Received new RTT sum from jkl at 1541723015.4320488
+Received new RTT sum from jkl at 1541723015.432298
+Received new RTT sum from mno at 1541723015.432537
+Received new RTT sum from abc at 1541723015.432819
+Received new RTT sum from mno at 1541723015.433078
+Received new RTT sum from ghi at 1541723015.433333
+Received new RTT sum from jkl at 1541723015.433589
+Received new RTT sum from abc at 1541723015.4338171
+Received new RTT sum from ghi at 1541723015.434056
+Received new RTT sum from mno at 1541723015.434304
+Received new RTT sum from abc at 1541723015.434565
+Received new RTT sum from mno at 1541723015.434809
+Received new RTT sum from abc at 1541723015.435064
+Received new RTT sum from mno at 1541723015.441066
+Received new RTT sum from mno at 1541723015.4414132
+Received new RTT sum from mno at 1541723015.4590652
+Received new RTT sum from mno at 1541723015.4890501
+Received new RTT sum from mno at 1541723015.524728
+Received new RTT sum from mno at 1541723015.5368419
+Received new RTT sum from mno at 1541723015.542615
+Received new RTT sum from mno at 1541723015.564696
+Received new RTT sum from mno at 1541723015.57703
+Received new RTT sum from mno at 1541723015.595806
+Received new RTT sum from mno at 1541723015.606991
+Received new RTT sum from mno at 1541723015.6242719
+Received new RTT sum from mno at 1541723015.641379
+Received new RTT sum from mno at 1541723015.6581068
+Received new RTT sum from mno at 1541723015.67072
+Received new RTT sum from mno at 1541723015.692641
+Received new RTT sum from mno at 1541723015.7042701
+Received new RTT sum from mno at 1541723015.704688
+Received new RTT sum from mno at 1541723015.705042
+Received new RTT sum from mno at 1541723015.705538
+Received new RTT sum from mno at 1541723015.727823
+Received new RTT sum from mno at 1541723015.7340171
+Received new RTT sum from mno at 1541723015.757249
+Received new RTT sum from mno at 1541723015.7689338
+Received new RTT sum from abc at 1541723015.7916448
+Received new RTT sum from abc at 1541723015.809558
+Received new RTT sum from abc at 1541723015.854173
+Received new RTT sum from jkl at 1541723015.872372
+Received new RTT sum from jkl at 1541723015.884417
+Received new RTT sum from ghi at 1541723015.901262
+Received new RTT sum from mno at 1541723015.918716
+Received new RTT sum from jkl at 1541723015.94114
+Received new RTT sum from abc at 1541723015.957858
+Received new RTT sum from jkl at 1541723015.958324
+Received new RTT sum from jkl at 1541723015.97492
+Received new RTT sum from jkl at 1541723015.9976661
+Received new RTT sum from abc at 1541723016.026154
+Received new RTT sum from jkl at 1541723016.037674
+Received new RTT sum from abc at 1541723016.060257
+Received new RTT sum from ghi at 1541723016.102093
+Received new RTT sum from mno at 1541723016.1136472
+Received new RTT sum from abc at 1541723016.11407
+Received new RTT sum from abc at 1541723016.1247392
+Received new RTT sum from abc at 1541723016.130471
+Received new RTT sum from abc at 1541723016.130783
+Received new RTT sum from mno at 1541723016.148475
+Received new RTT sum from mno at 1541723016.148888
+Received new RTT sum from abc at 1541723016.149181
+Received new RTT sum from ghi at 1541723016.149463
+Received new RTT sum from jkl at 1541723016.154861
+Received new RTT sum from jkl at 1541723016.1607208
+Received new RTT sum from mno at 1541723016.161087
+Received new RTT sum from ghi at 1541723016.177539
+Received new RTT sum from ghi at 1541723016.18884
+Received new RTT sum from abc at 1541723016.200105
+Received new RTT sum from jkl at 1541723016.211082
+Received new RTT sum from mno at 1541723016.233104
+Received new RTT sum from ghi at 1541723016.262248
+Received new RTT sum from jkl at 1541723016.279041
+Received new RTT sum from mno at 1541723016.290994
+Received new RTT sum from ghi at 1541723016.33676
+Received new RTT sum from abc at 1541723016.359087
+Received new RTT sum from jkl at 1541723016.372266
+Received new RTT sum from jkl at 1541723016.383192
+Received new RTT sum from abc at 1541723016.395039
+Received new RTT sum from mno at 1541723016.406386
+Received new RTT sum from ghi at 1541723016.406703
+Received new RTT sum from jkl at 1541723016.406962
+Received new RTT sum from mno at 1541723016.407215
+Received new RTT sum from ghi at 1541723016.4206889
+Received new RTT sum from mno at 1541723016.4210508
+Received new RTT sum from jkl at 1541723016.4213061
+Received new RTT sum from mno at 1541723016.421725
+Received new RTT sum from jkl at 1541723016.433954
+Received new RTT sum from abc at 1541723016.4606621
+Received new RTT sum from ghi at 1541723016.496289
+Received new RTT sum from mno at 1541723016.525235
+Received new RTT sum from jkl at 1541723016.543639
+Received new RTT sum from abc at 1541723016.565942
+Received new RTT sum from mno at 1541723016.5790222
+Received new RTT sum from ghi at 1541723016.585485
+Received new RTT sum from abc at 1541723016.585802
+Received new RTT sum from ghi at 1541723016.586092
+Received new RTT sum from jkl at 1541723016.586404
+Received new RTT sum from abc at 1541723016.58669
+Received new RTT sum from mno at 1541723016.586955
+Received new RTT sum from jkl at 1541723016.599595
+Received new RTT sum from ghi at 1541723016.599902
+Received new RTT sum from abc at 1541723016.600224
+Received new RTT sum from mno at 1541723016.6171489
+Received new RTT sum from mno at 1541723016.627659
+Received new RTT sum from abc at 1541723016.627964
+Received new RTT sum from ghi at 1541723016.628221
+Received new RTT sum from abc at 1541723016.628469
+Received new RTT sum from ghi at 1541723016.640874
+Received new RTT sum from mno at 1541723016.6583161
+Received new RTT sum from abc at 1541723016.676168
+Received new RTT sum from jkl at 1541723016.6945531
+Received new RTT sum from mno at 1541723016.728095
+Received new RTT sum from jkl at 1541723016.7509818
+Received new RTT sum from mno at 1541723016.762507
+Received new RTT sum from abc at 1541723016.77399
+Received new RTT sum from ghi at 1541723016.792137
+Received new RTT sum from mno at 1541723016.815198
+Received new RTT sum from abc at 1541723016.832578
+Received new RTT sum from mno at 1541723016.855316
+Received new RTT sum from jkl at 1541723016.877679
+Received new RTT sum from ghi at 1541723016.8949308
+Received new RTT sum from abc at 1541723016.9121542
+Received new RTT sum from abc at 1541723016.9244852
+Received new RTT sum from mno at 1541723016.951904
+Received new RTT sum from abc at 1541723016.9748428
+Received new RTT sum from ghi at 1541723016.999601
+Received new RTT sum from mno at 1541723017.0325792
+Received new RTT sum from jkl at 1541723017.068289
+Received new RTT sum from ghi at 1541723017.086129
+Received new RTT sum from ghi at 1541723017.097389
+Received new RTT sum from jkl at 1541723017.108022
+Received new RTT sum from mno at 1541723017.136684
+Received new RTT sum from abc at 1541723017.158077
+Received new RTT sum from ghi at 1541723017.1942341
+Received new RTT sum from jkl at 1541723017.222879
+Received new RTT sum from mno at 1541723017.2472892
+Received new RTT sum from abc at 1541723017.26511
+Received new RTT sum from jkl at 1541723017.305991
+Received new RTT sum from ghi at 1541723017.3363268
+Received new RTT sum from mno at 1541723017.358322
+Received new RTT sum from abc at 1541723017.375884
+Received new RTT sum from ghi at 1541723017.412242
+Received new RTT sum from jkl at 1541723017.4413471
+Received new RTT sum from mno at 1541723017.441941
+Received new RTT sum from abc at 1541723017.475911
+Received new RTT sum from ghi at 1541723017.4935691
+Received new RTT sum from jkl at 1541723017.5283341
+Received new RTT sum from mno at 1541723017.569071
+Received new RTT sum from jkl at 1541723017.612553
+Received new RTT sum from abc at 1541723017.643404
+Received new RTT sum from ghi at 1541723017.6779451
+Received new RTT sum from mno at 1541723017.7075999
+Received new RTT sum from mno at 1541723017.7378838
+Received new RTT sum from ghi at 1541723017.76236
+Received new RTT sum from abc at 1541723017.785383
+Received new RTT sum from jkl at 1541723017.814346
+Received new RTT sum from ghi at 1541723017.84496
+Received new RTT sum from abc at 1541723017.8574028
+Received new RTT sum from mno at 1541723017.857892
+Received new RTT sum from jkl at 1541723017.863489
+Received new RTT sum from mno at 1541723017.8870468
+Received new RTT sum from ghi at 1541723017.911146
+Received new RTT sum from abc at 1541723017.939179
+Received new RTT sum from jkl at 1541723017.9740632
+Received new RTT sum from mno at 1541723018.016991
+Received new RTT sum from abc at 1541723018.06263
+Received new RTT sum from ghi at 1541723018.1045618
+Received new RTT sum from mno at 1541723018.149458
+Received new RTT sum from jkl at 1541723018.199818
+Received new RTT sum from abc at 1541723018.2434921
+Received new RTT sum from ghi at 1541723018.276008
+Received new RTT sum from mno at 1541723018.30629
+Received new RTT sum from jkl at 1541723018.3472672
+Received new RTT sum from abc at 1541723018.358656
+Received new RTT sum from ghi at 1541723018.393347
+Received new RTT sum from jkl at 1541723018.431178
+Received new RTT sum from mno at 1541723018.462507
+Received new RTT sum from ghi at 1541723018.5041568
+Received new RTT sum from mno at 1541723018.5278962
+Received new RTT sum from abc at 1541723018.5569322
+Received new RTT sum from jkl at 1541723018.575249
+Received new RTT sum from jkl at 1541723018.604424
+Received new RTT sum from abc at 1541723018.643849
+Received new RTT sum from ghi at 1541723018.649416
+Received new RTT sum from jkl at 1541723018.649775
+Received new RTT sum from mno at 1541723018.6500852
+Received new RTT sum from abc at 1541723018.6562402
+Received new RTT sum from ghi at 1541723018.6565871
+Received new RTT sum from jkl at 1541723018.662915
+Received new RTT sum from ghi at 1541723018.6632378
+Received new RTT sum from mno at 1541723018.66349
+Received new RTT sum from mno at 1541723018.6637352
+Received new RTT sum from abc at 1541723018.663978
+Received new RTT sum from jkl at 1541723018.6643279
+Received new RTT sum from ghi at 1541723018.664576
+Received new RTT sum from abc at 1541723018.6648178
+Received new RTT sum from mno at 1541723018.6650639
+Received new RTT sum from ghi at 1541723018.665306
+Received new RTT sum from abc at 1541723018.670889
+Received new RTT sum from mno at 1541723018.67633
+Received new RTT sum from jkl at 1541723018.676608
+Received new RTT sum from ghi at 1541723018.67688
+Received new RTT sum from mno at 1541723018.677174
+Received new RTT sum from abc at 1541723018.677438
+Received new RTT sum from jkl at 1541723018.6776981
+Received new RTT sum from ghi at 1541723018.6779761
+Received new RTT sum from mno at 1541723018.67824
+Received new RTT sum from abc at 1541723018.6784818
+Received new RTT sum from jkl at 1541723018.678726
+Received new RTT sum from abc at 1541723018.678965
+Received new RTT sum from jkl at 1541723018.6792
+Received new RTT sum from mno at 1541723018.690963
+Received new RTT sum from abc at 1541723018.6974158
+Received new RTT sum from ghi at 1541723018.697689
+Received new RTT sum from ghi at 1541723018.6979442
+Received new RTT sum from abc at 1541723018.698177
+Received new RTT sum from mno at 1541723018.698441
+Received new RTT sum from abc at 1541723018.715148
+Received new RTT sum from jkl at 1541723018.749748
+Received new RTT sum from ghi at 1541723018.756618
+Received new RTT sum from jkl at 1541723018.7750888
+Received new RTT sum from ghi at 1541723018.786486
+Received new RTT sum from ghi at 1541723018.7867851
+Received new RTT sum from mno at 1541723018.8167691
+Sent RTT request to abc at 1541723018.81679
+Sent RTT request to mno at 1541723018.8278341
+Received new RTT sum from ghi at 1541723018.827855
+Sent RTT request to jkl at 1541723018.828046
+Received new RTT sum from abc at 1541723018.852532
+Sent RTT request to ghi at 1541723018.852594
+Calculated new RTT sum 0.27286410331726074 at 1541723018.8641732
+Received new RTT sum from jkl at 1541723018.864325
+Received new RTT sum from ghi at 1541723018.887409
+Received new RTT sum from jkl at 1541723018.906137
+Received new RTT sum from jkl at 1541723018.922793
+Received new RTT sum from jkl at 1541723018.945698
+Received new RTT sum from abc at 1541723018.9624891
+Received new RTT sum from jkl at 1541723018.9908412
+Received new RTT sum from ghi at 1541723019.0027452
+Received new RTT sum from mno at 1541723019.003055
+Received new RTT sum from mno at 1541723019.003318
+Received new RTT sum from ghi at 1541723019.003573
+Received new RTT sum from abc at 1541723019.0038211
+Received new RTT sum from mno at 1541723019.010369
+Received new RTT sum from jkl at 1541723019.010677
+Received new RTT sum from mno at 1541723019.0109289
+Received new RTT sum from jkl at 1541723019.011177
+Received new RTT sum from abc at 1541723019.011425
+Received new RTT sum from ghi at 1541723019.011662
+Received new RTT sum from jkl at 1541723019.011908
+Received new RTT sum from mno at 1541723019.0121548
+Received new RTT sum from ghi at 1541723019.0186508
+Received new RTT sum from ghi at 1541723019.018937
+Received new RTT sum from mno at 1541723019.019189
+Received new RTT sum from jkl at 1541723019.019508
+Received new RTT sum from abc at 1541723019.01982
+Received new RTT sum from ghi at 1541723019.038938
+Received new RTT sum from jkl at 1541723019.045158
+Received new RTT sum from mno at 1541723019.057677
+Received new RTT sum from abc at 1541723019.0642822
+Received new RTT sum from abc at 1541723019.064545
+Received new RTT sum from ghi at 1541723019.064794
+Received new RTT sum from mno at 1541723019.065043
+Received new RTT sum from abc at 1541723019.065282
+Received new RTT sum from ghi at 1541723019.0655181
+Received new RTT sum from ghi at 1541723019.065773
+Received new RTT sum from ghi at 1541723019.0722392
+Received new RTT sum from ghi at 1541723019.083105
+Received new RTT sum from ghi at 1541723019.0833862
+Received new RTT sum from ghi at 1541723019.083673
+Received new RTT sum from ghi at 1541723019.083982
+Received new RTT sum from ghi at 1541723019.09493
+Received new RTT sum from ghi at 1541723019.129898
+Received new RTT sum from jkl at 1541723019.130197
+Received new RTT sum from mno at 1541723019.1304598
+Received new RTT sum from ghi at 1541723019.130715
+Received new RTT sum from abc at 1541723019.130968
+Received new RTT sum from jkl at 1541723019.131256
+Received new RTT sum from abc at 1541723019.1419861
+Received new RTT sum from mno at 1541723019.1578429
+Received new RTT sum from ghi at 1541723019.1752472
+Received new RTT sum from ghi at 1541723019.2054
+Received new RTT sum from abc at 1541723019.247146
+Received new RTT sum from mno at 1541723019.275121
+Received new RTT sum from abc at 1541723019.3186948
+Received new RTT sum from ghi at 1541723019.366428
+Received new RTT sum from abc at 1541723019.394778
+Received new RTT sum from jkl at 1541723019.42961
+Received new RTT sum from jkl at 1541723019.458912
+Received new RTT sum from ghi at 1541723019.48739
+Received new RTT sum from jkl at 1541723019.525074
+Received new RTT sum from mno at 1541723019.556395
+Received new RTT sum from mno at 1541723019.6064188
+Received new RTT sum from ghi at 1541723019.6369548
+Received new RTT sum from jkl at 1541723019.674748
+Received new RTT sum from abc at 1541723019.7189188
+Received new RTT sum from ghi at 1541723019.7623758
+Received new RTT sum from mno at 1541723019.787085
+Received new RTT sum from ghi at 1541723019.8093529
+Received new RTT sum from mno at 1541723019.8274019
+Received new RTT sum from abc at 1541723019.8560278
+Received new RTT sum from mno at 1541723019.8939269
+Received new RTT sum from mno at 1541723019.905749
+Received new RTT sum from jkl at 1541723019.933723
+Received new RTT sum from jkl at 1541723019.974286
+Received new RTT sum from jkl at 1541723019.9747488
+Received new RTT sum from jkl at 1541723019.987516
+Received new RTT sum from ghi at 1541723019.987772
+Received new RTT sum from abc at 1541723019.9880111
+Received new RTT sum from ghi at 1541723019.988246
+Received new RTT sum from abc at 1541723019.98848
+Received new RTT sum from ghi at 1541723019.988713
+Received new RTT sum from ghi at 1541723019.988945
+Received new RTT sum from ghi at 1541723019.994696
+Received new RTT sum from ghi at 1541723020.0124102
+Received new RTT sum from mno at 1541723020.024794
+Received new RTT sum from ghi at 1541723020.042239
+Received new RTT sum from mno at 1541723020.065522
+Received new RTT sum from jkl at 1541723020.0716128
+Received new RTT sum from ghi at 1541723020.0776708
+Received new RTT sum from mno at 1541723020.089371
+Received new RTT sum from abc at 1541723020.0896409
+Received new RTT sum from mno at 1541723020.0899022
+Received new RTT sum from jkl at 1541723020.0901818
+Received new RTT sum from ghi at 1541723020.0904589
+Received new RTT sum from abc at 1541723020.09073
+Received new RTT sum from jkl at 1541723020.091008
+Received new RTT sum from ghi at 1541723020.0976791
+Received new RTT sum from jkl at 1541723020.097952
+Received new RTT sum from mno at 1541723020.098203
+Received new RTT sum from ghi at 1541723020.098474
+Received new RTT sum from jkl at 1541723020.098737
+Received new RTT sum from abc at 1541723020.099007
+Received new RTT sum from abc at 1541723020.099259
+Received new RTT sum from mno at 1541723020.105818
+Received new RTT sum from ghi at 1541723020.10607
+Received new RTT sum from jkl at 1541723020.1184409
+Received new RTT sum from mno at 1541723020.147264
+Received new RTT sum from ghi at 1541723020.147603
+Received new RTT sum from jkl at 1541723020.1478558
+Received new RTT sum from abc at 1541723020.148093
+Received new RTT sum from ghi at 1541723020.174954
+Received new RTT sum from jkl at 1541723020.199501
+Received new RTT sum from mno at 1541723020.230874
+Received new RTT sum from abc at 1541723020.2372549
+Received new RTT sum from jkl at 1541723020.24985
+Received new RTT sum from ghi at 1541723020.250116
+Received new RTT sum from mno at 1541723020.25036
+Received new RTT sum from abc at 1541723020.250601
+Received new RTT sum from mno at 1541723020.250836
+Received new RTT sum from mno at 1541723020.262502
+Received new RTT sum from abc at 1541723020.2817678
+Received new RTT sum from jkl at 1541723020.282076
+Received new RTT sum from mno at 1541723020.282333
+Received new RTT sum from jkl at 1541723020.282602
+Received new RTT sum from abc at 1541723020.282887
+Received new RTT sum from mno at 1541723020.299863
+Received new RTT sum from abc at 1541723020.3364108
+Received new RTT sum from jkl at 1541723020.3484259
+Received new RTT sum from ghi at 1541723020.348693
+Received new RTT sum from jkl at 1541723020.3489559
+Received new RTT sum from abc at 1541723020.349229
+Received new RTT sum from mno at 1541723020.349495
+Received new RTT sum from jkl at 1541723020.349765
+Received new RTT sum from mno at 1541723020.3500202
+Received new RTT sum from abc at 1541723020.350272
+Received new RTT sum from mno at 1541723020.3505092
+Received new RTT sum from mno at 1541723020.350774
+Received new RTT sum from jkl at 1541723020.351048
+Received new RTT sum from mno at 1541723020.3512971
+Received new RTT sum from abc at 1541723020.351546
+Received new RTT sum from ghi at 1541723020.3518138
+Received new RTT sum from mno at 1541723020.352054
+Received new RTT sum from jkl at 1541723020.3523011
+Received new RTT sum from abc at 1541723020.358537
+Received new RTT sum from ghi at 1541723020.364539
+Received new RTT sum from mno at 1541723020.364809
+Received new RTT sum from abc at 1541723020.3651671
+Received new RTT sum from jkl at 1541723020.365412
+Received new RTT sum from mno at 1541723020.365657
+Received new RTT sum from abc at 1541723020.36597
+Received new RTT sum from ghi at 1541723020.377862
+Received new RTT sum from mno at 1541723020.378209
+Received new RTT sum from jkl at 1541723020.378467
+Received new RTT sum from abc at 1541723020.37871
+Received new RTT sum from jkl at 1541723020.378998
+Received new RTT sum from ghi at 1541723020.3792791
+Received new RTT sum from mno at 1541723020.3795478
+Received new RTT sum from ghi at 1541723020.379822
+Received new RTT sum from ghi at 1541723020.380076
+Received new RTT sum from ghi at 1541723020.380325
+Received new RTT sum from ghi at 1541723020.3805702
+Received new RTT sum from abc at 1541723020.380804
+Received new RTT sum from ghi at 1541723020.3810492
+Received new RTT sum from abc at 1541723020.381325
+Received new RTT sum from abc at 1541723020.3879418
+Received new RTT sum from abc at 1541723020.3882
+Received new RTT sum from jkl at 1541723020.388444
+Received new RTT sum from abc at 1541723020.388683
+Received new RTT sum from mno at 1541723020.388918
+Received new RTT sum from ghi at 1541723020.413646
+Received new RTT sum from jkl at 1541723020.4372108
+Received new RTT sum from abc at 1541723020.443816
+Received new RTT sum from abc at 1541723020.444086
+Received new RTT sum from abc at 1541723020.444354
+Received new RTT sum from mno at 1541723020.44464
+Received new RTT sum from abc at 1541723020.444902
+Received new RTT sum from jkl at 1541723020.44517
+Received new RTT sum from ghi at 1541723020.451738
+Received new RTT sum from mno at 1541723020.458179
+Received new RTT sum from ghi at 1541723020.458459
+Received new RTT sum from abc at 1541723020.4648771
+Received new RTT sum from mno at 1541723020.494842
+Received new RTT sum from ghi at 1541723020.531015
+Received new RTT sum from abc at 1541723020.547193
+Received new RTT sum from jkl at 1541723020.57055
+Received new RTT sum from mno at 1541723020.5818272
+Received new RTT sum from abc at 1541723020.5820968
+Received new RTT sum from abc at 1541723020.5823722
+Received new RTT sum from ghi at 1541723020.58263
+Received new RTT sum from abc at 1541723020.606671
+Received new RTT sum from ghi at 1541723020.630807
+Received new RTT sum from mno at 1541723020.668514
+Received new RTT sum from ghi at 1541723020.6874099
+Received new RTT sum from ghi at 1541723020.724449
+Received new RTT sum from mno at 1541723020.7310479
+Received new RTT sum from jkl at 1541723020.7313259
+Received new RTT sum from ghi at 1541723020.731591
+Received new RTT sum from abc at 1541723020.731863
+Received new RTT sum from jkl at 1541723020.7321448
+Received new RTT sum from abc at 1541723020.738691
+Received new RTT sum from abc at 1541723020.738951
+Received new RTT sum from abc at 1541723020.739241
+Received new RTT sum from abc at 1541723020.7395031
+Received new RTT sum from abc at 1541723020.73973
+Received new RTT sum from abc at 1541723020.7399611
+Received new RTT sum from ghi at 1541723020.7402391
+Received new RTT sum from mno at 1541723020.740879
+Received new RTT sum from abc at 1541723020.74123
+Received new RTT sum from mno at 1541723020.7477891
+Received new RTT sum from jkl at 1541723020.7480588
+Received new RTT sum from ghi at 1541723020.748288
+Received new RTT sum from abc at 1541723020.759259
+Received new RTT sum from ghi at 1541723020.771713
+Received new RTT sum from jkl at 1541723020.772033
+Received new RTT sum from abc at 1541723020.7777321
+Received new RTT sum from ghi at 1541723020.824878
+Received new RTT sum from ghi at 1541723020.858769
+Received new RTT sum from mno at 1541723020.864361
+Received new RTT sum from ghi at 1541723020.876777
+Received new RTT sum from jkl at 1541723020.906409
+Received new RTT sum from abc at 1541723020.929705
+Received new RTT sum from abc at 1541723020.946996
+Received new RTT sum from abc at 1541723020.9581409
+Received new RTT sum from jkl at 1541723020.958808
+Received new RTT sum from mno at 1541723020.9752
+Received new RTT sum from ghi at 1541723021.0191061
+Received new RTT sum from jkl at 1541723021.024965
+Received new RTT sum from abc at 1541723021.05349
+Received new RTT sum from jkl at 1541723021.074531
+Received new RTT sum from abc at 1541723021.091024
+Received new RTT sum from abc at 1541723021.1138911
+Received new RTT sum from jkl at 1541723021.1249769
+Received new RTT sum from ghi at 1541723021.162508
+Received new RTT sum from mno at 1541723021.181094
+Received new RTT sum from jkl at 1541723021.2031958
+Received new RTT sum from jkl at 1541723021.209064
+Received new RTT sum from mno at 1541723021.231895
+Received new RTT sum from abc at 1541723021.2793071
+Received new RTT sum from jkl at 1541723021.302677
+Received new RTT sum from ghi at 1541723021.336875
+Received new RTT sum from jkl at 1541723021.380547
+Received new RTT sum from abc at 1541723021.40776
+Received new RTT sum from mno at 1541723021.42481
+Received new RTT sum from ghi at 1541723021.468755
+Received new RTT sum from jkl at 1541723021.511084
+Received new RTT sum from abc at 1541723021.522348
+Received new RTT sum from jkl at 1541723021.5506291
+Received new RTT sum from mno at 1541723021.5751941
+Received new RTT sum from abc at 1541723021.604018
+Received new RTT sum from mno at 1541723021.638876
+Received new RTT sum from jkl at 1541723021.6699038
+Received new RTT sum from ghi at 1541723021.7024
+Received new RTT sum from abc at 1541723021.719877
+Received new RTT sum from ghi at 1541723021.7560818
+Received new RTT sum from mno at 1541723021.792075
+Received new RTT sum from jkl at 1541723021.819881
+Received new RTT sum from mno at 1541723021.841377
+Received new RTT sum from abc at 1541723021.841845
+Received new RTT sum from jkl at 1541723021.865281
+Received new RTT sum from ghi at 1541723021.893397
+Received new RTT sum from mno at 1541723021.9338849
+Received new RTT sum from jkl at 1541723021.967656
+Received new RTT sum from ghi at 1541723021.9929368
+Received new RTT sum from abc at 1541723022.0184598
+Received new RTT sum from jkl at 1541723022.0453591
+Received new RTT sum from ghi at 1541723022.0579782
+Received new RTT sum from mno at 1541723022.082103
+Received new RTT sum from jkl at 1541723022.124356
+Received new RTT sum from abc at 1541723022.161175
+Received new RTT sum from abc at 1541723022.203236
+Received new RTT sum from ghi at 1541723022.2486138
+Received new RTT sum from jkl at 1541723022.2767801
+Received new RTT sum from abc at 1541723022.324776
+Received new RTT sum from mno at 1541723022.3687072
+Received new RTT sum from ghi at 1541723022.403999
+Received new RTT sum from mno at 1541723022.450857
+Received new RTT sum from jkl at 1541723022.497209
+Received new RTT sum from ghi at 1541723022.52629
+Received new RTT sum from abc at 1541723022.573439
+Received new RTT sum from jkl at 1541723022.6209311
+Received new RTT sum from ghi at 1541723022.648709
+Received new RTT sum from abc at 1541723022.693751
+Received new RTT sum from ghi at 1541723022.733805
+Received new RTT sum from jkl at 1541723022.763854
+Received new RTT sum from ghi at 1541723022.80492
+Received new RTT sum from mno at 1541723022.829203
+Received new RTT sum from abc at 1541723022.8558831
+Received new RTT sum from jkl at 1541723022.8918028
+Received new RTT sum from ghi at 1541723022.930208
+Received new RTT sum from abc at 1541723022.942368
+Received new RTT sum from abc at 1541723022.966948
+Received new RTT sum from abc at 1541723022.9775832
+Received new RTT sum from jkl at 1541723023.011779
+Received new RTT sum from abc at 1541723023.0586061
+Received new RTT sum from ghi at 1541723023.076235
+Received new RTT sum from abc at 1541723023.082748
+Received new RTT sum from abc at 1541723023.083054
+Received new RTT sum from ghi at 1541723023.0833259
+Received new RTT sum from jkl at 1541723023.083621
+Received new RTT sum from abc at 1541723023.083911
+Received new RTT sum from ghi at 1541723023.0842319
+Received new RTT sum from jkl at 1541723023.084516
+Received new RTT sum from abc at 1541723023.084785
+Received new RTT sum from ghi at 1541723023.102348
+Received new RTT sum from jkl at 1541723023.108669
+Received new RTT sum from jkl at 1541723023.12061
+Received new RTT sum from jkl at 1541723023.126506
+Received new RTT sum from ghi at 1541723023.126847
+Received new RTT sum from mno at 1541723023.127122
+Received new RTT sum from jkl at 1541723023.127414
+Received new RTT sum from ghi at 1541723023.127699
+Received new RTT sum from mno at 1541723023.12797
+Received new RTT sum from jkl at 1541723023.128238
+Received new RTT sum from jkl at 1541723023.1284962
+Received new RTT sum from abc at 1541723023.128756
+Received new RTT sum from jkl at 1541723023.129086
+Received new RTT sum from abc at 1541723023.1294148
+Received new RTT sum from ghi at 1541723023.12973
+Received new RTT sum from mno at 1541723023.130006
+Received new RTT sum from abc at 1541723023.130253
+Received new RTT sum from ghi at 1541723023.130521
+Received new RTT sum from jkl at 1541723023.1307788
+Received new RTT sum from mno at 1541723023.131037
+Received new RTT sum from ghi at 1541723023.131289
+Received new RTT sum from mno at 1541723023.131562
+Received new RTT sum from ghi at 1541723023.1318898
+Received new RTT sum from abc at 1541723023.1321542
+Received new RTT sum from jkl at 1541723023.1387131
+Received new RTT sum from mno at 1541723023.145335
+Received new RTT sum from jkl at 1541723023.1456268
+Received new RTT sum from abc at 1541723023.1516669
+Received new RTT sum from jkl at 1541723023.187331
+Received new RTT sum from ghi at 1541723023.200296
+Received new RTT sum from abc at 1541723023.2005749
+Received new RTT sum from mno at 1541723023.2008462
+Received new RTT sum from mno at 1541723023.201117
+Received new RTT sum from mno at 1541723023.201375
+Received new RTT sum from jkl at 1541723023.201638
+Received new RTT sum from mno at 1541723023.2019541
+Received new RTT sum from abc at 1541723023.214763
+Received new RTT sum from jkl at 1541723023.215044
+Received new RTT sum from jkl at 1541723023.215321
+Received new RTT sum from mno at 1541723023.215584
+Received new RTT sum from jkl at 1541723023.232644
+Received new RTT sum from abc at 1541723023.256106
+Received new RTT sum from jkl at 1541723023.262377
+Received new RTT sum from mno at 1541723023.2856581
+Received new RTT sum from ghi at 1541723023.302324
+Received new RTT sum from jkl at 1541723023.3143868
+Received new RTT sum from jkl at 1541723023.330823
+Received new RTT sum from jkl at 1541723023.364904
+Received new RTT sum from jkl at 1541723023.3652601
+Received new RTT sum from abc at 1541723023.36553
+Received new RTT sum from abc at 1541723023.365798
+Received new RTT sum from ghi at 1541723023.366163
+Received new RTT sum from jkl at 1541723023.377556
+Received new RTT sum from mno at 1541723023.37788
+Received new RTT sum from ghi at 1541723023.378222
+Received new RTT sum from abc at 1541723023.4049091
+Received new RTT sum from ghi at 1541723023.405261
+Received new RTT sum from jkl at 1541723023.405565
+Received new RTT sum from mno at 1541723023.412205
+Received new RTT sum from jkl at 1541723023.424448
+Received new RTT sum from abc at 1541723023.42484
+Received new RTT sum from mno at 1541723023.443561
+Received new RTT sum from jkl at 1541723023.443952
+Received new RTT sum from ghi at 1541723023.444257
+Received new RTT sum from abc at 1541723023.4747279
+Received new RTT sum from jkl at 1541723023.487654
+Received new RTT sum from abc at 1541723023.488172
+Received new RTT sum from mno at 1541723023.488527
+Received new RTT sum from ghi at 1541723023.488826
+Received new RTT sum from abc at 1541723023.489099
+Received new RTT sum from jkl at 1541723023.489373
+Received new RTT sum from mno at 1541723023.489648
+Received new RTT sum from jkl at 1541723023.490006
+Received new RTT sum from ghi at 1541723023.4902852
+Received new RTT sum from abc at 1541723023.4906209
+Received new RTT sum from mno at 1541723023.4909
+Received new RTT sum from jkl at 1541723023.50254
+Received new RTT sum from ghi at 1541723023.502822
+Received new RTT sum from abc at 1541723023.503113
+Received new RTT sum from jkl at 1541723023.503381
+Received new RTT sum from abc at 1541723023.503636
+Received new RTT sum from mno at 1541723023.5038972
+Received new RTT sum from ghi at 1541723023.5220292
+Received new RTT sum from ghi at 1541723023.551119
+Received new RTT sum from mno at 1541723023.56234
+Received new RTT sum from jkl at 1541723023.574616
+Received new RTT sum from mno at 1541723023.575157
+Received new RTT sum from mno at 1541723023.591779
+Received new RTT sum from jkl at 1541723023.602601
+Received new RTT sum from abc at 1541723023.602895
+Received new RTT sum from ghi at 1541723023.603209
+Received new RTT sum from jkl at 1541723023.603498
+Received new RTT sum from mno at 1541723023.6038039
+Received new RTT sum from abc at 1541723023.6149938
+Received new RTT sum from ghi at 1541723023.621651
+Received new RTT sum from abc at 1541723023.622002
+Received new RTT sum from mno at 1541723023.641336
+Received new RTT sum from jkl at 1541723023.6703959
+Received new RTT sum from ghi at 1541723023.6708019
+Received new RTT sum from mno at 1541723023.671146
+Received new RTT sum from mno at 1541723023.671472
+Received new RTT sum from mno at 1541723023.671823
+Received new RTT sum from jkl at 1541723023.6837602
+Received new RTT sum from abc at 1541723023.6840582
+Received new RTT sum from jkl at 1541723023.696527
+Received new RTT sum from mno at 1541723023.696867
+Received new RTT sum from abc at 1541723023.702726
+Received new RTT sum from ghi at 1541723023.70309
+Received new RTT sum from abc at 1541723023.703457
+Received new RTT sum from mno at 1541723023.709055
+Received new RTT sum from mno at 1541723023.7259169
+Received new RTT sum from abc at 1541723023.732797
+Received new RTT sum from jkl at 1541723023.744677
+Received new RTT sum from mno at 1541723023.769814
+Received new RTT sum from abc at 1541723023.782184
+Received new RTT sum from jkl at 1541723023.800887
+Received new RTT sum from ghi at 1541723023.8127081
+Received new RTT sum from mno at 1541723023.8131042
+Received new RTT sum from abc at 1541723023.813424
+Received new RTT sum from jkl at 1541723023.813735
+Received new RTT sum from mno at 1541723023.8193579
+Received new RTT sum from ghi at 1541723023.8253498
+Received new RTT sum from abc at 1541723023.8421052
+Received new RTT sum from mno at 1541723023.8539672
+Received new RTT sum from abc at 1541723023.8769312
+Sent RTT request to abc at 1541723023.882518
+Sent RTT request to mno at 1541723023.889132
+Received new RTT sum from mno at 1541723023.894699
+Sent RTT request to jkl at 1541723023.900398
+Received new RTT sum from ghi at 1541723023.906365
+Sent RTT request to ghi at 1541723023.906622
+Received new RTT sum from abc at 1541723023.917946
+Calculated new RTT sum 0.27286410331726074 at 1541723023.923208
+Received new RTT sum from jkl at 1541723023.929641
+Received new RTT sum from mno at 1541723023.9621272
+Received new RTT sum from jkl at 1541723024.00102
+Received new RTT sum from ghi at 1541723024.041173
+Received new RTT sum from mno at 1541723024.070323
+Received new RTT sum from mno at 1541723024.088297
+Received new RTT sum from mno at 1541723024.1062028
+Received new RTT sum from jkl at 1541723024.134562
+Received new RTT sum from mno at 1541723024.140584
+Received new RTT sum from jkl at 1541723024.1516569
+Received new RTT sum from jkl at 1541723024.169526
+Received new RTT sum from abc at 1541723024.175293
+Received new RTT sum from mno at 1541723024.1872058
+Received new RTT sum from abc at 1541723024.217251
+Received new RTT sum from jkl at 1541723024.22349
+Received new RTT sum from mno at 1541723024.2302
+Received new RTT sum from abc at 1541723024.230649
+Received new RTT sum from jkl at 1541723024.238035
+Received new RTT sum from ghi at 1541723024.238556
+Received new RTT sum from jkl at 1541723024.256056
+Received new RTT sum from mno at 1541723024.2566621
+Received new RTT sum from abc at 1541723024.269121
+Received new RTT sum from ghi at 1541723024.2754161
+Received new RTT sum from ghi at 1541723024.2982988
+Received new RTT sum from ghi at 1541723024.3041978
+Received new RTT sum from ghi at 1541723024.3330822
+Received new RTT sum from ghi at 1541723024.345737
+Received new RTT sum from ghi at 1541723024.352312
+Received new RTT sum from mno at 1541723024.368479
+Received new RTT sum from jkl at 1541723024.382902
+Received new RTT sum from abc at 1541723024.400349
+Received new RTT sum from ghi at 1541723024.412988
+Received new RTT sum from mno at 1541723024.4467242
+Received new RTT sum from jkl at 1541723024.458722
+Received new RTT sum from abc at 1541723024.4763699
+Received new RTT sum from mno at 1541723024.494476
+Received new RTT sum from ghi at 1541723024.49564
+Received new RTT sum from abc at 1541723024.50813
+Received new RTT sum from jkl at 1541723024.535527
+Received new RTT sum from ghi at 1541723024.536491
+Received new RTT sum from jkl at 1541723024.542194
+Received new RTT sum from abc at 1541723024.542785
+Received new RTT sum from mno at 1541723024.548429
+Received new RTT sum from ghi at 1541723024.5599391
+Received new RTT sum from mno at 1541723024.571624
+Received new RTT sum from abc at 1541723024.572154
+Received new RTT sum from jkl at 1541723024.57267
+Received new RTT sum from jkl at 1541723024.573313
+Received new RTT sum from ghi at 1541723024.573791
+Received new RTT sum from abc at 1541723024.5745091
+Received new RTT sum from jkl at 1541723024.575087
+Received new RTT sum from mno at 1541723024.5871549
+Received new RTT sum from ghi at 1541723024.5930061
+Received new RTT sum from abc at 1541723024.6059399
+Received new RTT sum from ghi at 1541723024.6406841
+Received new RTT sum from jkl at 1541723024.641464
+Received new RTT sum from mno at 1541723024.672105
+Received new RTT sum from ghi at 1541723024.678106
+Received new RTT sum from abc at 1541723024.706717
+Received new RTT sum from jkl at 1541723024.707343
+Received new RTT sum from jkl at 1541723024.725201
+Received new RTT sum from abc at 1541723024.737032
+Received new RTT sum from ghi at 1541723024.737515
+Received new RTT sum from mno at 1541723024.738436
+Received new RTT sum from jkl at 1541723024.738973
+Received new RTT sum from mno at 1541723024.7396622
+Received new RTT sum from abc at 1541723024.740202
+Received new RTT sum from ghi at 1541723024.7411468
+Received new RTT sum from jkl at 1541723024.7420642
+Received new RTT sum from ghi at 1541723024.742771
+Received new RTT sum from mno at 1541723024.743231
+Received new RTT sum from ghi at 1541723024.751225
+Received new RTT sum from abc at 1541723024.769207
+Received new RTT sum from ghi at 1541723024.781568
+Received new RTT sum from mno at 1541723024.794156
+Received new RTT sum from jkl at 1541723024.805781
+Received new RTT sum from abc at 1541723024.806359
+Received new RTT sum from mno at 1541723024.8302348
+Received new RTT sum from abc at 1541723024.853247
+Received new RTT sum from jkl at 1541723024.883059
+Received new RTT sum from mno at 1541723024.8949828
+Received new RTT sum from jkl at 1541723024.923549
+Received new RTT sum from ghi at 1541723024.930335
+Received new RTT sum from mno at 1541723024.9359848
+Received new RTT sum from ghi at 1541723024.964824
+Received new RTT sum from abc at 1541723024.988362
+Received new RTT sum from jkl at 1541723024.994276
+Received new RTT sum from mno at 1541723025.012547
+Received new RTT sum from ghi at 1541723025.013032
+Received new RTT sum from jkl at 1541723025.035626
+Received new RTT sum from abc at 1541723025.0465941
+Received new RTT sum from mno at 1541723025.0634828
+Received new RTT sum from ghi at 1541723025.079535
+Received new RTT sum from abc at 1541723025.080711
+Received new RTT sum from ghi at 1541723025.081335
+Received new RTT sum from jkl at 1541723025.081855
+Received new RTT sum from mno at 1541723025.0879512
+Received new RTT sum from jkl at 1541723025.09483
+Received new RTT sum from mno at 1541723025.0958982
+Received new RTT sum from ghi at 1541723025.09633
+Received new RTT sum from mno at 1541723025.096756
+Received new RTT sum from ghi at 1541723025.097219
+Received new RTT sum from mno at 1541723025.109354
+Received new RTT sum from mno at 1541723025.109806
+Received new RTT sum from mno at 1541723025.1102731
+Received new RTT sum from mno at 1541723025.11072
+Received new RTT sum from mno at 1541723025.111163
+Received new RTT sum from jkl at 1541723025.111852
+Received new RTT sum from ghi at 1541723025.12378
+Received new RTT sum from jkl at 1541723025.1245298
+Received new RTT sum from ghi at 1541723025.12504
+Received new RTT sum from jkl at 1541723025.125893
+Received new RTT sum from mno at 1541723025.128394
+Received new RTT sum from jkl at 1541723025.141027
+Received new RTT sum from mno at 1541723025.1415539
+Received new RTT sum from jkl at 1541723025.141981
+Received new RTT sum from mno at 1541723025.148824
+Received new RTT sum from mno at 1541723025.159571
+Received new RTT sum from jkl at 1541723025.162118
+Received new RTT sum from jkl at 1541723025.17389
+Received new RTT sum from ghi at 1541723025.176513
+Received new RTT sum from ghi at 1541723025.17777
+Received new RTT sum from mno at 1541723025.183646
+Received new RTT sum from mno at 1541723025.189881
+Received new RTT sum from ghi at 1541723025.196487
+Received new RTT sum from jkl at 1541723025.207844
+Received new RTT sum from mno at 1541723025.219403
+Received new RTT sum from ghi at 1541723025.2264771
+Received new RTT sum from jkl at 1541723025.226955
+Received new RTT sum from ghi at 1541723025.2330282
+Received new RTT sum from mno at 1541723025.2334871
+Received new RTT sum from jkl at 1541723025.2340171
+Received new RTT sum from ghi at 1541723025.234478
+Received new RTT sum from mno at 1541723025.234955
+Received new RTT sum from mno at 1541723025.2354748
+Received new RTT sum from jkl at 1541723025.235905
+Received new RTT sum from ghi at 1541723025.242552
+Received new RTT sum from jkl at 1541723025.244259
+Received new RTT sum from ghi at 1541723025.255291
+Received new RTT sum from mno at 1541723025.255779
+Received new RTT sum from jkl at 1541723025.2562492
+Received new RTT sum from mno at 1541723025.263297
+Received new RTT sum from jkl at 1541723025.26938
+Received new RTT sum from mno at 1541723025.287518
+Received new RTT sum from ghi at 1541723025.303957
+Received new RTT sum from ghi at 1541723025.316075
+Received new RTT sum from mno at 1541723025.316577
+Received new RTT sum from mno at 1541723025.317004
+Received new RTT sum from jkl at 1541723025.317439
+Received new RTT sum from mno at 1541723025.317884
+Received new RTT sum from jkl at 1541723025.318309
+Received new RTT sum from ghi at 1541723025.318719
+Received new RTT sum from mno at 1541723025.325208
+Received new RTT sum from ghi at 1541723025.3257642
+Received new RTT sum from mno at 1541723025.3264241
+Received new RTT sum from jkl at 1541723025.333258
+Received new RTT sum from ghi at 1541723025.3390331
+Received new RTT sum from mno at 1541723025.3446279
+Received new RTT sum from jkl at 1541723025.345082
+Received new RTT sum from ghi at 1541723025.356308
+Received new RTT sum from jkl at 1541723025.361928
+Received new RTT sum from mno at 1541723025.368754
+Received new RTT sum from ghi at 1541723025.385547
+Received new RTT sum from jkl at 1541723025.391228
+Received new RTT sum from mno at 1541723025.4026382
+Received new RTT sum from ghi at 1541723025.408903
+Received new RTT sum from mno at 1541723025.409482
+Received new RTT sum from jkl at 1541723025.410045
+Received new RTT sum from ghi at 1541723025.411205
+Received new RTT sum from mno at 1541723025.423305
+Received new RTT sum from ghi at 1541723025.4238038
+Received new RTT sum from jkl at 1541723025.424486
+Received new RTT sum from jkl at 1541723025.437053
+Received new RTT sum from mno at 1541723025.442938
+Received new RTT sum from ghi at 1541723025.448523
+Received new RTT sum from mno at 1541723025.454314
+Received new RTT sum from jkl at 1541723025.454758
+Received new RTT sum from mno at 1541723025.455178
+Received new RTT sum from jkl at 1541723025.455606
+Received new RTT sum from ghi at 1541723025.456009
+Received new RTT sum from mno at 1541723025.4564428
+Received new RTT sum from ghi at 1541723025.4568708
+Received new RTT sum from mno at 1541723025.457449
+Received new RTT sum from jkl at 1541723025.464133
+Received new RTT sum from ghi at 1541723025.4649448
+Received new RTT sum from ghi at 1541723025.4764018
+Received new RTT sum from jkl at 1541723025.488213
+Received new RTT sum from mno at 1541723025.511987
+Received new RTT sum from ghi at 1541723025.5180511
+Received new RTT sum from jkl at 1541723025.519587
+Received new RTT sum from mno at 1541723025.525634
+Received new RTT sum from jkl at 1541723025.5262778
+Received new RTT sum from ghi at 1541723025.531979
+Received new RTT sum from jkl at 1541723025.538187
+Received new RTT sum from mno at 1541723025.538644
+Received new RTT sum from ghi at 1541723025.539249
+Received new RTT sum from mno at 1541723025.539669
+Received new RTT sum from ghi at 1541723025.540103
+Received new RTT sum from jkl at 1541723025.540618
+Received new RTT sum from ghi at 1541723025.5526888
+Received new RTT sum from mno at 1541723025.5533462
+Received new RTT sum from jkl at 1541723025.553789
+Received new RTT sum from ghi at 1541723025.5608351
+Received new RTT sum from mno at 1541723025.561323
+Received new RTT sum from jkl at 1541723025.568191
+Received new RTT sum from mno at 1541723025.568774
+Received new RTT sum from jkl at 1541723025.57498
+Received new RTT sum from ghi at 1541723025.5755
+Received new RTT sum from mno at 1541723025.587002
+Received new RTT sum from mno at 1541723025.5876338
+Received new RTT sum from ghi at 1541723025.59334
+Received new RTT sum from jkl at 1541723025.594562
+Received new RTT sum from mno at 1541723025.595737
+Received new RTT sum from ghi at 1541723025.59664
+Received new RTT sum from ghi at 1541723025.608145
+Received new RTT sum from mno at 1541723025.609854
+Received new RTT sum from mno at 1541723025.616452
+Received new RTT sum from ghi at 1541723025.617565
+Received new RTT sum from jkl at 1541723025.61901
+Received new RTT sum from ghi at 1541723025.6197171
+Received new RTT sum from jkl at 1541723025.6201642
+Received new RTT sum from ghi at 1541723025.620717
+Received new RTT sum from mno at 1541723025.6211698
+Received new RTT sum from ghi at 1541723025.62164
+Received new RTT sum from mno at 1541723025.622196
+Received new RTT sum from jkl at 1541723025.622714
+Received new RTT sum from jkl at 1541723025.635199
+Received new RTT sum from jkl at 1541723025.6410391
+Received new RTT sum from ghi at 1541723025.652328
+Received new RTT sum from mno at 1541723025.659586
+Received new RTT sum from jkl at 1541723025.666425
+Received new RTT sum from ghi at 1541723025.67331
+Received new RTT sum from mno at 1541723025.702374
+Received new RTT sum from jkl at 1541723025.702914
+Received new RTT sum from ghi at 1541723025.7086358
+Received new RTT sum from jkl at 1541723025.721826
+Received new RTT sum from jkl at 1541723025.722323
+Received new RTT sum from mno at 1541723025.722778
+Received new RTT sum from jkl at 1541723025.7233229
+Received new RTT sum from mno at 1541723025.723777
+Received new RTT sum from ghi at 1541723025.724443
+Received new RTT sum from ghi at 1541723025.730623
+Received new RTT sum from mno at 1541723025.7363358
+Received new RTT sum from jkl at 1541723025.736802
+Received new RTT sum from mno at 1541723025.742948
+Received new RTT sum from mno at 1541723025.7496011
+Received new RTT sum from mno at 1541723025.757108
+Received new RTT sum from jkl at 1541723025.769873
+Received new RTT sum from ghi at 1541723025.7758431
+Received new RTT sum from ghi at 1541723025.776351
+Received new RTT sum from mno at 1541723025.776866
+Received new RTT sum from ghi at 1541723025.783196
+Received new RTT sum from ghi at 1541723025.7954402
+Received new RTT sum from ghi at 1541723025.795809
+Received new RTT sum from ghi at 1541723025.8019788
+Received new RTT sum from mno at 1541723025.807893
+Received new RTT sum from mno at 1541723025.814798
+Received new RTT sum from ghi at 1541723025.8155148
+Received new RTT sum from ghi at 1541723025.8335738
+Received new RTT sum from ghi at 1541723025.834217
+Received new RTT sum from mno at 1541723025.834739
+Received new RTT sum from ghi at 1541723025.840935
+Received new RTT sum from mno at 1541723025.847732
+Received new RTT sum from ghi at 1541723025.8483179
+Received new RTT sum from ghi at 1541723025.854083
+Received new RTT sum from mno at 1541723025.855916
+Received new RTT sum from ghi at 1541723025.856883
+Received new RTT sum from mno at 1541723025.857404
+Received new RTT sum from ghi at 1541723025.8578959
+Received new RTT sum from mno at 1541723025.859711
+Received new RTT sum from ghi at 1541723025.86027
+Received new RTT sum from mno at 1541723025.871725
+Received new RTT sum from ghi at 1541723025.8943748
+Received new RTT sum from ghi at 1541723025.902085
+Received new RTT sum from mno at 1541723025.902823
+Received new RTT sum from ghi at 1541723025.903266
+Received new RTT sum from mno at 1541723025.909207
+Received new RTT sum from mno at 1541723025.917119
+Received new RTT sum from mno at 1541723025.917535
+Received new RTT sum from mno at 1541723025.9178839
+Received new RTT sum from ghi at 1541723025.918237
+Received new RTT sum from mno at 1541723025.9187222
+Received new RTT sum from ghi at 1541723025.931705
+Received new RTT sum from mno at 1541723025.943958
+Received new RTT sum from mno at 1541723025.957428
+Received new RTT sum from ghi at 1541723025.975723
+Received new RTT sum from ghi at 1541723025.988939
+Received new RTT sum from mno at 1541723026.019092
+Received new RTT sum from mno at 1541723026.036442
+Received new RTT sum from ghi at 1541723026.0476139
+Received new RTT sum from ghi at 1541723026.059072
+Received new RTT sum from ghi at 1541723026.065907
+Received new RTT sum from mno at 1541723026.0722141
+Received new RTT sum from ghi at 1541723026.084428
+Received new RTT sum from mno at 1541723026.092298
+Received new RTT sum from ghi at 1541723026.093266
+Received new RTT sum from ghi at 1541723026.093753
+Received new RTT sum from ghi at 1541723026.101299
+Received new RTT sum from ghi at 1541723026.108961
+Received new RTT sum from ghi at 1541723026.1221251
+Received new RTT sum from ghi at 1541723026.134062
+Received new RTT sum from ghi at 1541723026.140037
+Received new RTT sum from ghi at 1541723026.1404212
+Received new RTT sum from ghi at 1541723026.151294
+Received new RTT sum from ghi at 1541723026.164153
+Received new RTT sum from ghi at 1541723026.182521
+Received new RTT sum from ghi at 1541723026.1949298
+Received new RTT sum from ghi at 1541723026.2016141
+Received new RTT sum from ghi at 1541723026.218251
+Received new RTT sum from ghi at 1541723026.219106
+Received new RTT sum from ghi at 1541723026.225307
+Received new RTT sum from ghi at 1541723026.225837
+Received new RTT sum from ghi at 1541723026.231554
+Received new RTT sum from ghi at 1541723026.231921
+Received new RTT sum from ghi at 1541723026.232285
+Received new RTT sum from ghi at 1541723026.232648
+Received new RTT sum from ghi at 1541723026.232979
+Received new RTT sum from ghi at 1541723026.238729
+Received new RTT sum from ghi at 1541723026.2451131
+Received new RTT sum from ghi at 1541723026.274967
+Received new RTT sum from ghi at 1541723026.2922518
+Received new RTT sum from ghi at 1541723026.309543
+Received new RTT sum from ghi at 1541723026.3426292
+Received new RTT sum from ghi at 1541723026.368143
+Received new RTT sum from ghi at 1541723026.368565
+Received new RTT sum from ghi at 1541723026.368889
+Received RTT request from abc at 1541723026.375565
+Received new RTT sum from abc at 1541723026.387567
+Received RTT request from jkl at 1541723026.3879402
+Received new RTT sum from jkl at 1541723026.388314
+Received RTT request from mno at 1541723026.388662
+Received new RTT sum from mno at 1541723026.3941839
+Received RTT request from ghi at 1541723026.394579
+Received new RTT sum from ghi at 1541723026.406574
+Received RTT request from abc at 1541723026.4072168
+Received new RTT sum from abc at 1541723026.414248
+Received RTT request from jkl at 1541723026.4146109
+Received new RTT sum from jkl at 1541723026.42056
+Received RTT request from mno at 1541723026.4209301
+Received new RTT sum from mno at 1541723026.42648
+Received RTT request from ghi at 1541723026.432575
+Received new RTT sum from ghi at 1541723026.432986
+Sent RTT request to abc at 1541723028.9745972
+Sent RTT request to mno at 1541723029.0094411
+Sent RTT request to jkl at 1541723029.0390751
+Sent RTT request to ghi at 1541723029.0643258
+Calculated new RTT sum 6.766377210617065 at 1541723029.087435
+Updated hub from def to mno at 1541723029.127272
+Received RTT request from abc at 1541723030.179584
+Received new RTT sum from abc at 1541723030.254195
+Received RTT request from jkl at 1541723030.531245
+Received new RTT sum from jkl at 1541723030.5862
+Received RTT request from mno at 1541723030.791465
+Received new RTT sum from mno at 1541723030.875988
+Updated hub from ghi to ghi at 1541723030.905948
+Received RTT request from ghi at 1541723030.992247
+Received new RTT sum from ghi at 1541723031.02117
+Updated hub from mno to mno at 1541723031.043943
+Sent RTT request to abc at 1541723034.186408
+Sent RTT request to mno at 1541723034.218166
+Sent RTT request to jkl at 1541723034.246625
+Sent RTT request to ghi at 1541723034.281622
+Calculated new RTT sum 0.10524392127990723 at 1541723034.288128
+Updated hub from mno to def at 1541723034.310894
+Received RTT request from abc at 1541723035.350621
+Received new RTT sum from abc at 1541723035.407222
+Received RTT request from jkl at 1541723035.642499
+Received new RTT sum from jkl at 1541723035.70346
+Received RTT request from mno at 1541723035.9075048
+Received new RTT sum from mno at 1541723035.926778
+Received RTT request from ghi at 1541723036.076895
+Received new RTT sum from ghi at 1541723036.082741
+Sent RTT request to abc at 1541723039.3729768
+Sent RTT request to mno at 1541723039.404202
+Sent RTT request to jkl at 1541723039.4118311
+Sent RTT request to ghi at 1541723039.4469829
+Calculated new RTT sum 0.13658547401428223 at 1541723039.469898
+Received RTT request from abc at 1541723040.51024
+Received new RTT sum from abc at 1541723040.538451
+Received RTT request from jkl at 1541723040.753261
+Received new RTT sum from jkl at 1541723040.771847
+Received RTT request from mno at 1541723040.958037
+Received new RTT sum from mno at 1541723040.982291
+Received RTT request from ghi at 1541723041.205031
+Received new RTT sum from ghi at 1541723041.223722
+Sent RTT request to abc at 1541723044.519685
+Sent RTT request to mno at 1541723044.5497239
+Sent RTT request to jkl at 1541723044.5742779
+Sent RTT request to ghi at 1541723044.598163
+Calculated new RTT sum 0.11893820762634277 at 1541723044.617134
+Received RTT request from abc at 1541723045.673595
+Received new RTT sum from abc at 1541723045.723902
+Received RTT request from jkl at 1541723045.88816
+Received new RTT sum from jkl at 1541723045.9590569
+Received RTT request from mno at 1541723046.125789
+Received new RTT sum from mno at 1541723046.178672
+Received RTT request from ghi at 1541723046.324063
+Received new RTT sum from ghi at 1541723046.3774872
+Sent RTT request to abc at 1541723049.649108
+Sent RTT request to mno at 1541723049.649361
+Sent RTT request to jkl at 1541723049.667925
+Sent RTT request to ghi at 1541723049.6920562
+Calculated new RTT sum 0.11399054527282715 at 1541723049.710913
+Received RTT request from abc at 1541723050.823751
+Received new RTT sum from abc at 1541723050.914718
+Received RTT request from jkl at 1541723051.034438
+Received new RTT sum from jkl at 1541723051.075754
+Received RTT request from mno at 1541723051.211468
+Received new RTT sum from mno at 1541723051.279041
+Received RTT request from ghi at 1541723051.4925818
+Received new RTT sum from ghi at 1541723051.511405
+Sent RTT request to abc at 1541723054.7578182
+Sent RTT request to mno at 1541723054.774103
+Sent RTT request to jkl at 1541723054.780977
+Sent RTT request to ghi at 1541723054.78127
+Calculated new RTT sum 0.12149834632873535 at 1541723054.781504
+Received RTT request from abc at 1541723056.002157
+Received new RTT sum from abc at 1541723056.0376692
+Received RTT request from jkl at 1541723056.121492
+Received new RTT sum from jkl at 1541723056.138761
+Received RTT request from mno at 1541723056.336569
+Received new RTT sum from mno at 1541723056.366511
+Received RTT request from ghi at 1541723056.611973
+Received new RTT sum from ghi at 1541723056.630547
