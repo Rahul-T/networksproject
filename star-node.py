@@ -32,6 +32,9 @@ class Peer:
 		self.startingTime = time.time()
 		self.logfilename = name + "log.txt"
 
+		self.packetNum = 0
+		self.packetTimes = {}
+
 	    # used to stop the main loop
 		self.shutdown = False  
 
@@ -48,7 +51,19 @@ class Peer:
 		s = self.makeServerSocket( self.serverport )
 		#s.settimeout(10)
 		print("Running peer discovery...")
-		self.initialPeerDiscovery(s)
+		
+
+		te = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		te.start()
+		tr = threading.Thread( target = self.initialPeerDiscovery, args = [ s ] )
+		tr.start()
+
+		while tr.isAlive():
+			if not te.isAlive():
+				te = threading.Thread( target = self.__handlepeer, args = [ s ] )
+				te.start()
+
+
 		if self.shutdown == True:
 			print("Timeout")
 			sys.exit()
@@ -126,11 +141,12 @@ class Peer:
 				self.receivePeerDiscovery(clientAddress, output)
 			if msgtype == "001":
 				nodeName = output[8:24]
-				self.initialRTTack(socket, nodeName.strip())
+				packetNumber = output[24:]
+				self.initialRTTack(socket, nodeName.strip(), packetNumber)
 			if msgtype == "002":
 				nodeName = output[8:24].strip()
 				endTime = time.time()
-				rtttime = endTime - self.startingTime
+				rtttime = endTime - self.packetTimes[int(output[24:].strip())]
 				self.rtttimes[nodeName] = rtttime
 			if msgtype == "003":
 				#print("received rttsum packet from " + output[8:24].strip())
@@ -189,15 +205,8 @@ class Peer:
 
 	def initialPeerDiscovery(self, s):
 		timeoutcounter = 0
-		t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-		t1.daemon = True
-		t1.start()
 		while len(self.peers) < int(maxNodes) and not self.shutdown:
 			try:
-				if not t1.isAlive():
-					t1 = threading.Thread( target = self.__handlepeer, args = [ s ] )
-					t1.daemon = True
-					t1.start()
 				if pocAddress != 0 and pocPort != 0 and not [pocAddress, pocPort] in self.peers.values():
 					self.initialPoc(s)
 				self.sendPeerDiscovery(s)
@@ -217,16 +226,16 @@ class Peer:
 
 	#RTT
 
-	def initialSendRTT(self, serverSocket, node):
-		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name)
+	def initialSendRTT(self, serverSocket, node, packetNum):
+		initialrttpacket = "001" + "{:<5}".format(localPort) + "{:<16}".format(name) + str(packetNum)
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Sent RTT request to " + str(node) + " at " + str(time.time()) + "\n")
 		self.log.close()
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 
-	def initialRTTack(self, serverSocket, node):
-		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name)
+	def initialRTTack(self, serverSocket, node, packetNumber):
+		initialrttpacket = "002" + "{:<5}".format(localPort) + "{:<16}".format(name) + packetNumber
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Received RTT request from " + str(node) + " at " + str(time.time()) + "\n")
 		self.log.close()
@@ -309,17 +318,14 @@ class Peer:
 	def getintialrttsandhub(self, s):
 		print("Getting rtts to each node...")
 		for node in self.peers:
-			#sentit = False
 			if (node != name):
 				while (node not in self.rtttimes):
-					#if not sentit:
 					self.startingTime = time.time()
-					self.initialSendRTT(s, node)
-						#sentit = True
-					#print(self.rtttimes)
+					self.packetTimes[int(self.packetNum)] = self.startingTime
+					self.initialSendRTT(s, node, self.packetNum)
+					self.packetNum = self.packetNum + 1
 					time.sleep(1)
 
-		#print("last")
 		#print(self.rtttimes)
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
@@ -343,6 +349,7 @@ class Peer:
 				if self.debug:
 					traceback.print_exc()
 					continue
+			time.sleep(1)
 
 			#print(self.rttsums)
 		print("Calculating hub...")
@@ -364,7 +371,9 @@ class Peer:
 		#print("recalculating")
 		for node in self.rtttimes:
 			self.startingTime = time.time()
-			self.initialSendRTT(s, node)
+			self.packetTimes[int(self.packetNum)] = self.startingTime
+			self.initialSendRTT(s, node, self.packetNum)
+			self.packetNum = self.packetNum + 1
 		#print(self.rttsum)
 		self.rttsum = 0
 		for node in self.rtttimes:
