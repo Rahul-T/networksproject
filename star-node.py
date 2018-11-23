@@ -35,6 +35,9 @@ class Peer:
 		self.packetNum = 0
 		self.packetTimes = {}
 
+		self.receivedPackets = {}
+		self.receivedAcks = {}
+
 	    # used to stop the main loop
 		self.shutdown = False  
 
@@ -154,7 +157,7 @@ class Peer:
 			if msgtype == "004":
 				self.receiveStringMessage(clientAddress, output, socket)
 			if msgtype == "005":
-				self.receiveFile(clientAddress, output, socket)
+				self.receiveFile(clientAddress, output, socket, message)
 
 		except KeyboardInterrupt:
 			raise
@@ -459,16 +462,18 @@ class Peer:
 		f = open(fileName, 'rb')
 		data = f.read()
 		filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(fileName)
+		z = filepacketheader.encode()
 		filepacketvalue = data
-
+		totalfilepacket = z + data
+		print(totalfilepacket)
 		if self.hubnode == name:
 			for node in self.peers:
 				if node != name:
-					serverSocket.sendto(filepacketheader.encode(), (self.peers[node][0], int(self.peers[node][1])))
-					serverSocket.sendto(filepacketvalue, (self.peers[node][0], int(self.peers[node][1])))
+					serverSocket.sendto(totalfilepacket, (self.peers[node][0], int(self.peers[node][1])))
+					#serverSocket.sendto(filepacketvalue, (self.peers[node][0], int(self.peers[node][1])))
 		else:
-			serverSocket.sendto(filepacketheader.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
-			serverSocket.sendto(filepacketvalue, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
+			serverSocket.sendto(totalfilepacket, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
+			#serverSocket.sendto(filepacketvalue, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 
 		f.close()
 		self.log = open(self.logfilename, 'a')
@@ -476,20 +481,22 @@ class Peer:
 		self.log.close()
 
 
-	def receiveFile(self, clientAddress, packetheader, serverSocket):
+	def receiveFile(self, clientAddress, packetheader, serverSocket, message):
 		print("\nReceived file from " + packetheader[8:24])
 		fileName = packetheader[24:40].strip()
 		print(fileName)
 		tempname = name + fileName
 		f = open(tempname, 'wb')
-		data, addr = serverSocket.recvfrom(65000)
+		#data, addr = serverSocket.recvfrom(65000)
+		data = message[40:]
+		print(message)
 		f.write(data)
 		print("Star-node command: ", end='', flush=True)
 		if self.hubnode == name:
 			for node in self.peers:
 				if node != name and node != packetheader[8:24].strip():
-					serverSocket.sendto(packetheader.encode(), (self.peers[node][0], int(self.peers[node][1])))
-					serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
+					serverSocket.sendto(message, (self.peers[node][0], int(self.peers[node][1])))
+					#serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
 					self.log = open(self.logfilename, 'a')
 					self.log.write("Forwarded file " + tempname + " from " + packetheader[8:24].strip() + " at " + str(time.time()) + "\n")
 					self.log.close()
