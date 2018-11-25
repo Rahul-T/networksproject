@@ -38,6 +38,10 @@ class Peer:
 		self.receivedPackets = set()
 		self.receivedAcks = set()
 
+		self.online = {}
+
+		self.minor = 0.25
+
 	    # used to stop the main loop
 		self.shutdown = False  
 
@@ -99,9 +103,15 @@ class Peer:
 		t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t10.daemon = True
 		t10.start()
-		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
+		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
 		t6.daemon = True
 		t6.start()
+		tp = threading.Thread(target = self.initialPeerDiscovery, args = [ s ])
+		tp.daemon = True
+		tp.start()
+		tk = threading.Thread(target = self.keepAlive, args = [ s ])
+		tk.daemon = True
+		tk.start()
 
 		while not self.shutdown:
 			try:
@@ -129,9 +139,18 @@ class Peer:
 					t10.daemon = True
 					t10.start()
 				if not t6.isAlive():
-					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
+					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
 					t6.daemon = True
 					t6.start()
+				if not tp.isAlive():
+					tp = threading.Thread(target = self.initialPeerDiscovery, args = [ s ])
+					tp.daemon = True
+					tp.start()
+				if not tk.isAlive():
+					tk = threading.Thread(target = self.keepAlive, args = [ s ])
+					tk.daemon = True
+					tk.start()
+
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -205,6 +224,11 @@ class Peer:
 				#print("Received ack from " + output[8:24].strip())
 				#print(self.packetNum)
 				#print(self.receivedAcks)
+			if msgtype == "007":
+				nodeName = output[8:24].strip()
+				packetNumber = output[24:]
+				self.receiveKeepAlive(socket, nodeName, packetNumber)
+
 
 		except KeyboardInterrupt:
 			raise
@@ -215,6 +239,8 @@ class Peer:
 
 
 	def __commands(self, socket):
+		while(self.rttsum == 0):
+			time.sleep(.1)
 		command = input("Star-node command: ")
 		if command == "show-status":
 			self.showstatus()
@@ -230,6 +256,55 @@ class Peer:
 		elif command == "show-log":
 			self.showlog()
 
+
+
+
+
+	def keepAlive(self, serverSocket):
+		time.sleep(2)
+		temppacketnum = int(self.packetNum)
+		self.packetNum += 1
+		for node in list(self.peers):
+			if node != name:
+				ts = threading.Thread( target = self.keepAliveHelper, args = [ serverSocket, temppacketnum, node ] )
+				ts.daemon = True
+				ts.start()
+			temppacketnum = int(self.packetNum)
+			self.packetNum += 1
+		#print(self.online)
+
+	def keepAliveHelper(self, serverSocket, temppacketnum, node):
+		counter = 0;
+		while (int(temppacketnum) not in self.receivedAcks):
+			if counter == 5:
+				break
+			kapacket = "007" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
+			serverSocket.sendto(kapacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+			counter += 1
+			time.sleep(.2)
+
+		if counter == 5:
+			prev = False
+			if node in self.online:
+				prev = self.online[node]
+			self.online[node] = False
+			if prev == True:
+				self.updaterttsandhub(serverSocket, True)
+		else:
+			prev = True
+			if node in self.online:
+				prev = self.online[node]
+			self.online[node] = True
+			if prev == False:
+				self.updaterttsandhub(serverSocket, True)
+			
+
+	def receiveKeepAlive(self, serverSocket, nodeName, packetnum):
+		packnum = int(packetnum.strip())
+		if (nodeName, packnum) not in self.receivedPackets:
+			self.receivedPackets.add((nodeName, packnum))
+		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(packnum)
+		serverSocket.sendto(ackpacket.encode(), (self.peers[nodeName][0], int(self.peers[nodeName][1])))
 
 
 	#Peer Discovery
@@ -249,7 +324,7 @@ class Peer:
 	def sendPeerDiscovery(self, serverSocket):
 		temppacketnum = int(self.packetNum)
 		self.packetNum += 1
-		for node in self.peers:
+		for node in list(self.peers):
 			if node != name:
 				ts = threading.Thread( target = self.sendPeerHelper, args = [ serverSocket, temppacketnum, node ] )
 				ts.daemon = True
@@ -277,41 +352,42 @@ class Peer:
 					self.log.write("First discovered node " + str(node) + " at " + str(time.time()) + "\n")
 					self.log.close()
 					self.peers[node] = incKnownNodes[node]
+					updaterttsandhub(serverSocket, True)
 		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(packnum)
 		nodeName = message[8:24].strip()
 		serverSocket.sendto(ackpacket.encode(), (self.peers[nodeName][0], int(self.peers[nodeName][1])))
 
 	def initialPeerDiscovery(self, s):
 		timeoutcounter = 0
-		while len(self.peers) < int(maxNodes) and not self.shutdown:
-			try:
-				if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values():
-					#print("NO ABC")
-					#print(str(pocAddress) + " " + str(pocPort) + " ")
-					self.initialPoc(s)
-				self.sendPeerDiscovery(s)
-			except KeyboardInterrupt:
-				self.shutdown = True
-				continue
-			except:
-				if self.debug:
-					traceback.print_exc()
-					continue
-			timeoutcounter += 1
-			if timeoutcounter == 30:
-				self.shutdown = True
-			#print("sleep3")
-			time.sleep(1)
+		#while len(self.peers) < int(maxNodes) and not self.shutdown:
+		try:
+			if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values():
+				#print("NO ABC")
+				#print(str(pocAddress) + " " + str(pocPort) + " ")
+				self.initialPoc(s)
+			self.sendPeerDiscovery(s)
+		except KeyboardInterrupt:
+			self.shutdown = True
+			#continue
+		except:
+			if self.debug:
+				traceback.print_exc()
+				#continue
+		timeoutcounter += 1
+		if timeoutcounter == 30:
+			self.shutdown = True
+		#print("sleep3")
+		time.sleep(1)
 		self.sendPeerDiscovery(s)
 		#print("finish")
-
+		time.sleep(2)
 
 	#RTT
 
-	def initialSendRTT(self, serverSocket, node):
-		temppacketnum = int(self.packetNum)
-		self.packetNum += 1
+	def initialSendRTT(self, serverSocket, node, temppacketnum):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			self.startingTime = time.time()
 			self.packetTimes[int(temppacketnum)] = self.startingTime
 			#print(node)
@@ -336,10 +412,12 @@ class Peer:
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 	def sendRTTsum(self, serverSocket):
+		if self.rttsum == 0:
+			return
 		temppacketnum = int(self.packetNum)
 		self.packetNum += 1
 		#print(self.peers)
-		for node in self.peers:
+		for node in list(self.peers):
 			if node != name:
 				ts = threading.Thread( target = self.rttsumhelper, args = [ serverSocket, temppacketnum, node ] )
 				ts.daemon = True
@@ -349,6 +427,8 @@ class Peer:
 
 	def rttsumhelper(self, serverSocket, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<32}".format(str(self.rttsum)) + "{:<100}".format(temppacketnum)
 			serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
@@ -356,11 +436,25 @@ class Peer:
 	def receiveRTTsum(self, clientAddress, message, serverSocket):
 		packnum = int(message[55:].strip())
 		nodeName = message[8:24].strip()
+
+		flucuate = self.minor
+		if nodeName not in self.peers or nodeName not in self.rttsums:
+			#print("Brand new rttsum from " + nodeName)
+			flucuate = 0
+			minimum = float(self.rttsum)
+			minnode = name
+			for node in self.rttsums:
+				if float(minimum) > float(self.rttsums[node]):
+					minimum = float(self.rttsums[node])
+					minnode = node
+			self.hubnode = minnode
 		#print(message)
 		#print(packnum)
 		if (message[8:24].strip(), packnum) not in self.receivedPackets:
 			self.receivedPackets.add((message[8:24].strip(), packnum))
 			incRTTsum = message[23:55]
+			#if flucuate == 0:
+				#print("incrttsum = " + str(incRTTsum.strip()))
 			#print(incRTTsum)
 			#print("Received rttsum of " + incRTTsum + " from " + nodeName)
 			self.log = open(self.logfilename, 'a')
@@ -372,21 +466,29 @@ class Peer:
 				self.rttsums[nodeName] = incRTTsum
 			#print("stuck2")
 			if self.hubnode == name:
+				#if flucuate == 0:
+					#print("(i am hub) current hubs rtt = " + str(self.rttsum))
 				#print("stuck3")
-				if float(incRTTsum) + 0.25 < float(self.rttsum):
+				if float(incRTTsum) + flucuate < float(self.rttsum):
 					self.hubnode = nodeName
 					self.log = open(self.logfilename, 'a')
 					self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
 					self.log.close()
 					#print("h1")
-			elif float(incRTTsum) + 0.25 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
-				#print("stuck4")
-				self.log = open(self.logfilename, 'a')
-				self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
-				self.log.close()
-				self.hubnode = nodeName
-				#print("h2")
+			elif self.hubnode != nodeName:
+				#if flucuate == 0:
+					#print("(inc is hub) current hubs rtt = " + str(self.rttsums[self.hubnode]))
+				if float(incRTTsum) + flucuate < float(self.rttsums[self.hubnode]):
+					#print("stuck4")					
+					self.log = open(self.logfilename, 'a')
+					self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
+					self.log.close()
+					self.hubnode = nodeName
+					#print("h2")
 			elif self.hubnode == nodeName:
+				#if flucuate == 0:
+					#print("(inc is hub) current hubs rtt = " + str(self.rttsums[self.hubnode]))
+					#print(self.rttsums[self.hubnode])
 				# print("stuck5")
 				# if float(incRTTsum) > float(oldRTTsum):
 				# 	x = 1
@@ -407,7 +509,7 @@ class Peer:
 						tempmin = float(self.rttsum)
 						tempnode = name
 					# print("stuckF")
-					if float(tempmin) + 0.25 < float(incRTTsum):
+					if float(tempmin) + flucuate < float(incRTTsum):
 						# print("stuckG")
 						self.hubnode = tempnode
 						self.log = open(self.logfilename, 'a')
@@ -428,13 +530,13 @@ class Peer:
 
 	def getintialrttsandhub(self, s):
 		print("Getting rtts to each node...")
-		for node in self.peers:
+		for node in list(self.peers):
 			if (node != name):
 				ts = threading.Thread( target = self.rtthelper, args = [ s, node ] )
 				ts.daemon = True
 				ts.start()
-		while(len(self.rtttimes) < int(maxNodes)-1):
-			time.sleep(.1)
+		#while(len(self.rtttimes) < int(maxNodes)-1):
+			#time.sleep(.1)
 		#print(self.rtttimes)
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
@@ -446,20 +548,20 @@ class Peer:
 		print("Sending/Receiving RTT sums...")
 		self.sendRTTsum(s)
 		#sentit = False
-		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
-			try:
-				#if not sentit:
-				self.sendRTTsum(s)
-					#sentit = True
-			except KeyboardInterrupt:
-				self.shutdown = True
-				continue
-			except:
-				if self.debug:
-					traceback.print_exc()
-					continue
+		#while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
+		try:
+			#if not sentit:
+			self.sendRTTsum(s)
+				#sentit = True
+		except KeyboardInterrupt:
+			self.shutdown = True
+			#continue
+		except:
+			if self.debug:
+				traceback.print_exc()
+				#continue
 			time.sleep(1)
-
+		time.sleep(2)
 			#print(self.rttsums)
 		print("Calculating hub...")
 		#print("last2")
@@ -476,29 +578,72 @@ class Peer:
 		self.log.close()
 
 	def rtthelper(self, s, node):
+		temppacketnum = self.packetNum
+		self.packetNum += 1
 		while (node not in self.rtttimes):
-			self.initialSendRTT(s, node)
+			if node in self.online and self.online[node] == False:
+				return
+			self.initialSendRTT(s, node, temppacketnum)
 			time.sleep(1)
 
-	def updaterttsandhub(self, s):
-		time.sleep(5)
+	def updaterttsandhub(self, s, newflag):
+		flucuate = self.minor
+		if newflag or self.rttsum == 0:
+			flucuate = 0
+
 		#print("recalculating")
-		for node in self.rtttimes:
+		for node in list(self.peers):
 			#self.startingTime = time.time()
 			#self.packetTimes[int(self.packetNum)] = self.startingTime
-			self.initialSendRTT(s, node)
-			#self.packetNum = self.packetNum + 1
+			temppacketnum = self.packetNum
+			self.packetNum += 1
+			if node != name:
+				ts = threading.Thread( target = self.initialSendRTT, args = [ s, node, temppacketnum ] )
+				ts.daemon = True
+				ts.start()
+
+
 		#print(self.rttsum)
 		self.rttsum = 0
 		for node in self.rtttimes:
-			self.rttsum += self.rtttimes[node]
-
+			if node in self.online and self.online[node] == True:
+				self.rttsum += self.rtttimes[node]
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
 		self.log.close()
 
+		self.sendRTTsum(s)
+
+
+		# if self.hubnode in self.online and self.online[self.hubnode] == False:
+		# 	print("hub went offline")
+		# 	time.sleep(2)
+		# 	tempmin = float(self.rttsum)
+		# 	tempnode = name
+		# 	for node in self.rttsums:
+		# 		if node in self.online and self.online[node] == True:
+		# 			if float(self.rttsums[node]) < tempmin:
+		# 				tempmin = float(self.rttsums[node])
+		# 				tempnode = node
+		# 	self.hubnode = tempnode
+
+		# if newflag:
+		# 	print(self.rttsum)
+		# 	print(self.rttsums)
+		# 	tempmin = float(self.rttsum)
+		# 	tempnode = name
+		# 	for node in self.rttsums:
+		# 		if node in self.online and self.online[node] == True:
+		# 			if float(self.rttsums[node]) < tempmin:
+		# 				tempmin = float(self.rttsums[node])
+		# 				tempnode = node
+		# 	self.hubnode = tempnode
+
 		#print(self.rttsum)
-		if self.hubnode != name and float(self.rttsum) + 0.25 < float(self.rttsums[self.hubnode]):
+		# if self.hubnode is None:
+		# 	print("no hub")
+
+		if self.hubnode != name and float(self.rttsum) + flucuate < float(self.rttsums[self.hubnode]):
 			#print("h4")
 			self.log = open(self.logfilename, 'a')
 			self.log.write("Updated hub from " + self.hubnode + " to " + name + " at " + str(time.time()) + "\n")
@@ -509,10 +654,11 @@ class Peer:
 			tempmin = float(self.rttsum)
 			tempnode = name
 			for node in self.rttsums:
-				if float(self.rttsums[node]) < tempmin:
-					tempmin = float(self.rttsums[node])
-					tempnode = node
-			if tempmin + 0.25 < self.rttsum:
+				if node in self.online and self.online[node] == True:
+					if float(self.rttsums[node]) < tempmin:
+						tempmin = float(self.rttsums[node])
+						tempnode = node
+			if tempmin + flucuate < self.rttsum:
 				self.log = open(self.logfilename, 'a')
 				self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
 				self.log.close()
@@ -521,8 +667,7 @@ class Peer:
 
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))
-		self.sendRTTsum(s)
-
+		time.sleep(5)
 
 	#Show status
 
@@ -545,7 +690,7 @@ class Peer:
 		if self.hubnode == name:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-			for node in self.peers:
+			for node in list(self.peers):
 				if node != name:
 					ts = threading.Thread( target = self.sendStringHelper, args = [ serverSocket, stringMessage, temppacketnum, node ] )
 					ts.daemon = True
@@ -556,6 +701,8 @@ class Peer:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 			while int(temppacketnum) not in self.receivedAcks:
+				if self.hubnode in self.online and self.online[self.hubnode] == False:
+					return
 				broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
 				serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 				time.sleep(1)
@@ -565,6 +712,8 @@ class Peer:
 
 	def sendStringHelper(self, serverSocket, stringMessage, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
 			serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
@@ -580,7 +729,7 @@ class Peer:
 			if self.hubnode == name:
 				temppacketnum = int(self.packetNum)
 				self.packetNum += 1
-				for node in self.peers:
+				for node in list(self.peers):
 					if node != name and node != message[8:24].strip():
 						ts = threading.Thread( target = self.receiveStringHelper, args = [ serverSocket, message, temppacketnum, node ] )
 						ts.daemon = True
@@ -603,6 +752,8 @@ class Peer:
 
 	def receiveStringHelper(self, serverSocket, message, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			forwardpacket = "004" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + message[140:]
 			serverSocket.sendto(forwardpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
@@ -615,7 +766,7 @@ class Peer:
 		if self.hubnode == name:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-			for node in self.peers:
+			for node in list(self.peers):
 				if node != name:
 					ts = threading.Thread( target = self.sendFileHelper, args = [ serverSocket, temppacketnum, data, fileName, node ] )
 					ts.daemon = True
@@ -626,6 +777,8 @@ class Peer:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 			while int(temppacketnum) not in self.receivedAcks:
+				if node in self.online and self.online[node] == False:
+					return
 				filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 				z = filepacketheader.encode()
 				filepacketvalue = data
@@ -640,6 +793,8 @@ class Peer:
 
 	def sendFileHelper(self, serverSocket, temppacketnum, data, fileName, node):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 			z = filepacketheader.encode()
 			filepacketvalue = data
@@ -662,7 +817,7 @@ class Peer:
 			if self.hubnode == name:
 				temppacketnum = int(self.packetNum)
 				self.packetNum += 1
-				for node in self.peers:
+				for node in list(self.peers):
 					if node != name and node != packetheader[8:24].strip():
 						ts = threading.Thread( target = self.receiveFileHelper, args = [ serverSocket, packetheader, temppacketnum, data, node, fileName ] )
 						ts.daemon = True
@@ -686,6 +841,8 @@ class Peer:
 
 	def receiveFileHelper(self, serverSocket, message, temppacketnum, data, node, fileName):
 		while int(temppacketnum) not in self.receivedAcks:
+			if node in self.online and self.online[node] == False:
+				return
 			filepacketheader = "005" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 			z = filepacketheader.encode()
 			filepacketvalue = data
@@ -700,5 +857,3 @@ class Peer:
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
 starnode.mainloop()
-
-

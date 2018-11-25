@@ -1,153 +1,238 @@
-<<<<<<< HEAD
-First discovered node abc at 1543156869.018801
-Received RTT request from abc at 1543156871.0972118
-Received RTT request from abc at 1543156871.151624
-First discovered node ghi at 1543156871.1752691
-Received RTT request from abc at 1543156871.206557
-Received RTT request from abc at 1543156871.25436
-Received RTT request from abc at 1543156871.3029
-Sent RTT request to abc at 1543156873.930699
-Calculated new RTT sum 0 at 1543156873.942231
-Sent RTT request to ghi at 1543156873.954426
-Sent RTT request to abc at 1543156873.9607801
-Initialized hub to def at 1543156873.989881
-Sent RTT request to ghi at 1543156874.002527
-Calculated new RTT sum 0 at 1543156874.010623
-Sent RTT request to abc at 1543156874.010806
-Sent RTT request to ghi at 1543156874.010835
-Sent RTT request to abc at 1543156874.02206
-Sent RTT request to ghi at 1543156874.022104
-Sent RTT request to ghi at 1543156874.049765
-Sent RTT request to ghi at 1543156874.073824
-Received RTT request from ghi at 1543156875.355653
-Received RTT request from ghi at 1543156875.3735292
-Received RTT request from ghi at 1543156875.417321
-Received RTT request from ghi at 1543156875.417364
-Received RTT request from ghi at 1543156875.430325
-Received RTT request from ghi at 1543156875.430763
-Received RTT request from abc at 1543156876.2644072
-Received RTT request from abc at 1543156876.2823098
-Received RTT request from abc at 1543156876.295221
-Sent RTT request to abc at 1543156879.0721438
-Calculated new RTT sum 0 at 1543156879.0956218
-Sent RTT request to ghi at 1543156879.101603
-Sent RTT request to abc at 1543156879.125738
-Sent RTT request to ghi at 1543156879.142184
-Received RTT request from ghi at 1543156880.486666
-Received RTT request from ghi at 1543156880.509108
-=======
-First discovered node mno at 1543044323.914635
-First discovered node jkl at 1543044323.943933
-First discovered node abc at 1543044323.992749
-First discovered node ghi at 1543044325.996951
-Sent RTT request to mno at 1543044331.659998
-Sent RTT request to mno at 1543044331.706369
-Received RTT request from abc at 1543044332.085705
-Received RTT request from abc at 1543044332.15076
-Sent RTT request to jkl at 1543044332.7554529
-Sent RTT request to jkl at 1543044332.7909539
-Sent RTT request to jkl at 1543044332.826234
-Sent RTT request to abc at 1543044333.8800662
-Sent RTT request to abc at 1543044333.9231958
-Sent RTT request to abc at 1543044333.9484951
-Received RTT request from mno at 1543044334.144191
-Received RTT request from mno at 1543044334.200046
-Received RTT request from mno at 1543044334.241855
-Received RTT request from jkl at 1543044334.6257222
-Received RTT request from jkl at 1543044334.674289
-Received RTT request from jkl at 1543044334.722647
-Sent RTT request to ghi at 1543044334.9997618
-Sent RTT request to ghi at 1543044335.0480618
-Calculated new RTT sum 0.3448319435119629 at 1543044336.087727
-Received new RTT sum from abc at 1543044336.430753
-Received new RTT sum from mno at 1543044338.422543
-Received new RTT sum from jkl at 1543044339.006793
-Received RTT request from ghi at 1543044339.371211
-Received RTT request from ghi at 1543044339.413366
-Received new RTT sum from abc at 1543044340.491879
-Received new RTT sum from mno at 1543044342.484587
-Received new RTT sum from jkl at 1543044343.072503
-Received new RTT sum from ghi at 1543044343.718688
-Initialized hub to ghi at 1543044345.250301
-Sent RTT request to mno at 1543044350.279947
-Sent RTT request to mno at 1543044350.311554
-Sent RTT request to jkl at 1543044350.3304179
-Sent RTT request to jkl at 1543044350.3775501
-Sent RTT request to abc at 1543044350.419198
-Sent RTT request to abc at 1543044350.455688
-Sent RTT request to abc at 1543044350.490954
-Sent RTT request to ghi at 1543044350.5149262
-Sent RTT request to ghi at 1543044350.545986
-Sent RTT request to ghi at 1543044350.577309
-Calculated new RTT sum 0.2361295223236084 at 1543044350.6018822
-Received RTT request from abc at 1543044350.6250129
-Received RTT request from abc at 1543044350.662936
-Received new RTT sum from abc at 1543044350.917421
-Received RTT request from mno at 1543044351.6992168
-Received RTT request from mno at 1543044351.7299252
-Received RTT request from mno at 1543044351.747502
-Received RTT request from ghi at 1543044351.908731
-Received RTT request from ghi at 1543044351.9624152
-Received RTT request from ghi at 1543044351.980256
-Received RTT request from jkl at 1543044352.297156
-Received RTT request from jkl at 1543044352.31532
-Received RTT request from jkl at 1543044352.36401
-Received new RTT sum from mno at 1543044352.8813329
-Received new RTT sum from ghi at 1543044353.104185
-Received new RTT sum from jkl at 1543044353.5638661
-Sent message hi at 1543044357.1493251
-Sent RTT request to mno at 1543044359.693673
-Sent RTT request to mno at 1543044359.7294688
-Sent RTT request to mno at 1543044359.759273
-Sent RTT request to jkl at 1543044359.791067
-Sent RTT request to jkl at 1543044359.8155782
-Sent RTT request to abc at 1543044359.839155
-Sent RTT request to abc at 1543044359.874702
-Sent RTT request to ghi at 1543044359.906174
-Sent RTT request to ghi at 1543044359.924984
-Sent RTT request to ghi at 1543044359.947489
-Calculated new RTT sum 0.21738100051879883 at 1543044359.965208
-Received RTT request from abc at 1543044359.982602
-Received RTT request from abc at 1543044359.995438
-Received RTT request from abc at 1543044359.9956758
-Received new RTT sum from abc at 1543044360.129917
-Received RTT request from mno at 1543044360.972322
-Received RTT request from mno at 1543044360.9912782
-Received RTT request from mno at 1543044360.9916239
-Received RTT request from ghi at 1543044361.2661839
-Received RTT request from ghi at 1543044361.307934
-Received message ghi             49                                                                                                  sup from abc at 1543044361.3138502
-Received RTT request from ghi at 1543044361.3441641
-Received RTT request from jkl at 1543044361.7258282
-Received RTT request from jkl at 1543044361.762044
-Received new RTT sum from mno at 1543044362.211189
-Received new RTT sum from ghi at 1543044362.478467
-Received new RTT sum from jkl at 1543044363.0064158
-Sent RTT request to mno at 1543044369.0366259
-Sent RTT request to mno at 1543044369.0796921
-Sent RTT request to jkl at 1543044369.109339
-Sent RTT request to jkl at 1543044369.1344268
-Sent RTT request to jkl at 1543044369.176942
-Sent RTT request to abc at 1543044369.199927
-Received RTT request from abc at 1543044369.224452
-Sent RTT request to abc at 1543044369.224541
-Sent RTT request to abc at 1543044369.248446
-Sent RTT request to ghi at 1543044369.271042
-Received RTT request from abc at 1543044369.2775722
-Sent RTT request to ghi at 1543044369.278056
-Sent RTT request to ghi at 1543044369.301331
-Calculated new RTT sum 0.21427416801452637 at 1543044369.338399
-Received new RTT sum from abc at 1543044369.4554281
-Received RTT request from mno at 1543044370.3798242
-Received RTT request from mno at 1543044370.39268
-Received RTT request from mno at 1543044370.4471428
-Received RTT request from ghi at 1543044370.608327
-Received RTT request from ghi at 1543044370.6084979
-Received RTT request from ghi at 1543044370.615128
-Received RTT request from jkl at 1543044371.0759099
-Received RTT request from jkl at 1543044371.088344
-Received new RTT sum from mno at 1543044371.64088
-Received new RTT sum from ghi at 1543044371.773781
-Received message ghi             70                                                                                                  hello from jkl at 1543044371.873347
-Received new RTT sum from jkl at 1543044372.229387
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
+First discovered node abc at 1543157704.299305
+Received RTT request from abc at 1543157706.346428
+Received RTT request from abc at 1543157706.402029
+First discovered node ghi at 1543157708.4127429
+Received RTT request from abc at 1543157708.4440892
+Received RTT request from abc at 1543157708.473983
+Received RTT request from abc at 1543157708.503017
+Received RTT request from abc at 1543157708.533568
+Sent RTT request to abc at 1543157708.977825
+Sent RTT request to ghi at 1543157708.9893389
+Calculated new RTT sum 0 at 1543157708.9997041
+Sent RTT request to abc at 1543157709.0274508
+Sent RTT request to ghi at 1543157709.0612538
+Sent RTT request to ghi at 1543157709.0965319
+Sent RTT request to ghi at 1543157709.129951
+Sent RTT request to ghi at 1543157709.159998
+Sent RTT request to ghi at 1543157709.215668
+Sent RTT request to ghi at 1543157709.245724
+Sent RTT request to ghi at 1543157709.275465
+Sent RTT request to ghi at 1543157709.3186681
+Sent RTT request to ghi at 1543157709.354351
+Sent RTT request to ghi at 1543157709.390223
+Sent RTT request to ghi at 1543157709.40667
+Sent RTT request to ghi at 1543157709.430232
+Sent RTT request to ghi at 1543157709.4543512
+Sent RTT request to ghi at 1543157709.489302
+Sent RTT request to ghi at 1543157709.518977
+Sent RTT request to ghi at 1543157709.555787
+Sent RTT request to ghi at 1543157709.592233
+Sent RTT request to ghi at 1543157709.616298
+Sent RTT request to ghi at 1543157709.651211
+Sent RTT request to ghi at 1543157709.686774
+Sent RTT request to ghi at 1543157709.711333
+Sent RTT request to ghi at 1543157709.741299
+Initialized hub to def at 1543157711.051017
+Sent RTT request to abc at 1543157711.070463
+Sent RTT request to ghi at 1543157711.0812511
+Calculated new RTT sum 0 at 1543157711.081537
+Sent RTT request to abc at 1543157711.087905
+Sent RTT request to ghi at 1543157711.0999491
+Received RTT request from ghi at 1543157711.540454
+Received RTT request from ghi at 1543157711.5708008
+Received RTT request from abc at 1543157713.4821088
+Received RTT request from abc at 1543157713.5059872
+Received new RTT sum from abc at 1543157713.50612
+Received RTT request from abc at 1543157713.5065641
+Sent RTT request to ghi at 1543157716.1344519
+Sent RTT request to abc at 1543157716.14079
+Calculated new RTT sum 0.08514690399169922 at 1543157716.140959
+Sent RTT request to abc at 1543157716.176456
+Sent RTT request to ghi at 1543157716.188998
+Received RTT request from ghi at 1543157716.6274638
+Received RTT request from ghi at 1543157716.633306
+Received RTT request from ghi at 1543157716.633481
+Received new RTT sum from ghi at 1543157716.633642
+Received RTT request from ghi at 1543157716.634287
+Received new RTT sum from abc at 1543157718.575829
+Received RTT request from abc at 1543157718.5762691
+Received RTT request from abc at 1543157718.5764391
+Received RTT request from abc at 1543157718.582741
+Received RTT request from abc at 1543157718.5895228
+Received RTT request from abc at 1543157718.58988
+Sent RTT request to abc at 1543157721.2304971
+Sent RTT request to ghi at 1543157721.230526
+Calculated new RTT sum 0.1161642074584961 at 1543157721.230798
+Sent RTT request to abc at 1543157721.231078
+Sent RTT request to abc at 1543157721.26179
+Sent RTT request to ghi at 1543157721.2618382
+Sent RTT request to abc at 1543157721.262385
+Received RTT request from ghi at 1543157721.68357
+Received new RTT sum from ghi at 1543157721.689606
+Received RTT request from ghi at 1543157721.696154
+Received RTT request from ghi at 1543157721.6965451
+Received RTT request from ghi at 1543157721.71797
+Received RTT request from abc at 1543157723.642901
+Received RTT request from abc at 1543157723.642981
+Received new RTT sum from abc at 1543157723.643275
+Received RTT request from abc at 1543157723.666676
+Sent RTT request to abc at 1543157726.279847
+Calculated new RTT sum 0.1122128963470459 at 1543157726.291542
+Sent RTT request to ghi at 1543157726.291567
+Sent RTT request to abc at 1543157726.315386
+Sent RTT request to ghi at 1543157726.334246
+Sent RTT request to abc at 1543157726.341145
+Sent RTT request to ghi at 1543157726.341533
+Sent RTT request to ghi at 1543157726.359702
+Received RTT request from ghi at 1543157726.758775
+Received new RTT sum from ghi at 1543157726.771623
+Received RTT request from ghi at 1543157726.783448
+First discovered node mno at 1543157726.964522
+Received RTT request from abc at 1543157728.705602
+Received new RTT sum from abc at 1543157728.7399628
+Received RTT request from abc at 1543157728.739994
+First discovered node jkl at 1543157729.774783
+Sent RTT request to abc at 1543157729.8472152
+Sent RTT request to mno at 1543157729.853791
+Sent RTT request to ghi at 1543157729.859288
+Calculated new RTT sum 0.11465215682983398 at 1543157729.870708
+Sent RTT request to jkl at 1543157729.8767848
+Sent RTT request to abc at 1543157729.887591
+Sent RTT request to mno at 1543157729.8879008
+Sent RTT request to ghi at 1543157729.8886049
+Sent RTT request to jkl at 1543157729.888953
+Sent RTT request to mno at 1543157729.905803
+Sent RTT request to jkl at 1543157729.906564
+Updated hub from def to ghi at 1543157729.906641
+Sent RTT request to jkl at 1543157729.937141
+Sent RTT request to jkl at 1543157729.949066
+Sent RTT request to jkl at 1543157729.95554
+Sent RTT request to jkl at 1543157729.994966
+Sent RTT request to jkl at 1543157730.0202281
+Sent RTT request to jkl at 1543157730.0540202
+Sent RTT request to jkl at 1543157730.0846431
+Sent RTT request to jkl at 1543157730.120241
+Sent RTT request to jkl at 1543157730.161273
+Sent RTT request to jkl at 1543157730.207201
+Sent RTT request to jkl at 1543157730.248796
+Sent RTT request to jkl at 1543157730.265842
+Sent RTT request to abc at 1543157731.364065
+Sent RTT request to ghi at 1543157731.3706949
+Sent RTT request to mno at 1543157731.370841
+Sent RTT request to abc at 1543157731.389986
+Calculated new RTT sum 0.22458982467651367 at 1543157731.395913
+Sent RTT request to jkl at 1543157731.395939
+Sent RTT request to ghi at 1543157731.415379
+Sent RTT request to mno at 1543157731.415626
+Sent RTT request to abc at 1543157731.416506
+Sent RTT request to jkl at 1543157731.416527
+Sent RTT request to jkl at 1543157731.417364
+Sent RTT request to jkl at 1543157731.424255
+Received RTT request from ghi at 1543157731.828059
+Received RTT request from ghi at 1543157731.846268
+Received new RTT sum from ghi at 1543157731.846379
+Received RTT request from ghi at 1543157731.8468008
+Received RTT request from ghi at 1543157731.84699
+Received RTT request from mno at 1543157732.1071339
+Received RTT request from mno at 1543157732.131132
+Received RTT request from jkl at 1543157732.2617059
+Received RTT request from jkl at 1543157732.310623
+Received RTT request from jkl at 1543157732.334634
+Received RTT request from jkl at 1543157732.384335
+Received RTT request from jkl at 1543157732.407161
+Received RTT request from jkl at 1543157732.44271
+Received RTT request from jkl at 1543157732.477995
+Received RTT request from jkl at 1543157732.521675
+Received RTT request from jkl at 1543157732.532203
+Received RTT request from jkl at 1543157732.532346
+Received RTT request from abc at 1543157733.793519
+Received RTT request from abc at 1543157733.8116732
+Received new RTT sum from abc at 1543157733.823467
+Received RTT request from abc at 1543157733.823488
+Received RTT request from mno at 1543157734.1943092
+Received RTT request from mno at 1543157734.230043
+Received RTT request from jkl at 1543157734.365171
+Received RTT request from jkl at 1543157734.382842
+Received RTT request from jkl at 1543157734.4061382
+Sent RTT request to abc at 1543157736.44028
+Sent RTT request to mno at 1543157736.456555
+Sent RTT request to ghi at 1543157736.475445
+Sent RTT request to abc at 1543157736.494829
+Sent RTT request to jkl at 1543157736.495209
+Calculated new RTT sum 0.31090545654296875 at 1543157736.495629
+Sent RTT request to mno at 1543157736.4956732
+Sent RTT request to ghi at 1543157736.495737
+Sent RTT request to jkl at 1543157736.504247
+Sent RTT request to ghi at 1543157736.5227761
+Sent RTT request to jkl at 1543157736.523448
+Sent RTT request to jkl at 1543157736.529897
+Received RTT request from ghi at 1543157736.935405
+Received new RTT sum from ghi at 1543157736.959318
+Received RTT request from ghi at 1543157736.959438
+Received RTT request from ghi at 1543157736.96542
+Received RTT request from abc at 1543157738.903182
+Received new RTT sum from abc at 1543157738.9219022
+Received RTT request from abc at 1543157738.933608
+Received RTT request from mno at 1543157739.268515
+Received RTT request from mno at 1543157739.281397
+Received new RTT sum from mno at 1543157739.2936509
+Updated hub from mno to mno at 1543157739.311109
+Received RTT request from jkl at 1543157739.439353
+Received RTT request from jkl at 1543157739.4463859
+Received new RTT sum from jkl at 1543157739.4638069
+Received RTT request from jkl at 1543157739.464106
+Sent RTT request to abc at 1543157741.560322
+Sent RTT request to ghi at 1543157741.591305
+Sent RTT request to abc at 1543157741.597204
+Sent RTT request to mno at 1543157741.60339
+Sent RTT request to jkl at 1543157741.608921
+Calculated new RTT sum 0.16617608070373535 at 1543157741.6097221
+Sent RTT request to ghi at 1543157741.609922
+Sent RTT request to mno at 1543157741.616174
+Sent RTT request to jkl at 1543157741.62305
+Sent RTT request to mno at 1543157741.623818
+Sent RTT request to ghi at 1543157741.623957
+Sent RTT request to jkl at 1543157741.630274
+Sent RTT request to mno at 1543157741.630908
+Sent RTT request to ghi at 1543157741.6310122
+Received RTT request from ghi at 1543157742.0483918
+Received RTT request from ghi at 1543157742.059907
+Received RTT request from ghi at 1543157742.076349
+Received RTT request from ghi at 1543157742.082743
+Received new RTT sum from ghi at 1543157742.082922
+Received RTT request from ghi at 1543157742.0839849
+Received RTT request from ghi at 1543157742.084012
+Received RTT request from abc at 1543157744.06177
+Received new RTT sum from abc at 1543157744.073434
+Received RTT request from abc at 1543157744.085227
+Received RTT request from mno at 1543157744.359175
+Received new RTT sum from mno at 1543157744.359311
+Received RTT request from mno at 1543157744.359339
+Received RTT request from mno at 1543157744.3651872
+Received RTT request from jkl at 1543157744.515289
+Received RTT request from jkl at 1543157744.53234
+Received new RTT sum from jkl at 1543157744.5377028
+Received RTT request from jkl at 1543157744.544319
+Received RTT request from jkl at 1543157744.544498
+Sent RTT request to abc at 1543157746.660712
+Sent RTT request to ghi at 1543157746.695595
+Sent RTT request to mno at 1543157746.6956959
+Sent RTT request to ghi at 1543157746.701345
+Sent RTT request to abc at 1543157746.701462
+Sent RTT request to jkl at 1543157746.701487
+Sent RTT request to mno at 1543157746.713797
+Calculated new RTT sum 0.1468982696533203 at 1543157746.720334
+Sent RTT request to abc at 1543157746.72058
+Sent RTT request to ghi at 1543157746.720716
+Sent RTT request to jkl at 1543157746.720754
+Sent RTT request to mno at 1543157746.721292
+Sent RTT request to jkl at 1543157746.7218869
+Sent RTT request to mno at 1543157746.7317939
+Sent RTT request to jkl at 1543157746.7325141
+Sent RTT request to jkl at 1543157746.733016
+Sent RTT request to jkl at 1543157746.7336278
+Sent RTT request to jkl at 1543157746.7394009
+Sent RTT request to jkl at 1543157746.751321
+Received RTT request from ghi at 1543157747.1390111
+Received new RTT sum from ghi at 1543157747.162583
+Received RTT request from ghi at 1543157747.173281
