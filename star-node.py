@@ -12,6 +12,7 @@ localPort = sys.argv[2]
 pocAddress = sys.argv[3]
 pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
+lock = Lock()
 
 class Peer:
 	RTTack = False
@@ -103,7 +104,7 @@ class Peer:
 		t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t10.daemon = True
 		t10.start()
-		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
+		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, True ])
 		t6.daemon = True
 		t6.start()
 		tp = threading.Thread(target = self.initialPeerDiscovery, args = [ s ])
@@ -198,17 +199,10 @@ class Peer:
 				self.initialRTTack(socket, nodeName.strip(), packetNumber)
 			if msgtype == "002":
 				nodeName = output[8:24].strip()
-				#print("got ack from " + nodeName)
 				endTime = time.time()
-				#print(self.packetTimes)
-				#print("packettimes index " + str(output[24:].strip()))
-				#print(self.packetTimes)
-				#print("pack above")
 				rtttime = endTime - self.packetTimes[int(output[24:].strip())]
 				self.rtttimes[nodeName] = rtttime
 				confpacknum = int(output[24:].strip())
-				#print("conf")
-				#print(confpacknum)
 				self.receivedAcks.add(confpacknum)
 			if msgtype == "003":
 				self.receiveRTTsum(clientAddress, output, socket)
@@ -221,9 +215,6 @@ class Peer:
 				#print("Received ack")
 				confpacknum = int(message[24:].strip())
 				self.receivedAcks.add(confpacknum)
-				#print("Received ack from " + output[8:24].strip())
-				#print(self.packetNum)
-				#print(self.receivedAcks)
 			if msgtype == "007":
 				nodeName = output[8:24].strip()
 				packetNumber = output[24:]
@@ -271,7 +262,7 @@ class Peer:
 				ts.start()
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-		print(self.online)
+		#print(self.online)
 
 	def keepAliveHelper(self, serverSocket, temppacketnum, node):
 		counter = 0;
@@ -281,23 +272,59 @@ class Peer:
 			kapacket = "007" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
 			serverSocket.sendto(kapacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			counter += 1
-			time.sleep(.2)
+			time.sleep(1)
 
 		if counter == 5:
+			#Node went offline
 			prev = False
 			if node in self.online:
 				prev = self.online[node]
 			self.online[node] = False
 			if prev == True:
-				self.updaterttsandhub(serverSocket, True)
+				self.rttsums[node] = "99"
+				self.recalchuboffline(serverSocket, node)
 		else:
+			#Node came online
 			prev = True
 			if node in self.online:
 				prev = self.online[node]
 			self.online[node] = True
 			if prev == False:
-				self.updaterttsandhub(serverSocket, True)
+				self.recalchubonline(serverSocket, node)
 			
+	def recalchubonline(self, serverSocket, node):
+		self.updaterttsandhub(serverSocket, True)
+
+		#self.getintialrttsandhub(serverSocket)
+
+
+		# if node in self.rttsums:
+		# 	temp = float(self.rttsums[node])
+		# 	while float(self.rttsums[node]) == temp:
+		# 		print("waiting")
+		# 		time.sleep(1)
+			#self.sendRTTsum(serverSocket)
+
+
+		# if self.hubnode == name:
+		# 	if node in self.rttsums and float(self.rttsums[node]) < float(self.rttsum):
+		# 		self.hubnode = node
+		# else:
+		# 	if node in self.rttsums and float(self.rttsums[node]) < float(self.rttsums[self.hubnode]):
+		# 		self.hubnode = node
+
+	def recalchuboffline(self, serverSocket, node):
+		#self.updaterttsandhub(serverSocket, True)
+
+		if self.hubnode == node:
+			tempmin = float(self.rttsum)
+			tempnode = name
+			for node in self.rttsums:
+				if node in self.online and self.online[node] == True:
+					if float(self.rttsums[node]) < tempmin:
+						tempmin = float(self.rttsums[node])
+						tempnode = node
+			self.hubnode = tempnode
 
 	def receiveKeepAlive(self, serverSocket, nodeName, packetnum):
 		packnum = int(packetnum.strip())
@@ -561,7 +588,7 @@ class Peer:
 				traceback.print_exc()
 				#continue
 			time.sleep(1)
-		time.sleep(2)
+		#time.sleep(5)
 			#print(self.rttsums)
 		print("Calculating hub...")
 		#print("last2")
@@ -589,6 +616,8 @@ class Peer:
 	def updaterttsandhub(self, s, newflag):
 		flucuate = self.minor
 		if newflag or self.rttsum == 0:
+			if self.rttsum == 0:
+				print("here")
 			flucuate = 0
 
 		#print("recalculating")
@@ -642,8 +671,21 @@ class Peer:
 		#print(self.rttsum)
 		# if self.hubnode is None:
 		# 	print("no hub")
+		if newflag:
+			#time.sleep(3)
+			print(self.rttsum)
+			print(self.rttsums)
+			print("Old hubnode " + self.hubnode)
+			tempmin = float(self.rttsum)
+			tempnode = name
+			for node in self.rttsums:
+				if node in self.online and self.online[node] == True:
+					if float(self.rttsums[node]) < tempmin:
+						tempmin = float(self.rttsums[node])
+						tempnode = node
+			self.hubnode = tempnode
 
-		if self.hubnode != name and float(self.rttsum) + flucuate < float(self.rttsums[self.hubnode]):
+		if self.hubnode in self.rttsums and (self.hubnode != name and float(self.rttsum) + flucuate < float(self.rttsums[self.hubnode])):
 			#print("h4")
 			self.log = open(self.logfilename, 'a')
 			self.log.write("Updated hub from " + self.hubnode + " to " + name + " at " + str(time.time()) + "\n")
@@ -654,10 +696,9 @@ class Peer:
 			tempmin = float(self.rttsum)
 			tempnode = name
 			for node in self.rttsums:
-				if node in self.online and self.online[node] == True:
-					if float(self.rttsums[node]) < tempmin:
-						tempmin = float(self.rttsums[node])
-						tempnode = node
+				if float(self.rttsums[node]) < tempmin:
+					tempmin = float(self.rttsums[node])
+					tempnode = node
 			if tempmin + flucuate < self.rttsum:
 				self.log = open(self.logfilename, 'a')
 				self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
@@ -667,6 +708,8 @@ class Peer:
 
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))
+		if newflag:
+			print("New hubnode " + self.hubnode)
 		time.sleep(5)
 
 	#Show status
