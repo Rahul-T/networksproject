@@ -40,7 +40,7 @@ class Peer:
 
 		self.online = {}
 
-		self.minor = 0.25
+		self.minor = 1
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -103,6 +103,30 @@ class Peer:
 		t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t10.daemon = True
 		t10.start()
+		t13 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t13.daemon = True
+		t13.start()
+		t14 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t14.daemon = True
+		t14.start()
+		t15 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t15.daemon = True
+		t15.start()
+		t16 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t16.daemon = True
+		t16.start()
+		t17 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t17.daemon = True
+		t17.start()
+		t18 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t18.daemon = True
+		t18.start()
+		t19 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t19.daemon = True
+		t19.start()
+		t20 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		t20.daemon = True
+		t20.start()
 		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
 		t6.daemon = True
 		t6.start()
@@ -138,6 +162,38 @@ class Peer:
 					t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 					t10.daemon = True
 					t10.start()
+				if not t13.isAlive():
+					t13 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t13.daemon = True
+					t13.start()
+				if not t14.isAlive():
+					t14 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t14.daemon = True
+					t14.start()
+				if not t15.isAlive():
+					t15 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t15.daemon = True
+					t15.start()
+				if not t16.isAlive():
+					t16 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t16.daemon = True
+					t16.start()
+				if not t17.isAlive():
+					t17 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t17.daemon = True
+					t17.start()
+				if not t18.isAlive():
+					t18 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t18.daemon = True
+					t18.start()
+				if not t19.isAlive():
+					t19 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t19.daemon = True
+					t19.start()
+				if not t20.isAlive():
+					t20 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t20.daemon = True
+					t20.start()
 				if not t6.isAlive():
 					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
 					t6.daemon = True
@@ -276,16 +332,16 @@ class Peer:
 	def keepAliveHelper(self, serverSocket, temppacketnum, node):
 		counter = 0;
 		while (int(temppacketnum) not in self.receivedAcks):
-			if counter == 5:
+			if counter == 20:
 				break
 			kapacket = "007" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
 			if node not in self.peers:
 				break
 			serverSocket.sendto(kapacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			counter += 1
-			time.sleep(.5)
+			time.sleep(.2)
 
-		if counter == 5:
+		if counter == 20:
 			prev = False
 			if node in self.online:
 				prev = self.online[node]
@@ -338,7 +394,7 @@ class Peer:
 			pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
 			serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
 			#print("sleep1")
-			time.sleep(1)
+			time.sleep(.2)
 		#print("the end")
 
 	def sendPeerDiscovery(self, serverSocket):
@@ -360,7 +416,7 @@ class Peer:
 				break
 			serverSocket.sendto(pdpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			#print("sleep2")
-			time.sleep(1)
+			time.sleep(.2)
 
 	def receivePeerDiscovery(self, clientAddress, message, serverSocket):
 		packnum = int(message[24:123].strip())
@@ -458,7 +514,7 @@ class Peer:
 			if node not in self.peers:
 				break
 			serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-			time.sleep(1)
+			time.sleep(.2)
 
 	def receiveRTTsum(self, clientAddress, message, serverSocket):
 		packnum = int(message[55:].strip())
@@ -709,7 +765,7 @@ class Peer:
 			self.hubnode = tempnode
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))
-		time.sleep(5)
+		time.sleep(15)
 
 	#Show status
 
@@ -758,7 +814,7 @@ class Peer:
 				return
 			broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
 			serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-			time.sleep(1)
+			time.sleep(.2)
 
 	def receiveStringMessage(self, clientAddress, message, serverSocket):
 		#print("Received message: " + message)
@@ -798,7 +854,7 @@ class Peer:
 				return
 			forwardpacket = "004" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + message[140:]
 			serverSocket.sendto(forwardpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-			time.sleep(1)
+			time.sleep(.2)
 
 	#File broadcasting
 
@@ -826,7 +882,7 @@ class Peer:
 				filepacketvalue = data
 				totalfilepacket = z + data
 				serverSocket.sendto(totalfilepacket, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
-				time.sleep(1)
+				time.sleep(.2)
 
 		f.close()
 		self.log = open(self.logfilename, 'a')
@@ -842,7 +898,7 @@ class Peer:
 			filepacketvalue = data
 			totalfilepacket = z + data
 			serverSocket.sendto(totalfilepacket, (self.peers[node][0], int(self.peers[node][1])))
-			time.sleep(1)
+			time.sleep(.2)
 
 	def receiveFile(self, clientAddress, packetheader, serverSocket, message):
 		packnum = int(message[56:156].strip())
@@ -890,7 +946,7 @@ class Peer:
 			filepacketvalue = data
 			totalfilepacket = z + data
 			serverSocket.sendto(totalfilepacket, (self.peers[node][0], int(self.peers[node][1])))
-			time.sleep(1)
+			time.sleep(.2)
 
 
 
