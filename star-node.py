@@ -61,13 +61,16 @@ class Peer:
 		
 
 		te = threading.Thread( target = self.__handlepeer, args = [ s ] )
+		te.daemon = True
 		te.start()
 		tr = threading.Thread( target = self.initialPeerDiscovery, args = [ s ] )
+		tr.daemon = True
 		tr.start()
 
 		while tr.isAlive():
 			if not te.isAlive():
 				te = threading.Thread( target = self.__handlepeer, args = [ s ] )
+				te.daemon = True
 				te.start()
 
 
@@ -388,14 +391,18 @@ class Peer:
 	def initialPoc(self, serverSocket):
 		temppacketnum = int(self.packetNum)
 		self.packetNum += 1
-		while int(temppacketnum) not in self.receivedAcks:
+		counter = 0
+		while int(temppacketnum) not in self.receivedAcks and int(counter) < 200:
 			#print("Sending packet " + str(temppacketnum) + " to poc")
 			#print(self.receivedAcks)
 			pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
 			serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
 			#print("sleep1")
+			counter += 1
 			time.sleep(.2)
 		#print("the end")
+		if counter >= 200:
+			self.shutdown = True
 
 	def sendPeerDiscovery(self, serverSocket):
 		temppacketnum = int(self.packetNum)
