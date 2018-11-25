@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Received RTT request from abc at 1543156871.097258
 Received RTT request from abc at 1543156871.126455
 Received RTT request from abc at 1543156871.161951
@@ -52,3 +53,162 @@ Sent RTT request to abc at 1543156880.4557178
 Sent RTT request to abc at 1543156880.480321
 Calculated new RTT sum 0 at 1543156880.4974341
 Sent RTT request to def at 1543156880.4975429
+=======
+First discovered node abc at 1543044329.0203872
+First discovered node def at 1543044329.0206451
+First discovered node mno at 1543044329.03824
+First discovered node jkl at 1543044329.0447261
+Received RTT request from abc at 1543044333.1482549
+Received RTT request from abc at 1543044333.1549041
+Received RTT request from abc at 1543044333.155225
+Received RTT request from abc at 1543044333.174342
+Received RTT request from abc at 1543044333.193438
+Received RTT request from abc at 1543044333.1996129
+Received RTT request from abc at 1543044333.21242
+Received RTT request from abc at 1543044333.2190158
+Received RTT request from abc at 1543044333.242162
+Received RTT request from abc at 1543044333.2488708
+Received RTT request from abc at 1543044333.260341
+Received RTT request from abc at 1543044333.283544
+Received RTT request from abc at 1543044333.296552
+Received RTT request from abc at 1543044333.303114
+Received RTT request from abc at 1543044333.309698
+Received RTT request from abc at 1543044333.328557
+Received RTT request from abc at 1543044333.358571
+Received RTT request from abc at 1543044333.371531
+Received RTT request from abc at 1543044333.378135
+Received RTT request from def at 1543044335.042437
+Received RTT request from def at 1543044335.0790431
+Received RTT request from mno at 1543044336.334049
+Received RTT request from mno at 1543044336.3836212
+Received RTT request from jkl at 1543044336.855042
+Received RTT request from jkl at 1543044336.9015172
+Received RTT request from jkl at 1543044336.945767
+Received new RTT sum from abc at 1543044337.454602
+Sent RTT request to abc at 1543044338.249426
+Sent RTT request to abc at 1543044338.272897
+Received new RTT sum from def at 1543044339.191902
+Sent RTT request to def at 1543044339.3286898
+Sent RTT request to def at 1543044339.369784
+Sent RTT request to mno at 1543044340.42301
+Received new RTT sum from mno at 1543044340.483371
+Sent RTT request to mno at 1543044340.4897542
+Sent RTT request to mno at 1543044340.508051
+Received new RTT sum from jkl at 1543044341.040412
+Received new RTT sum from abc at 1543044341.508733
+Sent RTT request to jkl at 1543044341.527883
+Sent RTT request to jkl at 1543044341.571158
+Sent RTT request to jkl at 1543044341.600993
+Calculated new RTT sum 0.29590368270874023 at 1543044342.653286
+Received new RTT sum from def at 1543044343.23771
+Received new RTT sum from mno at 1543044344.536126
+Received new RTT sum from jkl at 1543044345.0926652
+Initialized hub to ghi at 1543044346.7700999
+Received RTT request from def at 1543044350.558096
+Received RTT request from def at 1543044350.5834198
+Received RTT request from def at 1543044350.601813
+Received RTT request from abc at 1543044350.702921
+Received RTT request from abc at 1543044350.727419
+Received RTT request from abc at 1543044350.74422
+Sent RTT request to abc at 1543044351.818944
+Received RTT request from mno at 1543044351.830979
+Sent RTT request to abc at 1543044351.8370292
+Received RTT request from mno at 1543044351.860128
+Sent RTT request to def at 1543044351.884328
+Sent RTT request to def at 1543044351.903865
+Received new RTT sum from abc at 1543044351.93326
+Sent RTT request to def at 1543044351.933643
+Sent RTT request to mno at 1543044351.9624882
+Sent RTT request to mno at 1543044351.9860108
+Sent RTT request to mno at 1543044352.0227032
+Sent RTT request to jkl at 1543044352.035441
+Sent RTT request to jkl at 1543044352.069936
+Calculated new RTT sum 0.21420621871948242 at 1543044352.076434
+Received RTT request from jkl at 1543044352.471044
+Received RTT request from jkl at 1543044352.495567
+Received RTT request from jkl at 1543044352.519082
+Received new RTT sum from def at 1543044353.687061
+Received new RTT sum from mno at 1543044354.9006941
+Received new RTT sum from jkl at 1543044355.60388
+Forwarded message def             37                                                                                                  hi from def at 1543044358.1824698
+Received message def             37                                                                                                  hi from def at 1543044358.194759
+Received RTT request from def at 1543044359.942602
+Received RTT request from def at 1543044359.9487228
+Received RTT request from def at 1543044359.973539
+Received RTT request from abc at 1543044360.0137842
+Received RTT request from abc at 1543044360.0191302
+Received RTT request from abc at 1543044360.031323
+Received RTT request from abc at 1543044360.050124
+Received RTT request from abc at 1543044360.068449
+Received RTT request from abc at 1543044360.08025
+Received RTT request from abc at 1543044360.104969
+Received RTT request from abc at 1543044360.1179678
+Received RTT request from abc at 1543044360.123706
+Received RTT request from abc at 1543044360.141249
+Received RTT request from abc at 1543044360.1413271
+Received RTT request from abc at 1543044360.1953652
+Received RTT request from abc at 1543044360.1953979
+Received RTT request from abc at 1543044360.227391
+Received RTT request from abc at 1543044360.232914
+Received RTT request from abc at 1543044360.2581189
+Received RTT request from abc at 1543044360.258146
+Received RTT request from abc at 1543044360.301562
+Received RTT request from abc at 1543044360.3016572
+Received RTT request from abc at 1543044360.326037
+Received RTT request from mno at 1543044361.103421
+Received RTT request from mno at 1543044361.1148942
+Received new RTT sum from abc at 1543044361.1500769
+Sent RTT request to abc at 1543044361.155563
+Received RTT request from mno at 1543044361.161155
+Sent RTT request to abc at 1543044361.167383
+Sent RTT request to abc at 1543044361.2051451
+Sent RTT request to def at 1543044361.229837
+Sent RTT request to def at 1543044361.267023
+Sent RTT request to def at 1543044361.2904131
+Sent RTT request to mno at 1543044361.329935
+Sent RTT request to mno at 1543044361.3605278
+Sent RTT request to mno at 1543044361.366231
+Sent RTT request to jkl at 1543044361.372504
+Sent RTT request to jkl at 1543044361.373218
+Sent RTT request to jkl at 1543044361.409068
+Calculated new RTT sum 0.16815400123596191 at 1543044361.4203131
+Received RTT request from jkl at 1543044361.8925471
+Received RTT request from jkl at 1543044361.93681
+Received RTT request from jkl at 1543044361.9858098
+Received new RTT sum from def at 1543044363.0431008
+Received new RTT sum from mno at 1543044364.2316842
+Forwarded message abc             47                                                                                                  sup from abc at 1543044364.351594
+Received message abc             47                                                                                                  sup from abc at 1543044364.3887072
+Received new RTT sum from jkl at 1543044365.0229812
+Received RTT request from def at 1543044369.301404
+Received RTT request from abc at 1543044369.313798
+Received RTT request from def at 1543044369.355079
+Received RTT request from abc at 1543044369.380157
+Received RTT request from def at 1543044369.3921778
+Received RTT request from abc at 1543044369.4033039
+Received new RTT sum from abc at 1543044370.5087261
+Sent RTT request to abc at 1543044370.520201
+Sent RTT request to abc at 1543044370.5516438
+Received RTT request from mno at 1543044370.563116
+Sent RTT request to abc at 1543044370.569428
+Received RTT request from mno at 1543044370.582613
+Sent RTT request to abc at 1543044370.582655
+Sent RTT request to def at 1543044370.595335
+Sent RTT request to def at 1543044370.608242
+Sent RTT request to def at 1543044370.608424
+Sent RTT request to mno at 1543044370.615273
+Sent RTT request to mno at 1543044370.623595
+Sent RTT request to mno at 1543044370.629191
+Sent RTT request to mno at 1543044370.660558
+Sent RTT request to jkl at 1543044370.667257
+Sent RTT request to jkl at 1543044370.6908002
+Calculated new RTT sum 0.13289141654968262 at 1543044370.7200892
+Received RTT request from jkl at 1543044371.1679318
+Received RTT request from jkl at 1543044371.202666
+Received RTT request from jkl at 1543044371.258446
+Received new RTT sum from def at 1543044372.387003
+Received new RTT sum from mno at 1543044373.658103
+Forwarded message jkl             51                                                                                                  hello from jkl at 1543044373.862705
+Received message jkl             51                                                                                                  hello from jkl at 1543044373.9058151
+Received new RTT sum from jkl at 1543044374.280014
+>>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
