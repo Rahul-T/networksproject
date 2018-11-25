@@ -12,7 +12,6 @@ localPort = sys.argv[2]
 pocAddress = sys.argv[3]
 pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
-lock = Lock()
 
 class Peer:
 	RTTack = False
@@ -38,10 +37,6 @@ class Peer:
 
 		self.receivedPackets = set()
 		self.receivedAcks = set()
-
-		self.online = {}
-
-		self.minor = 0.25
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -95,7 +90,6 @@ class Peer:
 		t7 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t7.daemon = True
 		t7.start()
-<<<<<<< HEAD
 		t8 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t8.daemon = True
 		t8.start()
@@ -105,18 +99,9 @@ class Peer:
 		t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 		t10.daemon = True
 		t10.start()
-		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, True ])
-=======
 		t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 		t6.daemon = True
 		t6.start()
-		tp = threading.Thread(target = self.initialPeerDiscovery, args = [ s ])
-		tp.daemon = True
-		tp.start()
-		tk = threading.Thread(target = self.keepAlive, args = [ s ])
-		tk.daemon = True
-		tk.start()
 
 		while not self.shutdown:
 			try:
@@ -131,19 +116,22 @@ class Peer:
 					t7 = threading.Thread( target = self.__handlepeer, args = [ s ] )
 					t7.daemon = True
 					t7.start()
+				if not t8.isAlive():
+					t8 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t8.daemon = True
+					t8.start()
+				if not t9.isAlive():
+					t9 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t9.daemon = True
+					t9.start()
+				if not t10.isAlive():
+					t10 = threading.Thread( target = self.__handlepeer, args = [ s ] )
+					t10.daemon = True
+					t10.start()
 				if not t6.isAlive():
-					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s, False ])
+					t6 = threading.Thread(target = self.updaterttsandhub, args = [ s ])
 					t6.daemon = True
 					t6.start()
-				if not tp.isAlive():
-					tp = threading.Thread(target = self.initialPeerDiscovery, args = [ s ])
-					tp.daemon = True
-					tp.start()
-				if not tk.isAlive():
-					tk = threading.Thread(target = self.keepAlive, args = [ s ])
-					tk.daemon = True
-					tk.start()
-
 			except KeyboardInterrupt:
 				self.shutdown = True
 				continue
@@ -191,10 +179,17 @@ class Peer:
 				self.initialRTTack(socket, nodeName.strip(), packetNumber)
 			if msgtype == "002":
 				nodeName = output[8:24].strip()
+				#print("got ack from " + nodeName)
 				endTime = time.time()
+				#print(self.packetTimes)
+				#print("packettimes index " + str(output[24:].strip()))
+				#print(self.packetTimes)
+				#print("pack above")
 				rtttime = endTime - self.packetTimes[int(output[24:].strip())]
 				self.rtttimes[nodeName] = rtttime
 				confpacknum = int(output[24:].strip())
+				#print("conf")
+				#print(confpacknum)
 				self.receivedAcks.add(confpacknum)
 			if msgtype == "003":
 				self.receiveRTTsum(clientAddress, output, socket)
@@ -207,11 +202,9 @@ class Peer:
 				#print("Received ack")
 				confpacknum = int(message[24:].strip())
 				self.receivedAcks.add(confpacknum)
-			if msgtype == "007":
-				nodeName = output[8:24].strip()
-				packetNumber = output[24:]
-				self.receiveKeepAlive(socket, nodeName, packetNumber)
-
+				#print("Received ack from " + output[8:24].strip())
+				#print(self.packetNum)
+				#print(self.receivedAcks)
 
 		except KeyboardInterrupt:
 			raise
@@ -222,8 +215,6 @@ class Peer:
 
 
 	def __commands(self, socket):
-		while(self.rttsum == 0):
-			time.sleep(.1)
 		command = input("Star-node command: ")
 		if command == "show-status":
 			self.showstatus()
@@ -239,91 +230,6 @@ class Peer:
 		elif command == "show-log":
 			self.showlog()
 
-
-
-
-
-	def keepAlive(self, serverSocket):
-		time.sleep(2)
-		temppacketnum = int(self.packetNum)
-		self.packetNum += 1
-		for node in list(self.peers):
-			if node != name:
-				ts = threading.Thread( target = self.keepAliveHelper, args = [ serverSocket, temppacketnum, node ] )
-				ts.daemon = True
-				ts.start()
-			temppacketnum = int(self.packetNum)
-			self.packetNum += 1
-		#print(self.online)
-
-	def keepAliveHelper(self, serverSocket, temppacketnum, node):
-		counter = 0;
-		while (int(temppacketnum) not in self.receivedAcks):
-			if counter == 5:
-				break
-			kapacket = "007" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
-			serverSocket.sendto(kapacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-			counter += 1
-			time.sleep(1)
-
-		if counter == 5:
-			#Node went offline
-			prev = False
-			if node in self.online:
-				prev = self.online[node]
-			self.online[node] = False
-			if prev == True:
-				self.rttsums[node] = "99"
-				self.recalchuboffline(serverSocket, node)
-		else:
-			#Node came online
-			prev = True
-			if node in self.online:
-				prev = self.online[node]
-			self.online[node] = True
-			if prev == False:
-				self.recalchubonline(serverSocket, node)
-			
-	def recalchubonline(self, serverSocket, node):
-		self.updaterttsandhub(serverSocket, True)
-
-		#self.getintialrttsandhub(serverSocket)
-
-
-		# if node in self.rttsums:
-		# 	temp = float(self.rttsums[node])
-		# 	while float(self.rttsums[node]) == temp:
-		# 		print("waiting")
-		# 		time.sleep(1)
-			#self.sendRTTsum(serverSocket)
-
-
-		# if self.hubnode == name:
-		# 	if node in self.rttsums and float(self.rttsums[node]) < float(self.rttsum):
-		# 		self.hubnode = node
-		# else:
-		# 	if node in self.rttsums and float(self.rttsums[node]) < float(self.rttsums[self.hubnode]):
-		# 		self.hubnode = node
-
-	def recalchuboffline(self, serverSocket, node):
-		#self.updaterttsandhub(serverSocket, True)
-
-		if self.hubnode == node:
-			tempmin = float(self.rttsum)
-			tempnode = name
-			for node in self.rttsums:
-				if node in self.online and self.online[node] == True:
-					if float(self.rttsums[node]) < tempmin:
-						tempmin = float(self.rttsums[node])
-						tempnode = node
-			self.hubnode = tempnode
-
-	def receiveKeepAlive(self, serverSocket, nodeName, packetnum):
-		packnum = int(packetnum.strip())
-		if (nodeName, packnum) not in self.receivedPackets:
-			self.receivedPackets.add((nodeName, packnum))
-		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(packnum)
-		serverSocket.sendto(ackpacket.encode(), (self.peers[nodeName][0], int(self.peers[nodeName][1])))
 
 
 	#Peer Discovery
@@ -343,16 +249,21 @@ class Peer:
 	def sendPeerDiscovery(self, serverSocket):
 		temppacketnum = int(self.packetNum)
 		self.packetNum += 1
-		for node in list(self.peers):
+		for node in self.peers:
 			if node != name:
-				while int(temppacketnum) not in self.receivedAcks:
-					#print("Sending packet " + str(temppacketnum) + " to node " + str(node))
-					pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
-					serverSocket.sendto(pdpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-					#print("sleep2")
-					time.sleep(1)
+				ts = threading.Thread( target = self.sendPeerHelper, args = [ serverSocket, temppacketnum, node ] )
+				ts.daemon = True
+				ts.start()
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
+
+	def sendPeerHelper(self, serverSocket, temppacketnum, node):
+		while int(temppacketnum) not in self.receivedAcks:
+			#print("Sending packet " + str(temppacketnum) + " to node " + str(node))
+			pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
+			serverSocket.sendto(pdpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+			#print("sleep2")
+			time.sleep(1)
 
 	def receivePeerDiscovery(self, clientAddress, message, serverSocket):
 		packnum = int(message[24:123].strip())
@@ -366,42 +277,41 @@ class Peer:
 					self.log.write("First discovered node " + str(node) + " at " + str(time.time()) + "\n")
 					self.log.close()
 					self.peers[node] = incKnownNodes[node]
-					updaterttsandhub(serverSocket, True)
 		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(packnum)
 		nodeName = message[8:24].strip()
 		serverSocket.sendto(ackpacket.encode(), (self.peers[nodeName][0], int(self.peers[nodeName][1])))
 
 	def initialPeerDiscovery(self, s):
 		timeoutcounter = 0
-		#while len(self.peers) < int(maxNodes) and not self.shutdown:
-		try:
-			if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values():
-				#print("NO ABC")
-				#print(str(pocAddress) + " " + str(pocPort) + " ")
-				self.initialPoc(s)
-			self.sendPeerDiscovery(s)
-		except KeyboardInterrupt:
-			self.shutdown = True
-			#continue
-		except:
-			if self.debug:
-				traceback.print_exc()
-				#continue
-		timeoutcounter += 1
-		if timeoutcounter == 30:
-			self.shutdown = True
-		#print("sleep3")
-		time.sleep(1)
+		while len(self.peers) < int(maxNodes) and not self.shutdown:
+			try:
+				if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values():
+					#print("NO ABC")
+					#print(str(pocAddress) + " " + str(pocPort) + " ")
+					self.initialPoc(s)
+				self.sendPeerDiscovery(s)
+			except KeyboardInterrupt:
+				self.shutdown = True
+				continue
+			except:
+				if self.debug:
+					traceback.print_exc()
+					continue
+			timeoutcounter += 1
+			if timeoutcounter == 30:
+				self.shutdown = True
+			#print("sleep3")
+			time.sleep(1)
 		self.sendPeerDiscovery(s)
 		#print("finish")
-		time.sleep(2)
+
 
 	#RTT
 
-	def initialSendRTT(self, serverSocket, node, temppacketnum):
+	def initialSendRTT(self, serverSocket, node):
+		temppacketnum = int(self.packetNum)
+		self.packetNum += 1
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			self.startingTime = time.time()
 			self.packetTimes[int(temppacketnum)] = self.startingTime
 			#print(node)
@@ -426,53 +336,31 @@ class Peer:
 		serverSocket.sendto(initialrttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 
 	def sendRTTsum(self, serverSocket):
-		if self.rttsum == 0:
-			return
 		temppacketnum = int(self.packetNum)
 		self.packetNum += 1
 		#print(self.peers)
-		for node in list(self.peers):
+		for node in self.peers:
 			if node != name:
-				while int(temppacketnum) not in self.receivedAcks:
-					rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<32}".format(str(self.rttsum)) + "{:<100}".format(temppacketnum)
-					serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-					time.sleep(1)
+				ts = threading.Thread( target = self.rttsumhelper, args = [ serverSocket, temppacketnum, node ] )
+				ts.daemon = True
+				ts.start()
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 
-<<<<<<< HEAD
 	def rttsumhelper(self, serverSocket, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			rttpacket = "003" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<32}".format(str(self.rttsum)) + "{:<100}".format(temppacketnum)
 			serverSocket.sendto(rttpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
 
-=======
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 	def receiveRTTsum(self, clientAddress, message, serverSocket):
 		packnum = int(message[55:].strip())
 		nodeName = message[8:24].strip()
-
-		flucuate = self.minor
-		if nodeName not in self.peers or nodeName not in self.rttsums:
-			#print("Brand new rttsum from " + nodeName)
-			flucuate = 0
-			minimum = float(self.rttsum)
-			minnode = name
-			for node in self.rttsums:
-				if float(minimum) > float(self.rttsums[node]):
-					minimum = float(self.rttsums[node])
-					minnode = node
-			self.hubnode = minnode
 		#print(message)
 		#print(packnum)
 		if (message[8:24].strip(), packnum) not in self.receivedPackets:
 			self.receivedPackets.add((message[8:24].strip(), packnum))
 			incRTTsum = message[23:55]
-			#if flucuate == 0:
-				#print("incrttsum = " + str(incRTTsum.strip()))
 			#print(incRTTsum)
 			#print("Received rttsum of " + incRTTsum + " from " + nodeName)
 			self.log = open(self.logfilename, 'a')
@@ -484,29 +372,21 @@ class Peer:
 				self.rttsums[nodeName] = incRTTsum
 			#print("stuck2")
 			if self.hubnode == name:
-				#if flucuate == 0:
-					#print("(i am hub) current hubs rtt = " + str(self.rttsum))
 				#print("stuck3")
-				if float(incRTTsum) + flucuate < float(self.rttsum):
+				if float(incRTTsum) + 0.25 < float(self.rttsum):
 					self.hubnode = nodeName
 					self.log = open(self.logfilename, 'a')
 					self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
 					self.log.close()
 					#print("h1")
-			elif self.hubnode != nodeName:
-				#if flucuate == 0:
-					#print("(inc is hub) current hubs rtt = " + str(self.rttsums[self.hubnode]))
-				if float(incRTTsum) + flucuate < float(self.rttsums[self.hubnode]):
-					#print("stuck4")					
-					self.log = open(self.logfilename, 'a')
-					self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
-					self.log.close()
-					self.hubnode = nodeName
-					#print("h2")
+			elif float(incRTTsum) + 0.25 < float(self.rttsums[self.hubnode]) and self.hubnode != nodeName:
+				#print("stuck4")
+				self.log = open(self.logfilename, 'a')
+				self.log.write("Updated hub from " + self.hubnode + " to " + nodeName + " at " + str(time.time()) + "\n")
+				self.log.close()
+				self.hubnode = nodeName
+				#print("h2")
 			elif self.hubnode == nodeName:
-				#if flucuate == 0:
-					#print("(inc is hub) current hubs rtt = " + str(self.rttsums[self.hubnode]))
-					#print(self.rttsums[self.hubnode])
 				# print("stuck5")
 				# if float(incRTTsum) > float(oldRTTsum):
 				# 	x = 1
@@ -527,7 +407,7 @@ class Peer:
 						tempmin = float(self.rttsum)
 						tempnode = name
 					# print("stuckF")
-					if float(tempmin) + flucuate < float(incRTTsum):
+					if float(tempmin) + 0.25 < float(incRTTsum):
 						# print("stuckG")
 						self.hubnode = tempnode
 						self.log = open(self.logfilename, 'a')
@@ -548,21 +428,13 @@ class Peer:
 
 	def getintialrttsandhub(self, s):
 		print("Getting rtts to each node...")
-		for node in list(self.peers):
+		for node in self.peers:
 			if (node != name):
-<<<<<<< HEAD
 				ts = threading.Thread( target = self.rtthelper, args = [ s, node ] )
 				ts.daemon = True
 				ts.start()
-		#while(len(self.rtttimes) < int(maxNodes)-1):
-			#time.sleep(.1)
-=======
-				while (node not in self.rtttimes):
-					self.initialSendRTT(s, node)
-					#print(self.rtttimes)
-					time.sleep(1)
-
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
+		while(len(self.rtttimes) < int(maxNodes)-1):
+			time.sleep(.1)
 		#print(self.rtttimes)
 		for node in self.rtttimes:
 			self.rttsum += self.rtttimes[node]
@@ -574,20 +446,20 @@ class Peer:
 		print("Sending/Receiving RTT sums...")
 		self.sendRTTsum(s)
 		#sentit = False
-		#while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
-		try:
-			#if not sentit:
-			self.sendRTTsum(s)
-				#sentit = True
-		except KeyboardInterrupt:
-			self.shutdown = True
-			#continue
-		except:
-			if self.debug:
-				traceback.print_exc()
-				#continue
+		while len(self.rttsums) < int(maxNodes)-1 and not self.shutdown:
+			try:
+				#if not sentit:
+				self.sendRTTsum(s)
+					#sentit = True
+			except KeyboardInterrupt:
+				self.shutdown = True
+				continue
+			except:
+				if self.debug:
+					traceback.print_exc()
+					continue
 			time.sleep(1)
-		#time.sleep(5)
+
 			#print(self.rttsums)
 		print("Calculating hub...")
 		#print("last2")
@@ -603,93 +475,30 @@ class Peer:
 		self.log.write("Initialized hub to " + self.hubnode + " at " + str(time.time()) + "\n")
 		self.log.close()
 
-<<<<<<< HEAD
 	def rtthelper(self, s, node):
-		temppacketnum = self.packetNum
-		self.packetNum += 1
 		while (node not in self.rtttimes):
-			if node in self.online and self.online[node] == False:
-				return
-			self.initialSendRTT(s, node, temppacketnum)
+			self.initialSendRTT(s, node)
 			time.sleep(1)
 
-	def updaterttsandhub(self, s, newflag):
-		flucuate = self.minor
-		if newflag or self.rttsum == 0:
-			if self.rttsum == 0:
-				print("here")
-			flucuate = 0
-
-=======
 	def updaterttsandhub(self, s):
 		time.sleep(5)
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 		#print("recalculating")
-		for node in list(self.peers):
+		for node in self.rtttimes:
 			#self.startingTime = time.time()
 			#self.packetTimes[int(self.packetNum)] = self.startingTime
-			temppacketnum = self.packetNum
-			self.packetNum += 1
-			if node != name:
-				ts = threading.Thread( target = self.initialSendRTT, args = [ s, node, temppacketnum ] )
-				ts.daemon = True
-				ts.start()
-
-
+			self.initialSendRTT(s, node)
+			#self.packetNum = self.packetNum + 1
 		#print(self.rttsum)
 		self.rttsum = 0
 		for node in self.rtttimes:
-			if node in self.online and self.online[node] == True:
-				self.rttsum += self.rtttimes[node]
+			self.rttsum += self.rtttimes[node]
+
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Calculated new RTT sum " + str(self.rttsum) + " at " + str(time.time()) + "\n")
 		self.log.close()
 
-		self.sendRTTsum(s)
-
-
-		# if self.hubnode in self.online and self.online[self.hubnode] == False:
-		# 	print("hub went offline")
-		# 	time.sleep(2)
-		# 	tempmin = float(self.rttsum)
-		# 	tempnode = name
-		# 	for node in self.rttsums:
-		# 		if node in self.online and self.online[node] == True:
-		# 			if float(self.rttsums[node]) < tempmin:
-		# 				tempmin = float(self.rttsums[node])
-		# 				tempnode = node
-		# 	self.hubnode = tempnode
-
-		# if newflag:
-		# 	print(self.rttsum)
-		# 	print(self.rttsums)
-		# 	tempmin = float(self.rttsum)
-		# 	tempnode = name
-		# 	for node in self.rttsums:
-		# 		if node in self.online and self.online[node] == True:
-		# 			if float(self.rttsums[node]) < tempmin:
-		# 				tempmin = float(self.rttsums[node])
-		# 				tempnode = node
-		# 	self.hubnode = tempnode
-
 		#print(self.rttsum)
-		# if self.hubnode is None:
-		# 	print("no hub")
-		if newflag:
-			#time.sleep(3)
-			print(self.rttsum)
-			print(self.rttsums)
-			print("Old hubnode " + self.hubnode)
-			tempmin = float(self.rttsum)
-			tempnode = name
-			for node in self.rttsums:
-				if node in self.online and self.online[node] == True:
-					if float(self.rttsums[node]) < tempmin:
-						tempmin = float(self.rttsums[node])
-						tempnode = node
-			self.hubnode = tempnode
-
-		if self.hubnode in self.rttsums and (self.hubnode != name and float(self.rttsum) + flucuate < float(self.rttsums[self.hubnode])):
+		if self.hubnode != name and float(self.rttsum) + 0.25 < float(self.rttsums[self.hubnode]):
 			#print("h4")
 			self.log = open(self.logfilename, 'a')
 			self.log.write("Updated hub from " + self.hubnode + " to " + name + " at " + str(time.time()) + "\n")
@@ -703,7 +512,7 @@ class Peer:
 				if float(self.rttsums[node]) < tempmin:
 					tempmin = float(self.rttsums[node])
 					tempnode = node
-			if tempmin + flucuate < self.rttsum:
+			if tempmin + 0.25 < self.rttsum:
 				self.log = open(self.logfilename, 'a')
 				self.log.write("Updated hub from " + self.hubnode + " to " + tempnode + " at " + str(time.time()) + "\n")
 				self.log.close()
@@ -712,13 +521,8 @@ class Peer:
 
 			#print("Tempmin " + str(tempmin)),
 			#print(" My rttsum " + str(self.rttsum))
-<<<<<<< HEAD
-		if newflag:
-			print("New hubnode " + self.hubnode)
-		time.sleep(5)
-=======
 		self.sendRTTsum(s)
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
+
 
 	#Show status
 
@@ -741,44 +545,30 @@ class Peer:
 		if self.hubnode == name:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-			for node in list(self.peers):
+			for node in self.peers:
 				if node != name:
-					while int(temppacketnum) not in self.receivedAcks:
-						broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
-						serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-						time.sleep(1)
+					ts = threading.Thread( target = self.sendStringHelper, args = [ serverSocket, stringMessage, temppacketnum, node ] )
+					ts.daemon = True
+					ts.start()
 				temppacketnum = int(self.packetNum)
 				self.packetNum += 1
 		else:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 			while int(temppacketnum) not in self.receivedAcks:
-<<<<<<< HEAD
-				if self.hubnode in self.online and self.online[self.hubnode] == False:
-					return
 				broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
 				serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 				time.sleep(1)
-=======
-						broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
-						serverSocket.sendto(broadcastpacket.encode(), (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
-						time.sleep(1)
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Sent message " + stringMessage + " at " + str(time.time()) + "\n")
 		self.log.close()
 
-<<<<<<< HEAD
 	def sendStringHelper(self, serverSocket, stringMessage, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			broadcastpacket = "004" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + stringMessage
 			serverSocket.sendto(broadcastpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
 
-=======
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 	def receiveStringMessage(self, clientAddress, message, serverSocket):
 		#print("Received message: " + message)
 		packnum = int(message[40:140].strip())
@@ -790,12 +580,11 @@ class Peer:
 			if self.hubnode == name:
 				temppacketnum = int(self.packetNum)
 				self.packetNum += 1
-				for node in list(self.peers):
+				for node in self.peers:
 					if node != name and node != message[8:24].strip():
-						while int(temppacketnum) not in self.receivedAcks:
-							forwardpacket = "004" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + message[140:]
-							serverSocket.sendto(forwardpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
-							time.sleep(1)
+						ts = threading.Thread( target = self.receiveStringHelper, args = [ serverSocket, message, temppacketnum, node ] )
+						ts.daemon = True
+						ts.start()
 					temppacketnum = int(self.packetNum)
 					self.packetNum += 1
 
@@ -807,71 +596,50 @@ class Peer:
 			self.log.close()
 
 		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(packnum)
-		#print("Sent ack: " + ackpacket)
 		nodeName = message[24:40].strip()
 		serverSocket.sendto(ackpacket.encode(), (self.peers[nodeName][0], int(self.peers[nodeName][1])))
 		#print("sent ack to " + nodeName)
 		#print(str((self.peers[nodeName][0])) + " " +  str(int(self.peers[nodeName][1])))
 
-<<<<<<< HEAD
 	def receiveStringHelper(self, serverSocket, message, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			forwardpacket = "004" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + message[140:]
 			serverSocket.sendto(forwardpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
 
-=======
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 	#File broadcasting
 
 	def sendFile(self, fileName, serverSocket):
 		f = open(fileName, 'rb')
 		data = f.read()
-		filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(fileName)
-		z = filepacketheader.encode()
-		filepacketvalue = data
-		totalfilepacket = z + data
 		if self.hubnode == name:
-<<<<<<< HEAD
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-			for node in list(self.peers):
-=======
 			for node in self.peers:
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 				if node != name:
-					serverSocket.sendto(totalfilepacket, (self.peers[node][0], int(self.peers[node][1])))
-					#serverSocket.sendto(filepacketvalue, (self.peers[node][0], int(self.peers[node][1])))
+					ts = threading.Thread( target = self.sendFileHelper, args = [ serverSocket, temppacketnum, data, fileName, node ] )
+					ts.daemon = True
+					ts.start()
+				temppacketnum = int(self.packetNum)
+				self.packetNum += 1
 		else:
-<<<<<<< HEAD
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 			while int(temppacketnum) not in self.receivedAcks:
-				if node in self.online and self.online[node] == False:
-					return
 				filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 				z = filepacketheader.encode()
 				filepacketvalue = data
 				totalfilepacket = z + data
 				serverSocket.sendto(totalfilepacket, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
 				time.sleep(1)
-=======
-			serverSocket.sendto(totalfilepacket, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
-			#serverSocket.sendto(filepacketvalue, (self.peers[self.hubnode][0], int(self.peers[self.hubnode][1])))
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
 
 		f.close()
 		self.log = open(self.logfilename, 'a')
 		self.log.write("Sent file " + fileName + " at " + str(time.time()) + "\n")
 		self.log.close()
 
-<<<<<<< HEAD
 	def sendFileHelper(self, serverSocket, temppacketnum, data, fileName, node):
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 			z = filepacketheader.encode()
 			filepacketvalue = data
@@ -894,7 +662,7 @@ class Peer:
 			if self.hubnode == name:
 				temppacketnum = int(self.packetNum)
 				self.packetNum += 1
-				for node in list(self.peers):
+				for node in self.peers:
 					if node != name and node != packetheader[8:24].strip():
 						ts = threading.Thread( target = self.receiveFileHelper, args = [ serverSocket, packetheader, temppacketnum, data, node, fileName ] )
 						ts.daemon = True
@@ -918,8 +686,6 @@ class Peer:
 
 	def receiveFileHelper(self, serverSocket, message, temppacketnum, data, node, fileName):
 		while int(temppacketnum) not in self.receivedAcks:
-			if node in self.online and self.online[node] == False:
-				return
 			filepacketheader = "005" + "{:<5}".format(localPort) + message[8:24] + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 			z = filepacketheader.encode()
 			filepacketvalue = data
@@ -927,37 +693,12 @@ class Peer:
 			serverSocket.sendto(totalfilepacket, (self.peers[node][0], int(self.peers[node][1])))
 			time.sleep(1)
 
-=======
 
-	def receiveFile(self, clientAddress, packetheader, serverSocket, message):
-		print("\nReceived file from " + packetheader[8:24])
-		fileName = packetheader[24:40].strip()
-		print(fileName)
-		tempname = name + fileName
-		f = open(tempname, 'wb')
-		data = message[40:]
-		f.write(data)
-		print("Star-node command: ", end='', flush=True)
-		if self.hubnode == name:
-			for node in self.peers:
-				if node != name and node != packetheader[8:24].strip():
-					serverSocket.sendto(message, (self.peers[node][0], int(self.peers[node][1])))
-					#serverSocket.sendto(data, (self.peers[node][0], int(self.peers[node][1])))
-					self.log = open(self.logfilename, 'a')
-					self.log.write("Forwarded file " + tempname + " from " + packetheader[8:24].strip() + " at " + str(time.time()) + "\n")
-					self.log.close()
-		f.close()
->>>>>>> parent of d91276f... Add packet loss handling for files, rewrote certain parts to significantly increase speed
-
-		self.log = open(self.logfilename, 'a')
-		self.log.write("Received file " + tempname + " from " + packetheader[8:24].strip() + " at " + str(time.time()) + "\n")
-		self.log.close()
 
 
 #Main runner
 starnode = Peer(maxNodes, localPort, name)
 starnode.peers[name] = [socket.gethostbyname(socket.gethostname()), localPort]
 starnode.mainloop()
-
 
 
