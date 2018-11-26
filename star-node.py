@@ -10,6 +10,7 @@ from threading import Lock
 name = sys.argv[1]
 localPort = sys.argv[2]
 pocAddress = sys.argv[3]
+pocAddress = socket.gethostbyname(pocAddress)
 pocPort = sys.argv[4]
 maxNodes = sys.argv[5]
 
@@ -41,6 +42,8 @@ class Peer:
 		self.online = {}
 
 		self.minor = 1
+
+		self.initpocdone = False
 
 	    # used to stop the main loop
 		self.shutdown = False  
@@ -288,6 +291,12 @@ class Peer:
 				packetNumber = output[24:]
 				self.receiveKeepAlive(socket, nodeName, packetNumber)
 
+			if msgtype == "008":
+				nodeName = output[8:24].strip()
+				print("Received disconnect from " + nodeName)
+				packetNumber = output[24:]
+				self.receiveDisconnect(socket, nodeName, packetNumber)
+
 
 		except KeyboardInterrupt:
 			raise
@@ -304,6 +313,7 @@ class Peer:
 		if command == "show-status":
 			self.showstatus()
 		elif command == "disconnect":
+			self.sendDisconnectPackets(socket)
 			self.shutdown = True
 		elif command[0:4] == "send":
 			if command[5] == "\"" and command.endswith("\""):
@@ -315,7 +325,46 @@ class Peer:
 		elif command == "show-log":
 			self.showlog()
 
+	def sendDisconnectPackets(self, serverSocket):
+		temppacketnum = int(self.packetNum)
+		self.packetNum += 1
+		for node in list(self.peers):
+			if node != name:
+				ts = threading.Thread( target = self.disconnectHelper, args = [ serverSocket, node, temppacketnum ] )
+				ts.start()
+			temppacketnum = int(self.packetNum)
+			self.packetNum += 1
 
+	def disconnectHelper(self, serverSocket, node, temppacketnum):
+		while int(temppacketnum) not in self.receivedAcks:
+			#print("Sending packet " + str(temppacketnum) + " to node " + str(node))
+			dcpacket = "008" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
+			if node not in self.peers:
+				break
+			serverSocket.sendto(dcpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+			#print("sleep2")
+			time.sleep(.2)
+
+	def receiveDisconnect(self, serverSocket, node, temppacketnum):
+		ackpacket = "006" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
+		serverSocket.sendto(ackpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
+		if (node, temppacketnum) not in self.receivedPackets:
+			self.receivedPackets.add((node, temppacketnum))
+			if node in self.peers:
+				self.peers.pop(node)
+			if node in self.rttsums:
+				self.rttsums.pop(node)
+			if node in self.rtttimes:
+				self.rtttimes.pop(node)
+			if self.hubnode not in self.rttsums:
+				tempmin = float(self.rttsum)
+				tempnode = name
+				for node in self.rttsums:
+					if float(self.rttsums[node]) < tempmin: 
+						tempmin = float(self.rttsums[node])
+						tempnode = node
+				self.hubnode = tempnode
+		
 
 
 
@@ -393,6 +442,7 @@ class Peer:
 		self.packetNum += 1
 		counter = 0
 		while int(temppacketnum) not in self.receivedAcks and int(counter) < 200:
+			print("Send intial poc packet to poc")
 			#print("Sending packet " + str(temppacketnum) + " to poc")
 			#print(self.receivedAcks)
 			pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
@@ -403,6 +453,8 @@ class Peer:
 		#print("the end")
 		if counter >= 200:
 			self.shutdown = True
+		else:
+			self.initpocdone = True
 
 	def sendPeerDiscovery(self, serverSocket):
 		temppacketnum = int(self.packetNum)
@@ -446,7 +498,7 @@ class Peer:
 		timeoutcounter = 0
 		#while len(self.peers) < int(maxNodes) and not self.shutdown:
 		try:
-			if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values():
+			if str(pocAddress) != "0" and str(pocPort) != "0" and not [pocAddress, pocPort] in self.peers.values() and not self.initpocdone:
 				#print("NO ABC")
 				#print(str(pocAddress) + " " + str(pocPort) + " ")
 				self.initialPoc(s)
@@ -466,6 +518,9 @@ class Peer:
 		self.sendPeerDiscovery(s)
 		#print("finish")
 		time.sleep(2)
+		# if not [pocAddress, pocPort] in self.peers.values():
+		# 	print([pocAddress, pocPort])
+		# 	print(self.peers.values())
 
 	#RTT
 
@@ -882,7 +937,7 @@ class Peer:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 			while int(temppacketnum) not in self.receivedAcks:
-				if node in self.online and self.online[node] == False:
+				if self.hubnode in self.online and self.online[self.hubnode] == False:
 					return
 				filepacketheader = "005" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<16}".format(name) + "{:<16}".format(fileName) + "{:<100}".format(temppacketnum)
 				z = filepacketheader.encode()
