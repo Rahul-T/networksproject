@@ -1,175 +1,28 @@
-First discovered node def at 1543214089.221505
-First discovered node ghi at 1543214089.809289
-First discovered node mno at 1543214090.69268
-First discovered node jkl at 1543214090.921203
-Sent RTT request to def at 1543214091.644522
-Received RTT request from jkl at 1543214091.66875
-Sent RTT request to ghi at 1543214091.70295
-Sent RTT request to jkl at 1543214091.7092962
-Sent RTT request to mno at 1543214091.7093272
-Calculated new RTT sum 0.0585322380065918 at 1543214091.7275689
-Sent RTT request to ghi at 1543214091.923603
-Sent RTT request to ghi at 1543214092.131732
-Sent RTT request to ghi at 1543214092.361637
-Sent RTT request to ghi at 1543214092.606291
-Received RTT request from def at 1543214092.790563
-Sent RTT request to ghi at 1543214092.853386
-Received RTT request from mno at 1543214092.977629
-Sent RTT request to ghi at 1543214093.105141
-Sent RTT request to ghi at 1543214093.3559182
-Sent RTT request to ghi at 1543214093.603273
-Received RTT request from jkl at 1543214093.7641332
-Initialized hub to abc at 1543214093.806735
-Sent RTT request to def at 1543214093.808854
-Sent RTT request to ghi at 1543214093.8280058
-Sent RTT request to mno at 1543214093.84037
-Sent RTT request to jkl at 1543214093.840544
-Sent RTT request to ghi at 1543214093.8465788
-Calculated new RTT sum 0 at 1543214093.86429
-Received RTT request from def at 1543214094.83776
-Received RTT request from mno at 1543214095.0008872
-Received RTT request from ghi at 1543214095.3699572
-Received RTT request from jkl at 1543214108.862211
-Received new RTT sum from jkl at 1543214108.8681412
-Sent RTT request to def at 1543214108.868695
-Sent RTT request to ghi at 1543214108.868833
-Sent RTT request to mno at 1543214108.879989
-Calculated new RTT sum 0.24319005012512207 at 1543214108.880524
-Sent RTT request to jkl at 1543214108.88055
-Updated hub from abc to jkl at 1543214108.921571
-Received RTT request from def at 1543214109.9097228
-Received new RTT sum from def at 1543214109.9338398
-Received RTT request from mno at 1543214110.100232
-Received new RTT sum from mno at 1543214110.100759
-Updated hub from jkl to mno at 1543214110.1070259
-Received RTT request from ghi at 1543214110.4435399
-Received new RTT sum from ghi at 1543214110.467078
-Sent RTT request to def at 1543214123.985062
-Sent RTT request to ghi at 1543214123.991812
-Sent RTT request to mno at 1543214124.009216
-Calculated new RTT sum 0.10553455352783203 at 1543214124.02717
-Sent RTT request to jkl at 1543214124.027197
-Sent RTT request to jkl at 1543214124.280973
-Sent RTT request to jkl at 1543214124.536778
-Sent RTT request to jkl at 1543214124.796003
-Sent RTT request to jkl at 1543214125.043444
-Received new RTT sum from def at 1543214125.0498
-Received RTT request from def at 1543214125.049838
-Received RTT request from mno at 1543214125.1847959
-Received new RTT sum from mno at 1543214125.2039208
-Sent RTT request to jkl at 1543214125.270723
-Sent RTT request to jkl at 1543214125.509451
-Received RTT request from ghi at 1543214125.5327098
-Received new RTT sum from ghi at 1543214125.545441
-Sent RTT request to jkl at 1543214125.754098
-Sent RTT request to jkl at 1543214125.984256
-Sent RTT request to jkl at 1543214126.2270432
-Sent RTT request to jkl at 1543214126.480913
-First discovered node jkl at 1543214126.6829472
-Sent RTT request to jkl at 1543214126.742615
-Sent RTT request to jkl at 1543214126.990649
-Sent RTT request to jkl at 1543214127.247621
-Sent RTT request to jkl at 1543214127.515019
-Sent RTT request to jkl at 1543214127.7594821
-Sent RTT request to jkl at 1543214128.01438
-Sent RTT request to jkl at 1543214128.2756631
-Sent RTT request to jkl at 1543214128.538365
-First discovered node jkl at 1543214128.7397041
-Sent RTT request to jkl at 1543214128.7769878
-Sent RTT request to jkl at 1543214129.03004
-Sent RTT request to jkl at 1543214129.2628129
-Sent RTT request to jkl at 1543214129.472237
-Sent RTT request to jkl at 1543214129.713036
-Sent RTT request to jkl at 1543214129.948113
-Sent RTT request to jkl at 1543214130.19783
-Sent RTT request to jkl at 1543214130.439018
-Sent RTT request to jkl at 1543214130.697622
-Sent RTT request to jkl at 1543214130.942494
-Sent RTT request to jkl at 1543214131.1987789
-Sent RTT request to jkl at 1543214131.449596
-Sent RTT request to jkl at 1543214131.705031
-Sent RTT request to jkl at 1543214131.949745
-Sent RTT request to jkl at 1543214132.165122
-Sent RTT request to jkl at 1543214132.417386
-Sent RTT request to jkl at 1543214132.648716
-Sent RTT request to jkl at 1543214132.892431
-Sent RTT request to jkl at 1543214133.138222
-Sent RTT request to jkl at 1543214133.368982
-Sent RTT request to jkl at 1543214133.6234019
-Sent RTT request to jkl at 1543214133.862274
-Sent RTT request to jkl at 1543214134.117414
-Sent RTT request to jkl at 1543214134.368803
-Sent RTT request to jkl at 1543214134.607187
-First discovered node jkl at 1543214134.9283452
-Sent RTT request to def at 1543214139.0979571
-Sent RTT request to ghi at 1543214139.110759
-Sent RTT request to mno at 1543214139.116278
-Sent RTT request to jkl at 1543214139.1374059
-Calculated new RTT sum 0.23265671730041504 at 1543214139.1433861
-Sent RTT request to jkl at 1543214139.394797
-Sent RTT request to jkl at 1543214139.648458
-Sent RTT request to jkl at 1543214139.914866
-Sent RTT request to jkl at 1543214140.146611
-Received RTT request from def at 1543214140.1468549
-Received new RTT sum from def at 1543214140.1887412
-Received RTT request from mno at 1543214140.2570329
-Received new RTT sum from mno at 1543214140.282091
-Sent RTT request to jkl at 1543214140.372581
-Sent RTT request to jkl at 1543214140.631722
-Received RTT request from ghi at 1543214140.6536498
-Received new RTT sum from ghi at 1543214140.665888
-Sent RTT request to jkl at 1543214140.857547
-Sent RTT request to jkl at 1543214141.1034398
-First discovered node jkl at 1543214141.116203
-First discovered node jkl at 1543214147.275588
-First discovered node jkl at 1543214153.470392
-First discovered node mno at 1543214153.955146
-Sent RTT request to def at 1543214154.2173812
-Sent RTT request to jkl at 1543214154.234313
-Sent RTT request to ghi at 1543214154.2401972
-Sent RTT request to mno at 1543214154.240761
-Calculated new RTT sum 0.16670489311218262 at 1543214154.252934
-Sent RTT request to jkl at 1543214154.475858
-Sent RTT request to mno at 1543214154.494729
-Sent RTT request to jkl at 1543214154.7341208
-Sent RTT request to mno at 1543214154.740237
-Sent RTT request to jkl at 1543214154.968085
-Sent RTT request to mno at 1543214154.968127
-Sent RTT request to jkl at 1543214155.218335
-Sent RTT request to mno at 1543214155.2246652
-Received RTT request from def at 1543214155.255222
-Received new RTT sum from def at 1543214155.2861068
-Sent RTT request to mno at 1543214155.483979
-Sent RTT request to jkl at 1543214155.484004
-Sent RTT request to mno at 1543214155.716886
-Sent RTT request to jkl at 1543214155.7280378
-Received RTT request from ghi at 1543214155.7755232
-Received new RTT sum from ghi at 1543214155.846643
-Sent RTT request to mno at 1543214155.9509819
-Sent RTT request to jkl at 1543214155.968705
-Sent RTT request to mno at 1543214156.204857
-Sent RTT request to jkl at 1543214156.2049541
-Sent RTT request to mno at 1543214156.4449751
-Sent RTT request to jkl at 1543214156.450937
-Sent RTT request to mno at 1543214156.690617
-Sent RTT request to jkl at 1543214156.696251
-Sent RTT request to mno at 1543214156.955306
-Sent RTT request to jkl at 1543214156.972285
-Sent RTT request to mno at 1543214157.2073338
-Sent RTT request to jkl at 1543214157.225292
-Sent RTT request to mno at 1543214157.454012
-Sent RTT request to jkl at 1543214157.478383
-Sent RTT request to mno at 1543214157.728672
-Sent RTT request to jkl at 1543214157.739594
-Sent RTT request to mno at 1543214157.9574668
-Sent RTT request to jkl at 1543214157.981056
-Sent RTT request to mno at 1543214158.190742
-Sent RTT request to jkl at 1543214158.214978
-Sent RTT request to mno at 1543214158.4236941
-Sent RTT request to jkl at 1543214158.453763
-Sent RTT request to mno at 1543214158.665687
-Sent RTT request to jkl at 1543214158.6711528
-Sent RTT request to mno at 1543214158.890819
-Sent RTT request to jkl at 1543214158.943536
-Sent RTT request to mno at 1543214159.116375
-Sent RTT request to jkl at 1543214159.1977081
+First discovered node def at 1543233087.88916
+First discovered node ghi at 1543233088.5569909
+Sent RTT request to def at 1543233090.3608692
+Sent RTT request to ghi at 1543233090.39051
+Calculated new RTT sum 0 at 1543233090.395945
+Sent RTT request to ghi at 1543233090.61961
+Sent RTT request to ghi at 1543233090.8674371
+Sent RTT request to ghi at 1543233091.112383
+Sent RTT request to ghi at 1543233091.363916
+Received RTT request from def at 1543233091.393621
+Sent RTT request to ghi at 1543233091.617978
+Sent RTT request to ghi at 1543233091.8577468
+Sent RTT request to ghi at 1543233092.110962
+Sent RTT request to ghi at 1543233092.34896
+Initialized hub to abc at 1543233092.4360561
+Sent RTT request to ghi at 1543233092.450739
+Sent RTT request to def at 1543233092.450877
+Calculated new RTT sum 0 at 1543233092.461455
+Sent RTT request to ghi at 1543233092.581871
+Received RTT request from def at 1543233093.4673972
+Received RTT request from ghi at 1543233094.1103392
+Sent RTT request to def at 1543233104.537557
+Calculated new RTT sum 0.1024317741394043 at 1543233104.543809
+Sent RTT request to ghi at 1543233104.567602
+Received new RTT sum from def at 1543233105.526538
+Received RTT request from def at 1543233105.5318131
+Received RTT request from ghi at 1543233106.1687412
+Received new RTT sum from ghi at 1543233106.185378
