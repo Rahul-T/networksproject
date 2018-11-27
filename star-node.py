@@ -247,7 +247,10 @@ class Peer:
 
 	def __handlepeer( self, socket, initialRTTnode = None, startTime = None ):
 		message, clientAddress = socket.recvfrom(65000)
-		output = message.decode()
+		if message[0:3].decode() != "005":
+			output = message.decode()
+		else:
+			output = message[0:156].decode()
 		port = output[3:8]
 		try:
 			#print(output)
@@ -388,7 +391,9 @@ class Peer:
 				ts.start()
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
-		#print(self.online)
+		#pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
+		#serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
+		
 
 	def keepAliveHelper(self, serverSocket, temppacketnum, node):
 		counter = 0;
