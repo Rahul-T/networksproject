@@ -1,175 +1,38 @@
-First discovered node e at 1543284693.163109
-First discovered node a at 1543284693.4011981
-First discovered node c at 1543284693.9646988
-First discovered node d at 1543284694.156297
-Received RTT request from a at 1543284694.578211
-Received new RTT sum from a at 1543284694.59961
-Sent RTT request to e at 1543284696.030277
-Sent RTT request to c at 1543284696.030507
-Sent RTT request to a at 1543284696.043096
-Calculated new RTT sum 0 at 1543284696.0491111
-Sent RTT request to d at 1543284696.054699
-Received RTT request from c at 1543284696.24932
-Received new RTT sum from c at 1543284696.294276
-Initialized hub to b at 1543284698.101396
-Sent RTT request to e at 1543284698.1228318
-Sent RTT request to a at 1543284698.123125
-Calculated new RTT sum 0 at 1543284698.133985
-Sent RTT request to d at 1543284698.134581
-Sent RTT request to c at 1543284698.134602
-Received RTT request from e at 1543284698.576201
-Received RTT request from d at 1543284698.5826628
-Received new RTT sum from e at 1543284698.595065
-Received new RTT sum from d at 1543284698.595573
-Received RTT request from a at 1543284706.715753
-Received new RTT sum from a at 1543284706.728462
-Received new RTT sum from c at 1543284708.363041
-Received RTT request from c at 1543284708.3632588
-Sent RTT request to e at 1543284710.175137
-Sent RTT request to a at 1543284710.199379
-Sent RTT request to c at 1543284710.2299452
-Sent RTT request to d at 1543284710.235604
-Calculated new RTT sum 0.20740938186645508 at 1543284710.247979
-Received RTT request from d at 1543284710.67095
-Received RTT request from e at 1543284710.6767309
-Received new RTT sum from d at 1543284710.6778371
-Received new RTT sum from e at 1543284710.683903
-Received RTT request from c at 1543284720.497233
-Received new RTT sum from c at 1543284720.502878
-Following node went offline: a at 1543284722.250369
-Sent RTT request to e at 1543284722.338637
-Sent RTT request to c at 1543284722.344952
-Sent RTT request to d at 1543284722.357196
-Calculated new RTT sum 0.2230830192565918 at 1543284722.372391
-Received RTT request from e at 1543284722.7327201
-Received new RTT sum from e at 1543284722.769513
-Received RTT request from d at 1543284722.780735
-Received new RTT sum from d at 1543284722.786399
-Received RTT request from c at 1543284732.614174
-Received new RTT sum from c at 1543284732.6203892
-Sent RTT request to e at 1543284734.447169
-Sent RTT request to c at 1543284734.447358
-Sent RTT request to d at 1543284734.453797
-Calculated new RTT sum 0.12277102470397949 at 1543284734.460018
-Received RTT request from d at 1543284734.803808
-Received RTT request from e at 1543284734.8038368
-Received new RTT sum from d at 1543284734.827577
-Received new RTT sum from e at 1543284734.82768
-Received RTT request from c at 1543284744.73026
-Received new RTT sum from c at 1543284744.741955
-Sent RTT request to c at 1543284746.578614
-Sent RTT request to e at 1543284746.578642
-Sent RTT request to d at 1543284746.604154
-Calculated new RTT sum 0.24890375137329102 at 1543284746.604179
-Received RTT request from d at 1543284746.862439
-Received RTT request from e at 1543284746.868059
-Received new RTT sum from d at 1543284746.868129
-Received new RTT sum from e at 1543284746.8808901
-First discovered node a at 1543284752.957439
-Received RTT request from a at 1543284755.035103
-Received RTT request from c at 1543284756.811612
-Received new RTT sum from c at 1543284756.830558
-Received RTT request from a at 1543284757.108787
-Sent RTT request to e at 1543284758.6950982
-Sent RTT request to c at 1543284758.71295
-Sent RTT request to d at 1543284758.713161
-Sent RTT request to a at 1543284758.738797
-Calculated new RTT sum 0.18441224098205566 at 1543284758.739064
-Received RTT request from d at 1543284758.971754
-Received RTT request from e at 1543284758.996319
-Received new RTT sum from d at 1543284758.9965172
-Received new RTT sum from e at 1543284759.009305
-Received RTT request from c at 1543284768.892832
-Received new RTT sum from c at 1543284768.914101
-Received RTT request from a at 1543284769.196498
-Received new RTT sum from a at 1543284769.218016
-Sent RTT request to e at 1543284770.8001049
-Sent RTT request to c at 1543284770.800731
-Sent RTT request to d at 1543284770.801172
-Sent RTT request to a at 1543284770.8012412
-Calculated new RTT sum 0.2610790729522705 at 1543284770.8022358
-Received RTT request from e at 1543284771.0758731
-Received new RTT sum from e at 1543284771.0817401
-Received RTT request from d at 1543284771.081897
-Received new RTT sum from d at 1543284771.0877361
-Received RTT request from c at 1543284781.0200908
-Received new RTT sum from c at 1543284781.021034
-Received RTT request from a at 1543284781.3523772
-Received new RTT sum from a at 1543284781.3738408
-Sent RTT request to e at 1543284782.866959
-Sent RTT request to c at 1543284782.8980749
-Sent RTT request to a at 1543284782.903306
-Sent RTT request to d at 1543284782.9034
-Calculated new RTT sum 0.07001709938049316 at 1543284782.926614
-Sent RTT request to a at 1543284783.169764
-Received new RTT sum from e at 1543284783.188875
-Received RTT request from e at 1543284783.188909
-Received RTT request from d at 1543284783.2010372
-Received new RTT sum from d at 1543284783.20127
-Sent RTT request to a at 1543284783.402875
-Sent RTT request to a at 1543284783.6548412
-Sent RTT request to a at 1543284783.910771
-Sent RTT request to a at 1543284784.149151
-Sent RTT request to a at 1543284784.395494
-Sent RTT request to a at 1543284784.645775
-Sent RTT request to a at 1543284784.8965042
-Sent RTT request to a at 1543284785.138711
-Sent RTT request to a at 1543284785.383976
-Sent RTT request to a at 1543284785.6351628
-Sent RTT request to a at 1543284785.8829389
-Sent RTT request to a at 1543284786.1181598
-Sent RTT request to a at 1543284786.352746
-Sent RTT request to a at 1543284786.583051
-Sent RTT request to a at 1543284786.828588
-Sent RTT request to a at 1543284787.064534
-Sent RTT request to a at 1543284787.302447
-Following node went offline: a at 1543284787.383005
-First discovered node a at 1543284788.178884
-Received RTT request from c at 1543284793.175033
-Received new RTT sum from c at 1543284793.1990342
-Sent RTT request to e at 1543284795.0141802
-Sent RTT request to c at 1543284795.0144
-Sent RTT request to d at 1543284795.0508642
-Calculated new RTT sum 0.23829293251037598 at 1543284795.051279
-Received RTT request from e at 1543284795.297794
-Received RTT request from d at 1543284795.3172832
-Received new RTT sum from e at 1543284795.317464
-Received new RTT sum from d at 1543284795.317826
-Received RTT request from c at 1543284805.306079
-Received new RTT sum from c at 1543284805.356044
-Sent RTT request to e at 1543284807.195358
-Sent RTT request to c at 1543284807.2016141
-Sent RTT request to d at 1543284807.22701
-Calculated new RTT sum 0.22516798973083496 at 1543284807.238793
-Received RTT request from e at 1543284807.444066
-Received RTT request from d at 1543284807.4497101
-Received new RTT sum from e at 1543284807.4567099
-Received new RTT sum from d at 1543284807.46862
-Received RTT request from c at 1543284817.3853319
-Received new RTT sum from c at 1543284817.409055
-Received RTT request from a at 1543284818.6410081
-Sent RTT request to e at 1543284819.344501
-Sent RTT request to c at 1543284819.3570938
-Sent RTT request to d at 1543284819.3576121
-Sent RTT request to a at 1543284819.369455
-Calculated new RTT sum 0.31836795806884766 at 1543284819.3695328
-Received RTT request from e at 1543284819.557497
-Received RTT request from d at 1543284819.557538
-Received new RTT sum from e at 1543284819.5576909
-Received new RTT sum from d at 1543284819.55812
-Received RTT request from a at 1543284820.751956
-Received RTT request from c at 1543284829.475519
-Received new RTT sum from c at 1543284829.4829
-Sent RTT request to e at 1543284831.4414232
-Sent RTT request to c at 1543284831.4663858
-Sent RTT request to d at 1543284831.494487
-Calculated new RTT sum 0.21016693115234375 at 1543284831.494619
-Sent RTT request to a at 1543284831.500115
-Received RTT request from d at 1543284831.604152
-Received RTT request from e at 1543284831.6434429
-Received new RTT sum from d at 1543284831.665519
-Received new RTT sum from e at 1543284831.6711302
-Received RTT request from a at 1543284832.845224
-Received new RTT sum from a at 1543284832.874273
-Received RTT request from c at 1543284841.5501702
-Received new RTT sum from c at 1543284841.5503201
+First discovered node e at 1543287486.214128
+First discovered node d at 1543287487.8224928
+First discovered node c at 1543287488.876294
+First discovered node a at 1543287501.5342479
+Received RTT request from a at 1543287503.685131
+Received RTT request from c at 1543287504.027084
+Received new RTT sum from c at 1543287504.0791948
+Sent RTT request to e at 1543287504.2513778
+Sent RTT request to d at 1543287504.27552
+Sent RTT request to a at 1543287504.307006
+Sent RTT request to c at 1543287504.323884
+Calculated new RTT sum 0 at 1543287504.335297
+Received RTT request from d at 1543287505.278399
+Received RTT request from e at 1543287505.327828
+Received new RTT sum from d at 1543287505.3814988
+Received new RTT sum from e at 1543287505.4353092
+Received RTT request from a at 1543287505.787879
+Initialized hub to b at 1543287506.357821
+Sent RTT request to d at 1543287506.372402
+Sent RTT request to e at 1543287506.372434
+Sent RTT request to c at 1543287506.383809
+Calculated new RTT sum 0 at 1543287506.384767
+Sent RTT request to a at 1543287506.385053
+Received new RTT sum from c at 1543287516.1511528
+Received RTT request from c at 1543287516.162434
+Received RTT request from e at 1543287517.422199
+Received RTT request from d at 1543287517.422574
+Received new RTT sum from d at 1543287517.423093
+Received new RTT sum from e at 1543287517.423309
+Received RTT request from a at 1543287517.853104
+Received new RTT sum from a at 1543287517.8911538
+Sent RTT request to d at 1543287518.441705
+Sent RTT request to e at 1543287518.442058
+Sent RTT request to c at 1543287518.442521
+Calculated new RTT sum 0.1909620761871338 at 1543287518.4428139
+Sent RTT request to a at 1543287518.4431639
+Updated hub from b to a at 1543287520.470285
+Disconnected at 1543287526.663605

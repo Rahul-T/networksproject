@@ -345,13 +345,15 @@ class Peer:
 			self.packetNum += 1
 
 	def disconnectHelper(self, serverSocket, node, temppacketnum):
-		while int(temppacketnum) not in self.receivedAcks:
+		counter = 0
+		while int(temppacketnum) not in self.receivedAcks and counter < 5:
 			#print("Sending packet " + str(temppacketnum) + " to node " + str(node))
 			dcpacket = "008" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum)
 			if node not in self.peers:
 				break
 			serverSocket.sendto(dcpacket.encode(), (self.peers[node][0], int(self.peers[node][1])))
 			#print("sleep2")
+			counter += 1
 			time.sleep(.2)
 
 	def receiveDisconnect(self, serverSocket, node, temppacketnum):
