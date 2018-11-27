@@ -506,6 +506,26 @@ class Peer:
 			temppacketnum = int(self.packetNum)
 			self.packetNum += 1
 
+		#print(pocAddress)
+		#print(pocPort)
+		#print(self.peers)
+		if int(pocPort) != 0 and [pocAddress, pocPort] not in self.peers.values():
+			tip = threading.Thread( target = self.sendiphelper, args = [ serverSocket ] )
+			tip.daemon = True
+			tip.start()
+
+	def sendiphelper(self, serverSocket):
+		#print("poc offline")
+		#print(self.peers)
+		temppacketnum = int(self.packetNum)
+		self.packetNum += 1
+		counter = 0
+		while int(temppacketnum) not in self.receivedAcks and int(counter) < 5:
+			pdpacket = "000" + "{:<5}".format(localPort) + "{:<16}".format(name) + "{:<100}".format(temppacketnum) + json.dumps(self.peers)
+			serverSocket.sendto(pdpacket.encode(), (pocAddress, int(pocPort)))
+			counter += 1
+			time.sleep(.2)
+
 	def sendPeerHelper(self, serverSocket, temppacketnum, node):
 		while int(temppacketnum) not in self.receivedAcks:
 			#print("Sending packet " + str(temppacketnum) + " to node " + str(node))
