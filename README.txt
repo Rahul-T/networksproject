@@ -1,4 +1,4 @@
-Programming assignment 2: Milestone 2
+Programming assignment 2: Milestone 3
 
 Group members:
 Rahul Tholakapalli (rtholakapalli3@gatech.edu)
@@ -26,5 +26,5 @@ python3 ./star-node.py def 12002 networklab3.cc.gatech.edu 12003 3
 
 python3 ./star-node.py ghi 12003 networklab1.cc.gatech.edu 12102 3
 
-Limitations:
-This program may not work as intended when nodes go offline or when there is packet loss.
+Known limitations:
+This program may not work as intended when ran for an extremely long time
