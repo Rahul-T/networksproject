@@ -1,28 +1,3 @@
-First discovered node def at 1543233087.88916
-First discovered node ghi at 1543233088.5569909
-Sent RTT request to def at 1543233090.3608692
-Sent RTT request to ghi at 1543233090.39051
-Calculated new RTT sum 0 at 1543233090.395945
-Sent RTT request to ghi at 1543233090.61961
-Sent RTT request to ghi at 1543233090.8674371
-Sent RTT request to ghi at 1543233091.112383
-Sent RTT request to ghi at 1543233091.363916
-Received RTT request from def at 1543233091.393621
-Sent RTT request to ghi at 1543233091.617978
-Sent RTT request to ghi at 1543233091.8577468
-Sent RTT request to ghi at 1543233092.110962
-Sent RTT request to ghi at 1543233092.34896
-Initialized hub to abc at 1543233092.4360561
-Sent RTT request to ghi at 1543233092.450739
-Sent RTT request to def at 1543233092.450877
-Calculated new RTT sum 0 at 1543233092.461455
-Sent RTT request to ghi at 1543233092.581871
-Received RTT request from def at 1543233093.4673972
-Received RTT request from ghi at 1543233094.1103392
-Sent RTT request to def at 1543233104.537557
-Calculated new RTT sum 0.1024317741394043 at 1543233104.543809
-Sent RTT request to ghi at 1543233104.567602
-Received new RTT sum from def at 1543233105.526538
-Received RTT request from def at 1543233105.5318131
-Received RTT request from ghi at 1543233106.1687412
-Received new RTT sum from ghi at 1543233106.185378
+Calculated new RTT sum 0 at 1543279625.273867
+Initialized hub to abc at 1543279627.314392
+Calculated new RTT sum 0 at 1543279627.329333

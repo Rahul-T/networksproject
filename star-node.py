@@ -296,7 +296,7 @@ class Peer:
 
 			if msgtype == "008":
 				nodeName = output[8:24].strip()
-				print("Received disconnect from " + nodeName)
+				#print("Received disconnect from " + nodeName)
 				packetNumber = output[24:]
 				self.receiveDisconnect(socket, nodeName, packetNumber)
 
@@ -317,6 +317,9 @@ class Peer:
 			self.showstatus()
 		elif command == "disconnect":
 			self.sendDisconnectPackets(socket)
+			self.log = open(self.logfilename, 'a')
+			self.log.write("Disconnected at " + str(time.time()) + "\n")
+			self.log.close()
 			self.shutdown = True
 		elif command[0:4] == "send":
 			if command[5] == "\"" and command.endswith("\""):
@@ -367,6 +370,9 @@ class Peer:
 						tempmin = float(self.rttsums[node])
 						tempnode = node
 				self.hubnode = tempnode
+			self.log = open(self.logfilename, 'a')
+			self.log.write("Received disconnect from " + str(node) + " at " + str(time.time()) + "\n")
+			self.log.close()
 		
 
 
@@ -427,7 +433,11 @@ class Peer:
 
 			tclear = threading.Thread(target = self.clearpacknums, args = [ node ])
 			tclear.daemon = True
-			tclear.start() 
+			tclear.start()
+
+			self.log = open(self.logfilename, 'a')
+			self.log.write("Following node went offline: " + str(node) + " at " + str(time.time()) + "\n")
+			self.log.close() 
 				#print("1")
 				#self.updaterttsandhub(serverSocket, True)
 			# print(self.rttsum)
